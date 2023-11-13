@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "883561617847",
+    "project_id": "quizapp-e7543",
+    "storage_bucket": "quizapp-e7543.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883561617847:android:a155943dab1cd7f4173032",
+        "android_client_info": {
+          "package_name": "com.example.riverpod_architecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTR7yEuuJrMRBCQqY7RCUaaB-xAehjgf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
