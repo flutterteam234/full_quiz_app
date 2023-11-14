@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_architecture/product/enum/cache_items.dart';
