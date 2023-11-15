@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:riverpod_architecture/feature/auth/authentication_view.dart';
 import 'package:riverpod_architecture/feature/login/login_view.dart';
+import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/feature/splash/splash_screen.dart';
 import 'package:riverpod_architecture/product/constants/settings_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: StringConstants.appName,
       debugShowCheckedModeBanner: SettingsConstants.isShowDebugBanner,
-      home: AuthenticationView(),
+      home: QuizView(),
     );
   }
 }
