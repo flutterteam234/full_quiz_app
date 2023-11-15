@@ -1,4 +1,3 @@
-
 class Answers {
   String? s1;
   String? s2;
@@ -17,14 +16,12 @@ class Answers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['1'] = this.s1;
-    data['2'] = this.s2;
-    data['3'] = this.s3;
-    data['4'] = this.s4;
-    data['5'] = this.s5;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['1'] = s1;
+    data['2'] = s2;
+    data['3'] = s3;
+    data['4'] = s4;
+    data['5'] = s5;
     return data;
   }
 }
-
-
