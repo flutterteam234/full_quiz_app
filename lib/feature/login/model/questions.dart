@@ -9,6 +9,7 @@ class Questions {
   Timestamp? date; // Değişiklik burada
   Answers? answers;
   int? correctQuestionIndex;
+  String? imagePath;
 
   Questions({
     this.id,
@@ -17,6 +18,7 @@ class Questions {
     this.date,
     this.answers,
     this.correctQuestionIndex,
+    this.imagePath,
   });
 
   Questions.fromJson(Map<String, dynamic> json) {
@@ -24,8 +26,10 @@ class Questions {
     questionTitle = json['questionTitle'] as String?;
     question = json['question'] as String?;
     date = json['date'] as Timestamp?; // Değişiklik burada
-    answers = json['answers'] != null ? Answers.fromJson(json['answers']) : null;
+    answers =
+        json['answers'] != null ? Answers.fromJson(json['answers']) : null;
     correctQuestionIndex = json['correctQuestionIndex'] as int?;
+    imagePath = json['imagePath'] as String?;
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +42,7 @@ class Questions {
       data['answers'] = answers!.toJson();
     }
     data['correctQuestionIndex'] = correctQuestionIndex;
+    data['imagePath'] = imagePath;
     return data;
   }
 
@@ -48,6 +53,7 @@ class Questions {
     Timestamp? date,
     Answers? answers,
     int? correctQuestionIndex,
+    String? imagePath,
   }) {
     return Questions(
       id: id ?? this.id,
@@ -56,6 +62,7 @@ class Questions {
       date: date ?? this.date,
       answers: answers ?? this.answers,
       correctQuestionIndex: correctQuestionIndex ?? this.correctQuestionIndex,
+      imagePath: imagePath ?? this.imagePath,
     );
   }
 }

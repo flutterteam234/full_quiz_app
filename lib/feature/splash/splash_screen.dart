@@ -11,7 +11,7 @@ class SplashView extends ConsumerWidget {
     return Scaffold(
         backgroundColor: ColorConstants.ligthGreen.getColor,
         body: Center(
-          child: ImageConstants.appIcon.toImage,
+          child: ImageConstants.appIcon.toImageAsset,
         ));
   }
 }

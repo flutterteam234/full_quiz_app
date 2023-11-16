@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class StringConstants {
   const StringConstants._();
 
+  // App
   static const String appName = 'Quiz Biyoloji';
 
   // Login
@@ -15,4 +16,7 @@ class StringConstants {
       'I am happy to see you again. You can continue where you left off by logging in';
 
   static const continueToApp = 'Continue to app';
+
+  // Quiz
+  static const provious = 'Previous';
 }

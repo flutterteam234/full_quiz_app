@@ -54,6 +54,8 @@ dependencies:
   #localDb
   shared_preferences: ^2.2.2
 
+  #utiliy
+  google_fonts: ^6.1.0
 
 
 

@@ -96,7 +96,7 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: context.padding.medium,
-        child: Image.asset(ImageConstants.appIcon.toPng));
+        child: Image.asset(ImageConstants.appIcon.toIcon));
   }
 }
 

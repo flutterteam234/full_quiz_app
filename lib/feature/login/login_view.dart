@@ -30,7 +30,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
         return null;
       },
       toFirestore: (value, options) {
-        if (value == null) throw FirebaseCustomExceptions('$value not null');
+        if (value == null) throw FirebaseCustomExceptions('$value null');
         return value.toJson();
       },
     ).get();
