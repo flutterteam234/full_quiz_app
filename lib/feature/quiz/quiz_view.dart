@@ -23,6 +23,7 @@ class _QuizViewState extends ConsumerState<QuizView> {
     return QuizNotifier();
   });
 
+
   void addQuestion(List<Questions?> questions) {
     ref.read(quizProvider.notifier).addQuestions(questions);
   }
@@ -70,6 +71,24 @@ class _QuizViewState extends ConsumerState<QuizView> {
     final quizState = ref.watch(quizProvider);
 
     Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
+
+
+    Widget buildTrailingIcon() {
+      if (questionCheck(0, currentQuestion!.correctQuestionIndex!) &&
+          quizState.isAnswerTrue) {
+        return Icon(Icons.check_circle,color: Color(ColorConstants.ligthGreen.toRgba),);
+      } else {
+        return Icon(Icons.circle_outlined);
+      }
+    }
+
+    Color getAnswerContainerBackgroundColor(){
+      if(questionCheck(0, currentQuestion!.correctQuestionIndex!) && quizState.isAnswerTrue){
+        return Color(ColorConstants.smootGreen.toRgba);
+      }else{
+        return Color(ColorConstants.white.toRgba);
+      }
+    }
 
     return Scaffold(
       backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
@@ -121,6 +140,7 @@ class _QuizViewState extends ConsumerState<QuizView> {
                       ),
                     ),
                     Padding(padding: context.padding.verticalMedium), // fixme
+                    /*
                     _QuestionOption(
                         currentQuestion.answers!.s1,
                         questionCheck(
@@ -137,10 +157,36 @@ class _QuizViewState extends ConsumerState<QuizView> {
                         currentQuestion.answers!.s4,
                         questionCheck(
                             3, currentQuestion.correctQuestionIndex!)),
+
+                     */
+                    InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () {
+                        ref.read(quizProvider.notifier).setIsAnswerTrue();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: getAnswerContainerBackgroundColor(),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                            leading: Text(
+                              currentQuestion.answers!.s1!,
+                              style: GoogleFonts.baloo2(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Color(ColorConstants.black.toRgba),
+                              ),
+                            ),
+                            trailing: buildTrailingIcon())
+
+                      ),
+                    )
                   ],
                 ),
     );
+
   }
+
 
   bool questionCheck(int questionIndex, int correctAnswerIndex) {
     if (questionIndex == correctAnswerIndex) {
@@ -149,8 +195,11 @@ class _QuizViewState extends ConsumerState<QuizView> {
       return false;
     }
   }
+
+
 }
 
+/*
 class _QuestionOption extends StatelessWidget {
   const _QuestionOption(this.currentQuestion, this.isCorrect);
 
@@ -174,7 +223,8 @@ class _QuestionOption extends StatelessWidget {
             return Color(ColorConstants.ligthGreen.toRgba);
           },
         ),
-        onChanged: (bool? value) {},
+        onChanged: (bool? value) {
+        },
         value: true,
         title: Text(
           currentQuestion!,
@@ -187,6 +237,8 @@ class _QuestionOption extends StatelessWidget {
     );
   }
 }
+
+ */
 
 /*
 class _logo extends StatelessWidget {
