@@ -19,4 +19,5 @@ class StringConstants {
 
   // Quiz
   static const provious = 'Previous';
+  static const next = 'Next';
 }

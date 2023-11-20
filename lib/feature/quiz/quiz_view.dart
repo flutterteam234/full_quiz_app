@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/feature/login/login_provider.dart';
 import 'package:riverpod_architecture/feature/login/model/questions.dart';
+import 'package:riverpod_architecture/feature/quiz/components/answer_buton.dart';
+import 'package:riverpod_architecture/feature/quiz/components/next_button.dart';
+import 'package:riverpod_architecture/feature/quiz/components/question_container.dart';
 import 'package:riverpod_architecture/feature/quiz/quiz_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
@@ -10,6 +13,14 @@ import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+bool questionCheck(int questionIndex, int correctAnswerIndex) {
+  if (questionIndex == correctAnswerIndex) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 class QuizView extends ConsumerStatefulWidget {
   const QuizView({super.key});
@@ -22,7 +33,6 @@ class _QuizViewState extends ConsumerState<QuizView> {
   final quizProvider = StateNotifierProvider<QuizNotifier, QuizState>((ref) {
     return QuizNotifier();
   });
-
 
   void addQuestion(List<Questions?> questions) {
     ref.read(quizProvider.notifier).addQuestions(questions);
@@ -52,7 +62,7 @@ class _QuizViewState extends ConsumerState<QuizView> {
         final value = response.docs.map((e) => e.data()).toList();
 
         addQuestion(value);
-        //await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 1));
         ref.read(quizProvider.notifier).setLoading(false);
       }
     } catch (error) {
@@ -72,24 +82,6 @@ class _QuizViewState extends ConsumerState<QuizView> {
 
     Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
 
-
-    Widget buildTrailingIcon() {
-      if (questionCheck(0, currentQuestion!.correctQuestionIndex!) &&
-          quizState.isAnswerTrue) {
-        return Icon(Icons.check_circle,color: Color(ColorConstants.ligthGreen.toRgba),);
-      } else {
-        return Icon(Icons.circle_outlined);
-      }
-    }
-
-    Color getAnswerContainerBackgroundColor(){
-      if(questionCheck(0, currentQuestion!.correctQuestionIndex!) && quizState.isAnswerTrue){
-        return Color(ColorConstants.smootGreen.toRgba);
-      }else{
-        return Color(ColorConstants.white.toRgba);
-      }
-    }
-
     return Scaffold(
       backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
       appBar: AppBar(
@@ -97,7 +89,9 @@ class _QuizViewState extends ConsumerState<QuizView> {
         leading: Row(
           children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(quizProvider.notifier).previousQuestion();
+                },
                 icon: ImageConstants.leftRoundedIcon.toIconAsset,
                 color: Color(ColorConstants.black.toRgba)),
             Text(StringConstants.provious,
@@ -108,147 +102,71 @@ class _QuizViewState extends ConsumerState<QuizView> {
           ],
         ),
         centerTitle: true,
-        title: Text("Number"),
+        title: _QuestionNumberText(
+          quizState: quizState,
+        ),
       ),
       body: quizState.isLoading
-          ? CircularProgressIndicator()
+          ? const Center(
+              child: LinearProgressIndicator(),
+            )
           : currentQuestion == null
-              ? Text("Soru yok")
+              ? const Text("Soru yok")
               : ListView(
                   padding: context.padding.normal,
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: context.padding.high,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 20,
-                            spreadRadius: -20,
-                            offset: Offset(1, 1),
-                            color: Color(ColorConstants.black.toRgba),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Color(ColorConstants.white.toRgba),
-                      ),
-                      child: Text(
-                        currentQuestion.question!,
-                        style: GoogleFonts.baloo2(
-                            fontSize: 20,
-                            color: Color(ColorConstants.black.toRgba)),
-                      ),
-                    ),
+                    QuestionContainer(currentQuestion: currentQuestion),
+
                     Padding(padding: context.padding.verticalMedium), // fixme
-                    /*
-                    _QuestionOption(
-                        currentQuestion.answers!.s1,
-                        questionCheck(
-                            0, currentQuestion.correctQuestionIndex!)),
-                    _QuestionOption(
-                        currentQuestion.answers!.s2,
-                        questionCheck(
-                            1, currentQuestion.correctQuestionIndex!)),
-                    _QuestionOption(
-                        currentQuestion.answers!.s3,
-                        questionCheck(
-                            2, currentQuestion.correctQuestionIndex!)),
-                    _QuestionOption(
-                        currentQuestion.answers!.s4,
-                        questionCheck(
-                            3, currentQuestion.correctQuestionIndex!)),
 
-                     */
-                    InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () {
-                        ref.read(quizProvider.notifier).setIsAnswerTrue();
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: context.padding.verticalLow,
+                          child: AnswerButton(
+                              quizProvider: quizProvider,
+                              currentQuestion: currentQuestion,
+                              quizState: quizState,
+                              ref: ref,
+                              answerIndex: index),
+                        );
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: getAnswerContainerBackgroundColor(),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: ListTile(
-                            leading: Text(
-                              currentQuestion.answers!.s1!,
-                              style: GoogleFonts.baloo2(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Color(ColorConstants.black.toRgba),
-                              ),
-                            ),
-                            trailing: buildTrailingIcon())
+                    ),
+                    Padding(padding: context.padding.verticalLow), // fixme
 
-                      ),
-                    )
+                    NextButton(ref: ref, quizProvider: quizProvider),
                   ],
                 ),
     );
-
   }
-
-
-  bool questionCheck(int questionIndex, int correctAnswerIndex) {
-    if (questionIndex == correctAnswerIndex) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-
 }
 
-/*
-class _QuestionOption extends StatelessWidget {
-  const _QuestionOption(this.currentQuestion, this.isCorrect);
+class _QuestionNumberText extends StatelessWidget {
+  // ismi değiştir
+  const _QuestionNumberText({required this.quizState});
 
-  final String? currentQuestion;
-  final bool? isCorrect;
+  final QuizState? quizState;
 
   @override
   Widget build(BuildContext context) {
-    print(isCorrect);
-    return Container(
-      decoration: BoxDecoration(
-          color: Color(ColorConstants.white.toRgba),
-          borderRadius: BorderRadius.circular(20)),
-      child: CheckboxListTile(
-        enabled: true,
-        fillColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.disabled)) {
-              return Color(ColorConstants.ligthGrey.toRgba);
-            }
-            return Color(ColorConstants.ligthGreen.toRgba);
-          },
-        ),
-        onChanged: (bool? value) {
-        },
-        value: true,
-        title: Text(
-          currentQuestion!,
-          style: GoogleFonts.baloo2(
-            fontWeight: FontWeight.bold,
-            color: Color(ColorConstants.black.toRgba),
-          ),
-        ),
+    String text = getText();
+    return Text(
+      text,
+      style: GoogleFonts.baloo2(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1,
       ),
     );
   }
-}
 
- */
-
-/*
-class _logo extends StatelessWidget {
-  const _logo();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: context.padding.medium,
-        child: Image.asset(ImageConstants.appIcon.toIcon));
+  String getText() {
+    if (quizState == null || quizState!.questions == null) {
+      return '0/0';
+    } else {
+      return '${quizState!.currentIndex + 1}/${quizState!.questions!.length}';
+    }
   }
 }
-*/
