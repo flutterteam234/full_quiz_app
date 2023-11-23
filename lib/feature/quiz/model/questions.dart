@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:riverpod_architecture/product/utility/base/base_firebase_model.dart';
 
 import 'answers.dart';
 
-class Questions {
-  String? id;
-  String? questionTitle;
-  String? question;
-  Timestamp? date; // Değişiklik burada
-  Answers? answers;
-  int? correctQuestionIndex;
-
+@immutable
+class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> {
   Questions({
     this.id,
     this.questionTitle,
@@ -19,27 +16,16 @@ class Questions {
     this.correctQuestionIndex,
   });
 
-  Questions.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String?;
-    questionTitle = json['questionTitle'] as String?;
-    question = json['question'] as String?;
-    date = json['date'] as Timestamp?; // Değişiklik burada
-    answers = json['answers'] != null ? Answers.fromJson(json['answers']) : null;
-    correctQuestionIndex = json['correctQuestionIndex'] as int?;
-  }
+  final String? questionTitle;
+  final String? question;
+  final Timestamp? date;
+  final Answers? answers;
+  final int? correctQuestionIndex;
+  @override
+  final String? id;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['id'] = id;
-    data['questionTitle'] = questionTitle;
-    data['question'] = question;
-    data['date'] = date; // Değişiklik burada
-    if (answers != null) {
-      data['answers'] = answers!.toJson();
-    }
-    data['correctQuestionIndex'] = correctQuestionIndex;
-    return data;
-  }
+  @override
+  List<Object?> get props => [id];
 
   Questions copyWith({
     String? id,
@@ -57,5 +43,28 @@ class Questions {
       answers: answers ?? this.answers,
       correctQuestionIndex: correctQuestionIndex ?? this.correctQuestionIndex,
     );
+  }
+
+
+  Map<String, dynamic> toJson() {
+    return {
+      'questionTitle': questionTitle,
+      'question': question,
+      'date': date,
+      'answers': answers?.toJson(),
+      'correctQuestionIndex': correctQuestionIndex,
+    };
+  }
+
+  @override
+  Questions fromJson(Map<String, dynamic> json) {
+    return Questions(
+        id: json['id'] as String?,
+        questionTitle: json['questionTitle'] as String?,
+        question: json['question'] as String?,
+        date: json['date'] as Timestamp?,
+        answers:
+            json['answers'] != null ? Answers.fromJson(json['answers']) : null,
+        correctQuestionIndex: json['correctQuestionIndex'] as int?);
   }
 }

@@ -1,13 +1,13 @@
-class Answers {
+class AnswersTest {
   String? s1;
   String? s2;
   String? s3;
   String? s4;
   String? s5;
 
-  Answers({this.s1, this.s2, this.s3, this.s4, this.s5});
+  AnswersTest({this.s1, this.s2, this.s3, this.s4, this.s5});
 
-  Answers.fromJson(Map<String, dynamic> json) {
+  AnswersTest.fromJson(Map<String, dynamic> json) {
     s1 = json['1'];
     s2 = json['2'];
     s3 = json['3'];

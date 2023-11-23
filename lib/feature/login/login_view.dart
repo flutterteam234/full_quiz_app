@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/feature/login/login_provider.dart';
-import 'package:riverpod_architecture/feature/login/model/questions.dart';
+import 'package:riverpod_architecture/feature/login/model/questionsTest.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 
 class LoginView extends ConsumerStatefulWidget {
@@ -21,11 +21,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
     CollectionReference questions =
         FirebaseFirestore.instance.collection('questions');
 
-    final response = questions.withConverter<Questions?>(
+    final response = questions.withConverter<QuestionsTest?>(
       fromFirestore: (snapshot, options) {
         final jsonBody = snapshot.data();
         if (jsonBody != null) {
-          return Questions.fromJson(jsonBody)..copyWith(id: snapshot.id);
+          return QuestionsTest.fromJson(jsonBody)..copyWith(id: snapshot.id);
         }
         return null;
       },
@@ -41,7 +41,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
       body: FutureBuilder(
           future: response,
           builder: (BuildContext context,
-              AsyncSnapshot<QuerySnapshot<Questions?>> snapshot) {
+              AsyncSnapshot<QuerySnapshot<QuestionsTest?>> snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return const Placeholder();

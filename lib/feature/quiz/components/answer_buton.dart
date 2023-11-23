@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../product/constants/color_constants.dart';
-import '../../login/model/questions.dart';
+import '../model/questions.dart';
 import '../quiz_provider.dart';
 import '../quiz_view.dart';
 
 class AnswerButton extends StatelessWidget {
   const AnswerButton(
-      {required this.ref,
-        required this.quizProvider,
-        required this.quizState,
-        required this.currentQuestion,
-        required this.answerIndex});
+      {Key? key,
+      required this.ref,
+      required this.quizProvider,
+      required this.quizState,
+      required this.currentQuestion,
+      required this.answerIndex})
+      : super(key: key);
 
   final dynamic quizProvider; // fixme
   final WidgetRef ref;
@@ -69,7 +70,7 @@ class AnswerButton extends StatelessWidget {
 
   Widget buildTrailingIcon() {
     bool isQuestion =
-    questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
+        questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
     if (isQuestion && quizState.isPress) {
       return Icon(
@@ -87,13 +88,13 @@ class AnswerButton extends StatelessWidget {
 
   Color getAnswerContainerBackgroundColor() {
     bool isQuestion =
-    questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
+        questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
     if (isQuestion && quizState.isPress) {
       return Color(ColorConstants.smootGreen.toRgba);
     } else if (answerIndex == quizState.selectedAnswerIndex &&
         quizState.isPress) {
-      return  Color(ColorConstants.lightRed.toRgba);
+      return Color(ColorConstants.lightRed.toRgba);
     } else {
       return Color(ColorConstants.white.toRgba);
     }
@@ -101,7 +102,7 @@ class AnswerButton extends StatelessWidget {
 
   Color getAnswerContainerTextColor() {
     bool isQuestion =
-    questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
+        questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
     if (isQuestion && quizState.isPress) {
       return Color(ColorConstants.ligthGreen.toRgba);

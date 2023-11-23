@@ -1,10 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:riverpod_architecture/feature/login/model/answers.dart';
-import 'package:riverpod_architecture/feature/login/model/questions.dart';
+import 'package:riverpod_architecture/feature/quiz/model/answers.dart';
+import 'package:riverpod_architecture/feature/quiz/model/questions.dart';
+import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
-class QuizNotifier extends StateNotifier<QuizState> {
+class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
+
+  Future<void> loadQuestions() async {
+    try {
+      CollectionReference questions = FirebaseCollections.questions.reference;
+
+      final response = await questions.withConverter<Questions?>(
+        fromFirestore: (snapshot, options) {
+          return Questions().fromFirebase(snapshot);
+        },
+        toFirestore: (value, options) {
+          return value!.toJson();
+        },
+      ).get();
+
+      if (response.docs.isNotEmpty) {
+        final value = response.docs.map((e) => e.data()).toList();
+
+        addQuestions(value);
+        await Future.delayed(const Duration(seconds: 1));
+        setLoading(false);
+      }
+    } catch (error) {
+      throw FirebaseCustomExceptions('$error null');
+    }
+  }
 
   void addQuestions(List<Questions?> questions) {
     state = state.copyWith(
@@ -52,12 +80,13 @@ class QuizNotifier extends StateNotifier<QuizState> {
 }
 
 class QuizState {
-  const QuizState({this.questions,
-    this.isLoading = true,
-    this.currentIndex = 0,
-    this.isAnswerTrue = false,
-    this.selectedAnswerIndex = 4,
-    this.isPress = false});
+  const QuizState(
+      {this.questions,
+      this.isLoading = true,
+      this.currentIndex = 0,
+      this.isAnswerTrue = false,
+      this.selectedAnswerIndex = 4,
+      this.isPress = false});
 
   final List<Questions?>? questions;
   final bool isLoading;
@@ -66,8 +95,7 @@ class QuizState {
   final int selectedAnswerIndex;
   final bool isPress;
 
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         questions,
         isLoading,
         currentIndex,

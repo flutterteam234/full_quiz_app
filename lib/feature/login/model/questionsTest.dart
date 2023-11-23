@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'answers.dart';
+import 'answersTest.dart';
 
-class Questions {
+class QuestionsTest {
   String? id;
   String? questionTitle;
   String? question;
   Timestamp? date; // Değişiklik burada
-  Answers? answers;
+  AnswersTest? answers;
   int? correctQuestionIndex;
   String? imagePath;
 
-  Questions({
+  QuestionsTest({
     this.id,
     this.questionTitle,
     this.question,
@@ -21,13 +21,13 @@ class Questions {
     this.imagePath,
   });
 
-  Questions.fromJson(Map<String, dynamic> json) {
+  QuestionsTest.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String?;
     questionTitle = json['questionTitle'] as String?;
     question = json['question'] as String?;
     date = json['date'] as Timestamp?; // Değişiklik burada
     answers =
-        json['answers'] != null ? Answers.fromJson(json['answers']) : null;
+        json['answers'] != null ? AnswersTest.fromJson(json['answers']) : null;
     correctQuestionIndex = json['correctQuestionIndex'] as int?;
     imagePath = json['imagePath'] as String?;
   }
@@ -46,16 +46,16 @@ class Questions {
     return data;
   }
 
-  Questions copyWith({
+  QuestionsTest copyWith({
     String? id,
     String? questionTitle,
     String? question,
     Timestamp? date,
-    Answers? answers,
+    AnswersTest? answers,
     int? correctQuestionIndex,
     String? imagePath,
   }) {
-    return Questions(
+    return QuestionsTest(
       id: id ?? this.id,
       questionTitle: questionTitle ?? this.questionTitle,
       question: question ?? this.question,
