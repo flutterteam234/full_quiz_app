@@ -54,8 +54,10 @@ dependencies:
   #localDb
   shared_preferences: ^2.2.2
 
-  #utiliy
+  #utility
   google_fonts: ^6.1.0
+  animated_text_kit: ^4.2.2
+
 
 
 
@@ -83,6 +85,3 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-
-
-
