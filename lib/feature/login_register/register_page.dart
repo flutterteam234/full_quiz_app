@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/auth/firebase_auth.dart';
+import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
 
-TextEditingController _editingController = TextEditingController();
-TextEditingController _passwordController = TextEditingController();
+TextEditingController mail_controller = TextEditingController();
+TextEditingController password_controller = TextEditingController();
+TextEditingController name_controller = TextEditingController();
 bool goster = true;
 
 class RegisterPage extends StatefulWidget {
@@ -22,103 +24,117 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: ColorConstants.ligthGreen.getColor,
       body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/background/Login-Register.png"),
-                  fit: BoxFit.fill)),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20),
-            child: Column(
-              children: [
-                const Spacer(
-                  flex: 20,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Colors.teal.shade900,
+          Colors.teal.shade800,
+        ])),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            children: [
+              Image.asset(
+                "assets/icons/ic_logo.png",
+                height: height / 3,
+                width: width / 2.2,
+              ),
+              Text(
+                "Giriş Yap",
+                style: TextFamilyConstrants.titleLarge.getFont,
+              ),
+              Spacer(
+                flex: 15,
+              ),
+              textfield(
+                editingController: name_controller,
+                yazi: "İsim",
+                goz: const Padding(
+                  padding: EdgeInsets.all(10.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(80.0),
-                  child: ImageConstants.appIcon.toIconAsset,
+                passwordgoz: false,
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              textfield(
+                editingController: mail_controller,
+                yazi: "Email",
+                goz: const Padding(
+                  padding: EdgeInsets.all(10.0),
                 ),
-                const Spacer(
-                  flex: 10,
-                ),
-                textfield(
-                  editingController: _editingController,
-                  yazi: "Email",
-                  goz: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                  ),
-                  passwordgoz: false,
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                textfield(
-                  editingController: _passwordController,
-                  yazi: "Şifre",
-                  goz: Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: InkWell(
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            goster == false ? goster = true : goster = false;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.remove_red_eye,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                  passwordgoz: goster,
-                ),
-                const Spacer(
-                  flex: 4,
-                ),
-                InkWell(
-                  onTap: () {
-                    // AuthService().signIn(context,
-                    //     email: _editingController.text,
-                    //     password: _passwordController.text);
-                    // _editingController.clear();
-                    // _passwordController.clear();
-                  },
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Center(
-                        child: Text(
-                          "Giriş Yap",
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
+                passwordgoz: false,
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              textfield(
+                editingController: password_controller,
+                yazi: "Şifre",
+                goz: Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: InkWell(
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          goster == false ? goster = true : goster = false;
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.remove_red_eye,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
                 ),
-                const Spacer(
-                  flex: 40,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterPage(),
-                        ));
-                  },
-                  child: const Text(
-                    "Hesabınız yok mu ? Kayıt Ol",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                passwordgoz: goster,
+              ),
+              const Spacer(
+                flex: 5,
+              ),
+              InkWell(
+                onTap: () {
+                  AuthService().signUp(context,
+                      name: name_controller.text,
+                      email: mail_controller.text,
+                      password: password_controller.text);
+                },
+                child: Card(
+                  color: Color(0xFFa7e0d0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Center(
+                      child: Text(
+                        "Kayıt Ol",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
                   ),
                 ),
-                const Spacer(
-                  flex: 3,
-                )
-              ],
-            ),
-          )),
+              ),
+              const Spacer(
+                flex: 40,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ));
+                },
+                child: const Text(
+                  "Hesabınız var mı ? Giriş Yap",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+              const Spacer(
+                flex: 3,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -150,7 +166,7 @@ class textfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).cardColor,
+      color: Color(0xFFa7e0d0),
 
       /*  BoxDecoration(
         color: Color.fromARGB(255, 64, 68, 75),
@@ -167,10 +183,8 @@ class textfield extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
                 obscureText: passwordgoz,
                 controller: _editingController,
-                decoration: InputDecoration(
-                    hintStyle: Theme.of(context).textTheme.titleMedium,
-                    hintText: yazi,
-                    border: InputBorder.none),
+                decoration:
+                    InputDecoration(hintText: yazi, border: InputBorder.none),
               ),
             ),
             goz,

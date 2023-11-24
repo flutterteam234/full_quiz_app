@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum TextFamilyConstrants {
   bodyLarge(Colors.white, 16),
-  titleLarge(Colors.white, 12),
+  titleLarge(Colors.white, 30),
   ;
 
   final Color color;

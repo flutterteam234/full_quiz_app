@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:riverpod_architecture/feature/quiz/model/answers.dart';
 import 'package:riverpod_architecture/feature/quiz/model/questions.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
