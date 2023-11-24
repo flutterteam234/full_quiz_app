@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:riverpod_architecture/firebase_options.dart';
 import 'package:riverpod_architecture/product/initialize/app_cache.dart';
 
-
 class ApplicationStart {
   const ApplicationStart._();
 
@@ -13,6 +12,7 @@ class ApplicationStart {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    await Future.delayed(Duration(seconds: 3));
 
     FirebaseUIAuth.configureProviders(
       [EmailAuthProvider()],

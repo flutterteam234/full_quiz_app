@@ -8,10 +8,9 @@ class SplashNotifier extends StateNotifier<SplashState> with FirebaseUtility {
 
   Future<void> appInit() async {
     await ApplicationStart.init();
-    // await Future.delayed(Duration(seconds: 5));
+    //await Future.delayed(Duration(seconds: 3));
     setIsLoading(false);
   }
-
 
   void setIsLoading(bool value) {
     state = state.copyWith(isLoading: value);
