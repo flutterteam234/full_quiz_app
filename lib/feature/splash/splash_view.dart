@@ -32,17 +32,19 @@ class _SplashViewState extends ConsumerState<SplashView>
   Widget build(BuildContext context) {
     listenAndNavigate(splashProvider);
 
+    // fixme
+
     return Scaffold(
       backgroundColor: Color(ColorConstants.ligthGreen.toRgba),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImageConstants.appIcon.toIconAsset,
             Padding(
-              padding: context.padding.onlyTopNormal,
-              child: const WavyBoldText(title: StringConstants.appName),
-            ),
+              padding: context.padding.horizontalHigh,
+              child: Image.asset(ImageConstants.appIcon.toIcon,
+                  alignment: Alignment.center),
+            )
           ],
         ),
       ),

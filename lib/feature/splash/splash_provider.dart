@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/product/initialize/app_start_init.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
