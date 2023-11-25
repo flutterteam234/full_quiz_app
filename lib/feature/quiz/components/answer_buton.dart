@@ -36,24 +36,21 @@ class AnswerButton extends StatelessWidget {
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Container(
-                key: ValueKey<bool>(quizState.isPress),
-                decoration: BoxDecoration(
-                    color: getAnswerContainerBackgroundColor(),
-                    borderRadius: BorderRadius.circular(20)),
-                child: ListTile(
-                    leading: Text(
-                      getAnswerText(),
-                      style: GoogleFonts.baloo2(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: getAnswerContainerTextColor(),
-                      ),
+          child:  Container(
+              key: ValueKey<bool>(quizState.isPress),
+              decoration: BoxDecoration(
+                  color: getAnswerContainerBackgroundColor(),
+                  borderRadius: BorderRadius.circular(20)),
+              child: ListTile(
+                  leading: Text(
+                    getAnswerText(),
+                    style: GoogleFonts.baloo2(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: getAnswerContainerTextColor(),
                     ),
-                    trailing: buildTrailingIcon())),
-          ),
+                  ),
+                  trailing: buildTrailingIcon())),
         ));
   }
 

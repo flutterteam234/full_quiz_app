@@ -3,26 +3,24 @@ import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/feature/splash/splash_view.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 
-
-
 class Routes {
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
-      return Pages.values
-          .byName((settings.name ?? "/page1").substring(1))
+      return RouterItems.values
+          .byName((settings.name ?? "/splash").substring(1))
           .goScreen();
     } catch (e) {
-      return Pages.splash.goScreen(); // i.e Home Screen
+      return RouterItems.splash.goScreen(); // i.e Home Screen
     }
   }
 }
 
-extension PagesExtension on Pages {
+extension PagesExtension on RouterItems {
   Widget _screen() {
     switch (this) {
-      case Pages.quiz:
+      case RouterItems.quiz:
         return const QuizView();
-      case Pages.splash:
+      case RouterItems.splash:
         return const SplashView();
     }
   }

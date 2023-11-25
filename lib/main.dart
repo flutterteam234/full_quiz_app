@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_architecture/feature/splash/splash_view.dart';
 import 'package:riverpod_architecture/product/constants/settings_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-
+    return MaterialApp(
       title: StringConstants.appName,
       debugShowCheckedModeBanner: SettingsConstants.isShowDebugBanner,
-      home: SplashView(),
+      initialRoute: RouterItems.splash.routeName,
+      onGenerateRoute: Routes().generateRoute,
     );
   }
 }

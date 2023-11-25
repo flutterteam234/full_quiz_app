@@ -6,7 +6,8 @@ import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 
 class NextButton extends StatelessWidget {
-  const NextButton({required this.quizProvider, required this.ref});
+  const NextButton({Key? key, required this.quizProvider, required this.ref})
+      : super(key: key);
 
   final WidgetRef ref;
   final dynamic quizProvider; // fixme
