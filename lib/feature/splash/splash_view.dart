@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
+import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/feature/splash/splash_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
@@ -35,7 +35,7 @@ class _SplashViewState extends ConsumerState<SplashView>
     // fixme
 
     return Scaffold(
-      backgroundColor: Color(ColorConstants.ligthGreen.toRgba),
+      backgroundColor: ColorConstants.ligthGreen.getColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +63,7 @@ mixin _SplashViewListenMixin on ConsumerState<SplashView> {
       } else {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const QuizView()),
+          MaterialPageRoute(builder: (context) => const LoginPage()),
         );
       }
     });
