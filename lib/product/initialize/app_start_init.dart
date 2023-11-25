@@ -19,6 +19,6 @@ class ApplicationStart {
     );
 
     await AppCache.instance.setup();
-    //await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 3));
   }
 }
