@@ -20,4 +20,7 @@ class StringConstants {
   // Quiz
   static const provious = 'Previous';
   static const next = 'Next';
+
+  // Leaderboard
+  static const leaderboard = 'Leaderboard';
 }
