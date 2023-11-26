@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/auth/firebase_auth.dart';
+import 'package:riverpod_architecture/product/constants/image_constants.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/feature/login_register/register_page.dart';
-import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
+import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
 
 TextEditingController mail_controller = TextEditingController();
 TextEditingController password_controller = TextEditingController();
 TextEditingController name_controller = TextEditingController();
-bool goster = true;
+bool passwordToggle = true;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -35,22 +35,21 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
+              const Spacer(
+                flex: 20,
+              ),
               Image.asset(
-                "assets/icons/ic_logo.png",
-                height: height / 3,
-                width: width / 2.2,
+                ImageConstants.appIcon.toIcon,
+                height: height / 4,
+                width: width / 2,
               ),
-              Text(
-                "Giriş Yap",
-                style: TextFamilyConstrants.titleLarge.getFont,
+              const Spacer(
+                flex: 10,
               ),
-              Spacer(
-                flex: 15,
-              ),
-              textfield(
+              TextFieldWidget(
                 editingController: mail_controller,
-                yazi: "Email",
-                goz: const Padding(
+                metin: "Email",
+                eye: const Padding(
                   padding: EdgeInsets.all(10.0),
                 ),
                 passwordgoz: false,
@@ -58,16 +57,18 @@ class _LoginPageState extends State<LoginPage> {
               const Spacer(
                 flex: 1,
               ),
-              textfield(
+              TextFieldWidget(
                 editingController: password_controller,
-                yazi: "Şifre",
-                goz: Padding(
+                metin: "Şifre",
+                eye: Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: InkWell(
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          goster == false ? goster = true : goster = false;
+                          passwordToggle == false
+                              ? passwordToggle = true
+                              : passwordToggle = false;
                         });
                       },
                       icon: const Icon(
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                passwordgoz: goster,
+                passwordgoz: passwordToggle,
               ),
               const Spacer(
                 flex: 5,
@@ -105,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const Spacer(
-                flex: 40,
+                flex: 50,
               ),
               InkWell(
                 onTap: () {
@@ -125,62 +126,6 @@ class _LoginPageState extends State<LoginPage> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class textfield extends StatelessWidget {
-  const textfield(
-      {Key? key,
-      required TextEditingController editingController,
-      required this.yazi,
-      required this.goz,
-      required this.passwordgoz})
-      : _editingController = editingController,
-        super(key: key);
-
-  final TextEditingController _editingController;
-  final String yazi;
-  final Padding goz;
-  final bool passwordgoz;
-  // ignore: body_might_complete_normally_nullable
-  String? validateEmail(String? value) {
-    if (value != null) {
-      if (value.length > 5 && value.contains('@') && value.endsWith('.com')) {
-        return null;
-      }
-      return 'Geçerli bir e-posta adresi girin.';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFFa7e0d0),
-
-      /*  BoxDecoration(
-        color: Color.fromARGB(255, 64, 68, 75),
-        borderRadius: BorderRadius.circular(10),
-      ),*/
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                validator: validateEmail,
-                cursorColor: Colors.white,
-                style: Theme.of(context).textTheme.titleMedium,
-                obscureText: passwordgoz,
-                controller: _editingController,
-                decoration:
-                    InputDecoration(hintText: yazi, border: InputBorder.none),
-              ),
-            ),
-            goz,
-          ],
         ),
       ),
     );

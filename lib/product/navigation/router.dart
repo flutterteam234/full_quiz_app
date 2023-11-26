@@ -28,6 +28,8 @@ extension PagesExtension on RouterItems {
         return const LoginPage();
       case RouterItems.leaderboard:
         return const LeaderboardView();
+      case RouterItems.login:
+        return const LoginPage();
     }
   }
 
