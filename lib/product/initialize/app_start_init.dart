@@ -12,7 +12,6 @@ class ApplicationStart {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    await Future.delayed(Duration(seconds: 3));
 
     FirebaseUIAuth.configureProviders(
       [EmailAuthProvider()],

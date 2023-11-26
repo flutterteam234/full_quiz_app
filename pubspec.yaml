@@ -45,8 +45,9 @@ dependencies:
   firebase_ui_auth: ^1.10.0
 
 
-  # Kartal
+  # responsive
   kartal: ^3.5.0
+
 
   equatable: ^2.0.5
 

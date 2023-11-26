@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 
 class AuthService {
@@ -40,7 +41,7 @@ class AuthService {
       "password": password,
     }).catchError((error) => print(error));
     */
-    navogator.push(MaterialPageRoute(builder: (context) => const QuizView()));
+    navogator.push(MaterialPageRoute(builder: (context) => const LeaderboardView()));
     return userCredential.user;
   }
 
@@ -54,7 +55,7 @@ class AuthService {
       if (userCredential.user != null) {
         // giriş başarılı gardaş
         navogator
-            .push(MaterialPageRoute(builder: (context) => const QuizView()));
+            .push(MaterialPageRoute(builder: (context) => const LeaderboardView()));
       }
     } catch (e) {
       print("GİRİŞ YAPILAMADI");
