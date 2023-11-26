@@ -6,6 +6,7 @@ import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/utility/firebase/UserLoggedControl.dart';
 import 'package:riverpod_architecture/product/widget/text/wavy_text.dart';
 
 class SplashView extends ConsumerStatefulWidget {
@@ -58,13 +59,15 @@ mixin _SplashViewListenMixin on ConsumerState<SplashView> {
   ) {
     ref.listen<SplashState>(provider, (previous, next) {
       // fixme
+
       if (next.isLoading) {
         // blabla
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const LoginPage()),
+        // );
+        checkLoginStatus(context);
       }
     });
   }

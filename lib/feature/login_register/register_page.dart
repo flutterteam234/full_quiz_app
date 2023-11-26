@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/auth/firebase_auth.dart';
+import 'package:riverpod_architecture/feature/login_register/fonctions/textfield_control.dart';
+import 'package:riverpod_architecture/product/constants/image_constants.dart';
+import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
+import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
 
 TextEditingController mail_controller = TextEditingController();
 TextEditingController password_controller = TextEditingController();
@@ -34,22 +37,21 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
+              const Spacer(
+                flex: 20,
+              ),
               Image.asset(
-                "assets/icons/ic_logo.png",
-                height: height / 3,
-                width: width / 2.2,
+                ImageConstants.appIcon.toIcon,
+                height: height / 4,
+                width: width / 2,
               ),
-              Text(
-                "Giriş Yap",
-                style: TextFamilyConstrants.titleLarge.getFont,
+              const Spacer(
+                flex: 10,
               ),
-              Spacer(
-                flex: 15,
-              ),
-              textfield(
+              TextFieldWidget(
                 editingController: name_controller,
-                yazi: "İsim",
-                goz: const Padding(
+                metin: "İsim",
+                eye: const Padding(
                   padding: EdgeInsets.all(10.0),
                 ),
                 passwordgoz: false,
@@ -57,10 +59,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const Spacer(
                 flex: 1,
               ),
-              textfield(
+              TextFieldWidget(
                 editingController: mail_controller,
-                yazi: "Email",
-                goz: const Padding(
+                metin: "Email",
+                eye: const Padding(
                   padding: EdgeInsets.all(10.0),
                 ),
                 passwordgoz: false,
@@ -68,10 +70,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const Spacer(
                 flex: 1,
               ),
-              textfield(
+              TextFieldWidget(
                 editingController: password_controller,
-                yazi: "Şifre",
-                goz: Padding(
+                metin: "Şifre",
+                eye: Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: InkWell(
                     child: IconButton(
@@ -94,10 +96,38 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               InkWell(
                 onTap: () {
-                  AuthService().signUp(context,
-                      name: name_controller.text,
-                      email: mail_controller.text,
-                      password: password_controller.text);
+                  bool success = registerUser(name_controller.text,
+                      mail_controller.text, password_controller.text);
+
+                  if (success) {
+                    AuthService().signUp(context,
+                        name: name_controller.text,
+                        email: mail_controller.text,
+                        password: password_controller.text);
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: ColorConstants.ligthGreen.getColor,
+                            title: Text('Kayıt Başarısız',
+                                style: TextFamilyConstrants.bodyLarge.getFont),
+                            content: Text(
+                                'Daha güçü bir şifre belirleyiniz veya geçerli bir mail adresi giriniz lütfen.',
+                                style: TextFamilyConstrants.bodyMedium.getFont),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text("Tamam",
+                                    style:
+                                        TextFamilyConstrants.bodyLarge.getFont),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  }
                 },
                 child: Card(
                   color: Color(0xFFa7e0d0),
@@ -133,62 +163,6 @@ class _RegisterPageState extends State<RegisterPage> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class textfield extends StatelessWidget {
-  const textfield(
-      {Key? key,
-      required TextEditingController editingController,
-      required this.yazi,
-      required this.goz,
-      required this.passwordgoz})
-      : _editingController = editingController,
-        super(key: key);
-
-  final TextEditingController _editingController;
-  final String yazi;
-  final Padding goz;
-  final bool passwordgoz;
-  // ignore: body_might_complete_normally_nullable
-  String? validateEmail(String? value) {
-    if (value != null) {
-      if (value.length > 5 && value.contains('@') && value.endsWith('.com')) {
-        return null;
-      }
-      return 'Geçerli bir e-posta adresi girin.';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFFa7e0d0),
-
-      /*  BoxDecoration(
-        color: Color.fromARGB(255, 64, 68, 75),
-        borderRadius: BorderRadius.circular(10),
-      ),*/
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                validator: validateEmail,
-                cursorColor: Colors.white,
-                style: Theme.of(context).textTheme.titleMedium,
-                obscureText: passwordgoz,
-                controller: _editingController,
-                decoration:
-                    InputDecoration(hintText: yazi, border: InputBorder.none),
-              ),
-            ),
-            goz,
-          ],
         ),
       ),
     );

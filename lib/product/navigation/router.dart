@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/feature/splash/splash_view.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
@@ -22,6 +23,8 @@ extension PagesExtension on RouterItems {
         return const QuizView();
       case RouterItems.splash:
         return const SplashView();
+      case RouterItems.login:
+        return const LoginPage();
     }
   }
 

@@ -5,7 +5,7 @@ import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 
-void main() {
+void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
