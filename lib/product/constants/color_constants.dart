@@ -10,6 +10,7 @@ enum ColorConstants {
   darkGreen('184a14'),
   lightRed('f7a59c'),
   darkRed('e8685a'),
+  smootWhite('EFF0F3'),
   ;
 
   final String value;

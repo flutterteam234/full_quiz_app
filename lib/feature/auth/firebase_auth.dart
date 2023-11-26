@@ -3,9 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 
 class AuthService {
-  final userCollection = FirebaseFirestore.instance.collection("users");
+  final userCollection = FirebaseCollections.users.reference;
   final firebaseAuth = FirebaseAuth.instance;
 
   void signOut() async {
@@ -20,8 +23,6 @@ class AuthService {
       {required String name,
       required String email,
       required String password}) async {
-    final navogator = Navigator.of(context);
-
     final UserCredential userCredential = await firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .catchError((e) => print(e));
@@ -41,24 +42,30 @@ class AuthService {
       "password": password,
     }).catchError((error) => print(error));
     */
-    navogator.push(MaterialPageRoute(builder: (context) => const LeaderboardView()));
+    Navigator.push(context, RouterItems.leaderboard.goScreen());
+
     return userCredential.user;
   }
 
   Future<void> signIn(BuildContext context,
       {required String email, required String password}) async {
-    final navogator = Navigator.of(context);
     try {
       final UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
       if (userCredential.user != null) {
-        // giriş başarılı gardaş
-        navogator
-            .push(MaterialPageRoute(builder: (context) => const LeaderboardView()));
+        Navigator.push(context, RouterItems.leaderboard.goScreen());
       }
     } catch (e) {
       print("GİRİŞ YAPILAMADI");
+    }
+  }
+
+  Future<void> checkLoginStatus(BuildContext context) async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.push(context, RouterItems.leaderboard.goScreen());
+    } else {
+      Navigator.push(context, RouterItems.login.goScreen());
     }
   }
 }

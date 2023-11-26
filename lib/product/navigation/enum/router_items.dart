@@ -1,2 +1,2 @@
 
-enum RouterItems { quiz, splash, leaderboard }
+enum RouterItems { quiz, splash, leaderboard, login }

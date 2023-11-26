@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,35 +44,46 @@ class LeaderboardView extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(),
-
-            ClipPath(
-              clipper: OvalTopBorderClipper(),
-              child: Container(
-                height: context.sized.dynamicHeight(0.5),
-                color: Colors.blue,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: context.padding.onlyTopHigh,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color(ColorConstants.darkGreen.toRgba),
+                        width: 3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(size: context.sized.highValue, Icons.person),
+                ),
+                Padding(padding: context.padding.low),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color(ColorConstants.darkGreen.toRgba),
+                        width: 3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(size: context.sized.highValue, Icons.person),
+                ),
+                Padding(padding: context.padding.low),
+                Container(
+                  margin: context.padding.onlyTopHigh,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color(ColorConstants.darkGreen.toRgba),
+                        width: 3),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(size: context.sized.highValue, Icons.person),
+                ),
+              ],
             ),
+            const CustomClipOval(),
           ],
         ),
       );
     });
-  }
-}
-
-class OvalTopBorderClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-    path.moveTo(0, size.height);
-    path.lineTo(0, 50);
-    path.quadraticBezierTo(size.width / 2, 0, size.width, 50);
-    path.lineTo(size.width, size.height);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
