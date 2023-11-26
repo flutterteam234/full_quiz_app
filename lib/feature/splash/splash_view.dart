@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/auth/firebase_auth.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/feature/splash/splash_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:kartal/kartal.dart';
-
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
