@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
-import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
@@ -32,7 +30,8 @@ class AuthService {
     user = firebaseAuth.currentUser;
 
     // Kullanıcı verilerinin firestore a kayıt olmasını istersek burayı kullanabiliriz.
-/*
+
+
     FirebaseFirestore.instance
         .collection("users")
         .doc(firebaseAuth.currentUser!.uid)
@@ -41,7 +40,9 @@ class AuthService {
       "name": name,
       "password": password,
     }).catchError((error) => print(error));
-    */
+
+
+
     Navigator.push(context, RouterItems.leaderboard.goScreen());
 
     return userCredential.user;
@@ -63,7 +64,7 @@ class AuthService {
 
   Future<void> checkLoginStatus(BuildContext context) async {
     if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(context, RouterItems.leaderboard.goScreen());
+      Navigator.push(context, RouterItems.quiz.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
     }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/feature/login_register/fonctions/textfield_control.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
@@ -147,11 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ));
+                  Navigator.push(context, RouterItems.login.goScreen());
                 },
                 child: const Text(
                   "Hesabınız var mı ? Giriş Yap",

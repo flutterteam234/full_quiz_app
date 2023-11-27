@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
@@ -41,49 +41,54 @@ class LeaderboardView extends StatelessWidget {
               color: Color(ColorConstants.black.toRgba)),
         ),
         backgroundColor: Color(ColorConstants.smootGreen.toRgba),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: const Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: context.padding.onlyTopHigh,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color(ColorConstants.darkGreen.toRgba),
-                        width: 3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(size: context.sized.highValue, Icons.person),
-                ),
-                Padding(padding: context.padding.low),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color(ColorConstants.darkGreen.toRgba),
-                        width: 3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(size: context.sized.highValue, Icons.person),
-                ),
-                Padding(padding: context.padding.low),
-                Container(
-                  margin: context.padding.onlyTopHigh,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color(ColorConstants.darkGreen.toRgba),
-                        width: 3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(size: context.sized.highValue, Icons.person),
-                ),
-              ],
+            _TopThreeRow(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CustomClipOval(),
+              ),
             ),
-            const CustomClipOval(),
           ],
         ),
       );
     });
+  }
+}
+
+
+class _TopThreeRow extends StatelessWidget {
+  const _TopThreeRow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: context.sized.dynamicHeight(0.2),
+      width: context.sized.dynamicWidth(1),
+      alignment: Alignment.center,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 3,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: index == 1 ? context.sized.mediumValue : 0,
+              left: context.sized.lowValue,
+              right: context.sized.lowValue,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Color(ColorConstants.darkGreen.toRgba), width: 3),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(size: context.sized.highValue, Icons.person),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/leaderboard/components/user_box.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:kartal/kartal.dart';
 
@@ -7,11 +8,20 @@ class CustomClipOval extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ClipPath(
+    return ClipPath(
       clipper: _OvalTopBorderClipper(),
       child: Container(
-        height: context.sized.dynamicHeight(0.5),
+        alignment: Alignment.center,
+        width: context.sized.dynamicWidth(1),
+        height: context.sized.dynamicHeight(0.6),
         color: Color(ColorConstants.smootWhite.toRgba),
+        child: ListView(
+          padding: context.padding.normal,
+          children: [
+            Padding(padding: context.padding.verticalMedium),
+            const UserBox(),
+          ],
+        )
       ),
     );
   }
