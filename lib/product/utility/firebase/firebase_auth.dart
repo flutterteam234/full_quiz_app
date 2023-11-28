@@ -31,7 +31,6 @@ class AuthService {
 
     // Kullanıcı verilerinin firestore a kayıt olmasını istersek burayı kullanabiliriz.
 
-
     FirebaseFirestore.instance
         .collection("users")
         .doc(firebaseAuth.currentUser!.uid)
@@ -40,8 +39,6 @@ class AuthService {
       "name": name,
       "password": password,
     }).catchError((error) => print(error));
-
-
 
     Navigator.push(context, RouterItems.leaderboard.goScreen());
 
@@ -53,12 +50,33 @@ class AuthService {
     try {
       final UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
-
-      if (userCredential.user != null) {
+      User? user = userCredential.user;
+      if (userCredential.user != null && user!.emailVerified) {
         Navigator.push(context, RouterItems.leaderboard.goScreen());
+      } else {
+        print("KULLANICI E POSTA ADRESİNİ HENİZ DOĞRULAMADI");
       }
     } catch (e) {
       print("GİRİŞ YAPILAMADI");
+    }
+  }
+
+  sendVerificationCode(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      // E-posta doğrulama kodu gönderildi, metni göster
+      return true;
+    } catch (e) {
+      // Hata durumunda kullanıcıya bilgi verebilirsiniz
+      print("Doğrulama kodu gönderme hatası: $e ");
+    }
+  }
+
+  Future<void> sendEmailVerificationAgain() async {
+    User? user = firebaseAuth.currentUser;
+    if (user != null) {
+      await user.sendEmailVerification();
+      // Tekrar doğrulama kodu gönderilmesi için.
     }
   }
 

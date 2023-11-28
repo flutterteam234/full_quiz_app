@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
+import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/feature/quiz/components/answer_buton.dart';
 import 'package:riverpod_architecture/feature/quiz/components/next_button.dart';
 import 'package:riverpod_architecture/feature/quiz/components/question_container.dart';
@@ -11,6 +12,9 @@ import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 
 class QuizView extends StatelessWidget {
   const QuizView({Key? key}) : super(key: key);
@@ -31,6 +35,14 @@ class QuizView extends StatelessWidget {
       return Scaffold(
         backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  AuthService().signOut();
+                  Navigator.push(context, RouterItems.login.goScreen());
+                },
+                icon: Icon(Icons.close))
+          ],
           leadingWidth: 100,
           leading: Row(
             children: [
@@ -125,4 +137,3 @@ bool questionCheck(int questionIndex, int correctAnswerIndex) {
     return false;
   }
 }
-

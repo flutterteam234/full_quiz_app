@@ -15,4 +15,6 @@ class BaseState {
       isPress: isPress ?? this.isPress,
     );
   }
+
+// sil bunu gereksiz
 }

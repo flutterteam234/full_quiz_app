@@ -102,6 +102,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       mail_controller.text, password_controller.text);
 
                   if (success) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: ColorConstants.ligthGreen.getColor,
+                            title: Text('Email Doğrulama',
+                                style: TextFamilyConstrants.bodyLarge.getFont),
+                            content: Text(
+                                'Lütfen mail hesabınızı kontrol ediniz ve doğrulamanızı gerçekleştiriniz.',
+                                style: TextFamilyConstrants.bodyMedium.getFont),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text("Tamam",
+                                    style:
+                                        TextFamilyConstrants.bodyLarge.getFont),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
                     AuthService().signUp(context,
                         name: name_controller.text,
                         email: mail_controller.text,
