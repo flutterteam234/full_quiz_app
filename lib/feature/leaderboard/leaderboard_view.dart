@@ -19,7 +19,12 @@ class LeaderboardView extends StatelessWidget {
       return LeaderboardNotifier();
     });
 
-    return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
+    return BaseView<LeaderboardNotifier, LeaderboardState>(
+        onInitState: (WidgetRef ref) {
+      ref.read(leaderboardProvider.notifier).loadPoints();
+    }, onPageBuilder: (BuildContext context, WidgetRef ref) {
+      final leaderboardState = ref.watch(leaderboardProvider);
+
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -41,13 +46,16 @@ class LeaderboardView extends StatelessWidget {
               color: Color(ColorConstants.black.toRgba)),
         ),
         backgroundColor: Color(ColorConstants.smootGreen.toRgba),
-        body: const Column(
+        body: Column(
           children: [
-            _TopThreeRow(),
+            const _TopThreeRow(),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: CustomClipOval(),
+                child: CustomClipOval(
+                  ref: ref,
+                  state: leaderboardState,
+                ),
               ),
             ),
           ],
@@ -56,7 +64,6 @@ class LeaderboardView extends StatelessWidget {
     });
   }
 }
-
 
 class _TopThreeRow extends StatelessWidget {
   const _TopThreeRow({Key? key}) : super(key: key);

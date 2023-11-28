@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 
 class UserBox extends StatelessWidget {
-  const UserBox({Key? key}) : super(key: key);
+  const UserBox({Key? key, required this.ref ,required this.state}) : super(key: key);
+
+  final WidgetRef ref;
+  final LeaderboardState state;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class UserBox extends StatelessWidget {
               Padding(
                 padding: context.padding.onlyLeftLow,
                 child: Text(
-                  "1",
+                  state.,
                   style: GoogleFonts.baloo2(
                       fontWeight: FontWeight.w500, fontSize: 18),
                 ),
