@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isVerificationCodeSent = false;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -54,6 +55,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 passwordgoz: false,
               ),
+              isVerificationCodeSent == true
+                  ? Text(
+                      "Mail adresinize doğrulama gönderildi lütfen kontrol eder misiniz.",
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : Container(),
               const Spacer(
                 flex: 1,
               ),
@@ -89,7 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                       email: mail_controller.text,
                       password: password_controller.text);
 
-                  name_controller.clear();
+                  AuthService().sendVerificationCode(mail_controller.text);
+                  mail_controller.clear();
                   password_controller.clear();
                 },
                 child: Card(
