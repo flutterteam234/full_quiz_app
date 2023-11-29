@@ -12,6 +12,59 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
     with FirebaseUtility {
   LeaderboardNotifier() : super(const LeaderboardState());
 
+  Future<void> loadPointsAndUsers() async {
+    try {
+      CollectionReference pointsCollection =
+          FirebaseCollections.points.reference;
+
+      final response = await pointsCollection.withConverter<Points?>(
+        fromFirestore: (snapshot, options) {
+          return const Points().fromFirebase(snapshot);
+        },
+        toFirestore: (value, options) {
+          return value!.toJson();
+        },
+      ).get();
+
+      if (response.docs.isNotEmpty) {
+        final pointsList = response.docs.map((e) => e.data()).toList();
+
+        final List<Future<UserData?>> userFutures = [];
+
+        for (final points in pointsList) {
+          final userId = points!.id.toString();
+          userFutures.add(loadUser(userId));
+        }
+
+        final List<UserData?> usersList = await Future.wait(userFutures);
+
+        final List<UserTotalContent> userTotalList = [];
+
+        for (int i = 0; i < pointsList.length; i++) {
+          final userTotalContent = UserTotalContent(
+            id: usersList[i]?.id,
+            pointData: [pointsList[i]],
+            userName: usersList[i]?.name,
+            userEmail: usersList[i]?.email,
+            userPassword: usersList[i]?.password,
+          );
+          userTotalList.add(userTotalContent);
+        }
+
+        print("UserTotalList: ${userTotalList[0].userName}");
+
+        state = state.copyWith(
+          allUserTotalContents: userTotalList,
+        );
+
+        await Future.delayed(const Duration(seconds: 1));
+        setIsLoading(false);
+      }
+    } catch (error) {
+      throw FirebaseCustomExceptions('$error null');
+    }
+  }
+
   Future<void> loadPoints() async {
     try {
       CollectionReference points = FirebaseCollections.points.reference;
@@ -28,7 +81,8 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
       if (response.docs.isNotEmpty) {
         final value = response.docs.map((e) => e.data()).toList();
 
-        addAllUserTotalContents(value);
+        loadUser(value[0]!.id.toString());
+
         await Future.delayed(const Duration(seconds: 1));
         setIsLoading(false);
       }
@@ -37,11 +91,12 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
     }
   }
 
-  Future<void> loadUsersContent() async {
+  Future<UserData?> loadUser(String userId) async {
     try {
-      CollectionReference users = FirebaseCollections.users.reference;
+      DocumentReference userDocRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
 
-      final response = await users.withConverter<UserData?>(
+      final response = await userDocRef.withConverter<UserData?>(
         fromFirestore: (snapshot, options) {
           return const UserData().fromFirebase(snapshot);
         },
@@ -50,40 +105,15 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
         },
       ).get();
 
-      if (response.docs.isNotEmpty) {
-        final value = response.docs.map((e) => e.data()).toList();
+      if (response.exists) {
+        final userData = response.data();
+        return userData;
+      } else {
+        return null;
       }
     } catch (error) {
       throw FirebaseCustomExceptions('$error null');
     }
-  }
-
-  void addAllUserTotalContents(List<Points?> points) {
-    Map<String, List<Points>> userPointsMap = {};
-
-    for (Points? point in points) {
-      if (point != null) {
-        String? userId = point.id;
-
-        if (userId != null) {
-          if (!userPointsMap.containsKey(userId)) {
-            userPointsMap[userId] = [];
-          }
-
-          userPointsMap[userId]!.add(point);
-        }
-      }
-    }
-
-    List<UserTotalContent?> userTotalContents =
-        userPointsMap.entries.map((entry) {
-      String userId = entry.key;
-      List<Points?>? points = entry.value;
-
-      return UserTotalContent(id: userId, pointData: points);
-    }).toList();
-
-    state = state.copyWith(allUserTotalContents: userTotalContents);
   }
 
   void setIsLoading(bool value) {

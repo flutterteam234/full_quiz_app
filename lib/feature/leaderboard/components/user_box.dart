@@ -29,7 +29,7 @@ class UserBox extends StatelessWidget {
               Padding(
                 padding: context.padding.onlyLeftLow,
                 child: Text(
-                  state.,
+                  'sa',
                   style: GoogleFonts.baloo2(
                       fontWeight: FontWeight.w500, fontSize: 18),
                 ),

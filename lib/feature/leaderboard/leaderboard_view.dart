@@ -21,7 +21,7 @@ class LeaderboardView extends StatelessWidget {
 
     return BaseView<LeaderboardNotifier, LeaderboardState>(
         onInitState: (WidgetRef ref) {
-      ref.read(leaderboardProvider.notifier).loadPoints();
+      ref.read(leaderboardProvider.notifier).loadPointsAndUsers();
     }, onPageBuilder: (BuildContext context, WidgetRef ref) {
       final leaderboardState = ref.watch(leaderboardProvider);
 
@@ -48,6 +48,7 @@ class LeaderboardView extends StatelessWidget {
         backgroundColor: Color(ColorConstants.smootGreen.toRgba),
         body: Column(
           children: [
+// loading ekle
             const _TopThreeRow(),
             Expanded(
               child: Align(
@@ -58,6 +59,8 @@ class LeaderboardView extends StatelessWidget {
                 ),
               ),
             ),
+
+
           ],
         ),
       );

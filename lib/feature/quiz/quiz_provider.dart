@@ -34,13 +34,7 @@ class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   }
 
   void addQuestions(List<Questions?> questions) {
-    state = state.copyWith(
-        questions: questions,
-        isLoading: true,
-        currentIndex: 0,
-        isAnswerTrue: false,
-        selectedAnswerIndex: 4,
-        isPress: false);
+    state = state.copyWith(questions: questions);
   }
 
   void nextQuestion() {

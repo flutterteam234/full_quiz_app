@@ -32,7 +32,7 @@ class CustomClipOval extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
-                      const UserBox(),
+                      UserBox(ref: ref, state: state),
                       Padding(padding: context.padding.verticalLow),
                     ],
                   );

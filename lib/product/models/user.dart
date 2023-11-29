@@ -15,13 +15,18 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
   @override
   List<Object?> get props => [id];
 
-  UserData copyWith(
-      {String? id, String? name, String? email, String? password}) {
+  UserData copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? password,
+  }) {
     return UserData(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        email: email ?? this.email,
-        password: password ?? this.password);
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+    );
   }
 
   Map<String, dynamic> toJson() {
