@@ -95,10 +95,6 @@ class _LoginPageState extends State<LoginPage> {
                   AuthService().signIn(context,
                       email: mail_controller.text,
                       password: password_controller.text);
-
-                  AuthService().sendVerificationCode(mail_controller.text);
-                  mail_controller.clear();
-                  password_controller.clear();
                 },
                 child: Card(
                   color: Color(0xFFa7e0d0),
