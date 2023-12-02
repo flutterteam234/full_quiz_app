@@ -46,30 +46,35 @@ class LeaderboardView extends StatelessWidget {
               color: Color(ColorConstants.black.toRgba)),
         ),
         backgroundColor: Color(ColorConstants.smootGreen.toRgba),
-        body: Column(
-          children: [
-// loading ekle
-            const _TopThreeRow(),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomClipOval(
-                  ref: ref,
-                  state: leaderboardState,
-                ),
+        body: leaderboardState.isLoading
+            ? const Center(
+                child: LinearProgressIndicator(),
+              )
+            : Column(
+                children: [
+                  _TopThreeRow(ref: ref, state: leaderboardState),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomClipOval(
+                        ref: ref,
+                        state: leaderboardState,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-
-
-          ],
-        ),
       );
     });
   }
 }
 
 class _TopThreeRow extends StatelessWidget {
-  const _TopThreeRow({Key? key}) : super(key: key);
+  const _TopThreeRow({Key? key, required this.ref, required this.state})
+      : super(key: key);
+
+  final WidgetRef ref;
+  final LeaderboardState state;
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +93,35 @@ class _TopThreeRow extends StatelessWidget {
               left: context.sized.lowValue,
               right: context.sized.lowValue,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color(ColorConstants.darkGreen.toRgba), width: 3),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(size: context.sized.highValue, Icons.person),
-            ),
+            child: _buildProfileContainer(context, 'Name'),
           );
         },
       ),
+    );
+  }
+
+  Widget _buildProfileContainer(BuildContext context, String text) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Color(ColorConstants.smootWhite.toRgba),
+            border: Border.all(
+                color: Color(ColorConstants.ligthGreen.toRgba), width: 2),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(size: context.sized.highValue, Icons.person),
+        ),
+        Padding(
+          padding: context.padding.horizontalLow,
+        ),
+        Text(text,
+            style: GoogleFonts.baloo2(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Color(ColorConstants.darkGreen.toRgba),
+            )),
+      ],
     );
   }
 }

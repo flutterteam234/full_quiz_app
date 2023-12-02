@@ -26,18 +26,21 @@ class CustomClipOval extends StatelessWidget {
             padding: context.padding.normal,
             children: [
               Padding(padding: context.padding.onlyTopMedium),
-              ListView.builder(
-                itemCount: removeFirstThreeElements(state.allUserTotalContents!)
-                    .length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      UserBox(ref: ref, state: state),
-                      Padding(padding: context.padding.verticalLow),
-                    ],
-                  );
-                },
-              ),
+              if (state.allUserTotalContents != null)
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount:
+                      removeFirstThreeElements(state.allUserTotalContents!)
+                          .length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        UserBox(ref: ref, state: state, index: index + 3),
+                        Padding(padding: context.padding.verticalLow),
+                      ],
+                    );
+                  },
+                ),
             ],
           )),
     );

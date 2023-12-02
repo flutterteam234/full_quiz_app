@@ -118,30 +118,4 @@ class _FirebaseAuth extends StatelessWidget {
   }
 }
 
-// fixme
 
-/*
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const TitleText(
-          value: StringConstants.loginWelcomeBack,
-        ),
-        Padding(
-          padding: context.padding.onlyTopNormal,
-          child: const SubTitleText(
-            value: StringConstants.loginWelcomeDetail,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-
- */

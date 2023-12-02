@@ -27,14 +27,13 @@ class Points extends Equatable with IdModel, BaseFirebaseModel<Points> {
     String? id,
     int? point,
     Timestamp? date,
-    String? userName,
-    String? userEmail,
-    String? userPassword,
+
   }) {
     return Points(
       id: id ?? this.id,
       point: point ?? this.point,
       date: date ?? this.date,
+
     );
   }
 

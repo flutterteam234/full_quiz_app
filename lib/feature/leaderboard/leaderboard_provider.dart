@@ -14,8 +14,7 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
 
   Future<void> loadPointsAndUsers() async {
     try {
-      CollectionReference pointsCollection =
-          FirebaseCollections.points.reference;
+      CollectionReference pointsCollection = FirebaseCollections.points.reference;
 
       final response = await pointsCollection.withConverter<Points?>(
         fromFirestore: (snapshot, options) {
@@ -32,26 +31,26 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
         final List<Future<UserData?>> userFutures = [];
 
         for (final points in pointsList) {
-          final userId = points!.id.toString();
+          final userId = points?.id.toString() ?? '';
           userFutures.add(loadUser(userId));
         }
 
         final List<UserData?> usersList = await Future.wait(userFutures);
 
-        final List<UserTotalContent> userTotalList = [];
+        final List<UserTotalContent?> userTotalList = [];
 
         for (int i = 0; i < pointsList.length; i++) {
           final userTotalContent = UserTotalContent(
-            id: usersList[i]?.id,
+            id: usersList[i]?.id ?? '',
             pointData: [pointsList[i]],
-            userName: usersList[i]?.name,
-            userEmail: usersList[i]?.email,
-            userPassword: usersList[i]?.password,
+            userName: usersList[i]?.name ?? '',
+            userEmail: usersList[i]?.email ?? '',
+            userPassword: usersList[i]?.password ?? '',
           );
           userTotalList.add(userTotalContent);
         }
 
-        print("UserTotalList: ${userTotalList[0].userName}");
+        print("UserTotalList: ${userTotalList[0]?.userName}");
 
         state = state.copyWith(
           allUserTotalContents: userTotalList,
@@ -60,7 +59,9 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
         await Future.delayed(const Duration(seconds: 1));
         setIsLoading(false);
       }
-    } catch (error) {
+    } catch (error, stackTrace) {
+      print("Error in loadPointsAndUsers: $error");
+      print("StackTrace: $stackTrace");
       throw FirebaseCustomExceptions('$error null');
     }
   }
@@ -81,7 +82,7 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
       if (response.docs.isNotEmpty) {
         final value = response.docs.map((e) => e.data()).toList();
 
-        loadUser(value[0]!.id.toString());
+        loadUser(value[0]?.id.toString() ?? '');
 
         await Future.delayed(const Duration(seconds: 1));
         setIsLoading(false);
@@ -94,7 +95,7 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
   Future<UserData?> loadUser(String userId) async {
     try {
       DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+      FirebaseFirestore.instance.collection('users').doc(userId);
 
       final response = await userDocRef.withConverter<UserData?>(
         fromFirestore: (snapshot, options) {
@@ -117,18 +118,20 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
   }
 
   void setIsLoading(bool value) {
-    state = state.copyWith(isLoading: value);
+    state = state.copyWith(
+      isLoading: value,
+    );
   }
 }
 
 class LeaderboardState {
-  const LeaderboardState({this.isLoading = false, this.allUserTotalContents});
+  const LeaderboardState({
+    this.isLoading = true,
+    this.allUserTotalContents,
+  });
 
   final List<UserTotalContent?>? allUserTotalContents;
-
   final bool isLoading;
-
-  List<Object?>? get props => [isLoading, allUserTotalContents];
 
   LeaderboardState copyWith({
     bool? isLoading,

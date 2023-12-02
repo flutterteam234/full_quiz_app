@@ -5,6 +5,8 @@ import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptio
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
+
+
 class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
 
