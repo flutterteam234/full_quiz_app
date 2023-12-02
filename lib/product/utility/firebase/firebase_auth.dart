@@ -51,10 +51,8 @@ class AuthService {
       final UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
-      if (userCredential.user != null && user!.emailVerified) {
+      if (userCredential.user != null) {
         Navigator.push(context, RouterItems.leaderboard.goScreen());
-      } else {
-        print("KULLANICI E POSTA ADRESİNİ HENİZ DOĞRULAMADI");
       }
     } catch (e) {
       print("GİRİŞ YAPILAMADI");
