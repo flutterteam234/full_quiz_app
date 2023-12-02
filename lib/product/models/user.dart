@@ -49,6 +49,6 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
   }
 }
 
-*/
+/*
 base firebase model deki abstract class kullanımını burda uygula ve userdata modelini T modeli ile birleştir.
-\*
+*/
