@@ -1,3 +1,5 @@
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
+
 bool isEmailValid(String? value) {
   if (value != null) {
     if (value.length > 5 && value.contains('@') && value.endsWith('.com')) {
@@ -37,6 +39,9 @@ bool registerUser(String name, String email, String password) {
   if (isEmailValid(email) && isPasswordValid(password) && isNameValid(name)) {
     // Eğer e-posta, parola ve isim geçerliyse kayıt işlemini gerçekleştir
     // Burada kayıt işlemini yapacak kodu ekleyebilirsiniz
+
+    AuthService().checkEmailVerification(email);
+
     print('Kullanıcı kaydedildi: $name, $email');
     return true; // Kayıt başarılı
   } else {

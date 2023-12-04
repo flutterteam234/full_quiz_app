@@ -8,6 +8,9 @@ import 'package:riverpod_architecture/feature/leaderboard/components/custom_clip
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({Key? key}) : super(key: key);
@@ -37,7 +40,8 @@ class LeaderboardView extends StatelessWidget {
           leadingWidth: 100,
           leading: IconButton(
               onPressed: () {
-
+                AuthService().signOut();
+                Navigator.push(context, RouterItems.login.goScreen());
               },
               icon: Icon(
                 Icons.keyboard_arrow_left_sharp,
@@ -63,7 +67,6 @@ class LeaderboardView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ],
               ),
       );

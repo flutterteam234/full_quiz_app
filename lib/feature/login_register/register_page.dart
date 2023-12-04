@@ -5,14 +5,8 @@ import 'package:riverpod_architecture/product/constants/text_family_constants.da
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
-import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
-
-TextEditingController mail_controller = TextEditingController();
-TextEditingController password_controller = TextEditingController();
-TextEditingController name_controller = TextEditingController();
-bool goster = true;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -22,6 +16,21 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController mail_controller = TextEditingController();
+  TextEditingController password_controller = TextEditingController();
+  TextEditingController name_controller = TextEditingController();
+
+  bool passwordToggle = true;
+  bool logged = false;
+
+  @override
+  void dispose() {
+    mail_controller.dispose();
+    password_controller.dispose();
+    name_controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -81,7 +90,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: IconButton(
                       onPressed: () {
                         setState(() {
-                          goster == false ? goster = true : goster = false;
+                          passwordToggle == false
+                              ? passwordToggle = true
+                              : passwordToggle = false;
                         });
                       },
                       icon: const Icon(
@@ -91,17 +102,21 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                passwordgoz: goster,
+                passwordgoz: passwordToggle,
               ),
               const Spacer(
                 flex: 5,
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   bool success = registerUser(name_controller.text,
                       mail_controller.text, password_controller.text);
+                  // ignore: await_only_futures
+                  logged = await AuthService()
+                      .checkEmailVerification(mail_controller.text);
 
                   if (success) {
+                    // ignore: use_build_context_synchronously
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -124,11 +139,18 @@ class _RegisterPageState extends State<RegisterPage> {
                             ],
                           );
                         });
-                    AuthService().signUp(context,
-                        name: name_controller.text,
-                        email: mail_controller.text,
-                        password: password_controller.text);
+                    print(logged.toString() + "LOGGED HEHEHEHEHEH");
+                    if (logged) {
+                      // ignore: use_build_context_synchronously
+                      AuthService().signUp(context,
+                          name: name_controller.text,
+                          email: mail_controller.text,
+                          password: password_controller.text);
+                    } else {
+                      print("KARDEŞİM DOĞRULAMA YAAAAAAAAAAAAP.(NOKTA)");
+                    }
                   } else {
+                    // ignore: use_build_context_synchronously
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
