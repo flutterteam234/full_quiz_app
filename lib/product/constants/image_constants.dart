@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum ImageConstants {
   appIcon('logo'),
   leftRoundedIcon('left_rounded'),
+  error404Image('404'),
   ;
 
   final String value;

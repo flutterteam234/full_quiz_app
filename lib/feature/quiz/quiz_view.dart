@@ -15,6 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
+import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
 class QuizView extends StatelessWidget {
   const QuizView({Key? key}) : super(key: key);
@@ -34,14 +35,14 @@ class QuizView extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
-        appBar: AppBar(
+        appBar: currentQuestion == null ? AppBar(
           actions: [
             IconButton(
                 onPressed: () {
                   AuthService().signOut();
                   Navigator.push(context, RouterItems.login.goScreen());
                 },
-                icon: Icon(Icons.close))
+                icon: const Icon(Icons.close))
           ],
           leadingWidth: 100,
           leading: Row(
@@ -63,40 +64,40 @@ class QuizView extends StatelessWidget {
           title: _QuestionNumberText(
             quizState: quizState,
           ),
-        ),
+        ) : null,
         body: quizState.isLoading
             ? const Center(
                 child: LinearProgressIndicator(),
               )
             : currentQuestion == null
-                ? const Text("Soru yok")
+                ? const Error404()
                 : ListView(
-                    padding: context.padding.normal,
-                    children: [
-                      QuestionContainer(currentQuestion: currentQuestion),
+          padding: context.padding.normal,
+          children: [
+            QuestionContainer(currentQuestion: currentQuestion),
 
-                      Padding(padding: context.padding.verticalMedium), // fixme
+            Padding(padding: context.padding.verticalMedium), // fixme
 
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: context.padding.verticalLow,
-                            child: AnswerButton(
-                                quizProvider: quizProvider,
-                                currentQuestion: currentQuestion,
-                                quizState: quizState,
-                                ref: ref,
-                                answerIndex: index),
-                          );
-                        },
-                      ),
-                      Padding(padding: context.padding.verticalLow), // fixme
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: context.padding.verticalLow,
+                  child: AnswerButton(
+                      quizProvider: quizProvider,
+                      currentQuestion: currentQuestion,
+                      quizState: quizState,
+                      ref: ref,
+                      answerIndex: index),
+                );
+              },
+            ),
+            Padding(padding: context.padding.verticalLow), // fixme
 
-                      NextButton(ref: ref, quizProvider: quizProvider),
-                    ],
-                  ),
+            NextButton(ref: ref, quizProvider: quizProvider),
+          ],
+        ),
       );
     });
   }

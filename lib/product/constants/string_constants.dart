@@ -23,4 +23,12 @@ class StringConstants {
 
   // Leaderboard
   static const leaderboard = 'Leaderboard';
+
+  // 404
+  static const ohNo = 'Oh No!';
+  static const backtoHomePageLong = 'May be bigfoot has broken this page. Come back to the homepage';
+  static const backtoHomePageShort = 'Back to Homepage';
+
+  // Error Messages
+  static const nullUserName = 'null';
 }

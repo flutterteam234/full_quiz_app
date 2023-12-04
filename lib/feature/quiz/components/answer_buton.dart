@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kartal/kartal.dart';
 import '../../../product/constants/color_constants.dart';
 import '../model/questions.dart';
 import '../quiz_provider.dart';
@@ -36,21 +37,34 @@ class AnswerButton extends StatelessWidget {
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
-          child:  Container(
-              key: ValueKey<bool>(quizState.isPress),
-              decoration: BoxDecoration(
-                  color: getAnswerContainerBackgroundColor(),
-                  borderRadius: BorderRadius.circular(20)),
-              child: ListTile(
-                  leading: Text(
-                    getAnswerText(),
-                    style: GoogleFonts.baloo2(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: getAnswerContainerTextColor(),
+          child: Container(
+            key: ValueKey<bool>(quizState.isPress),
+            decoration: BoxDecoration(
+              color: getAnswerContainerBackgroundColor(),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: context.padding.low,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      textAlign: TextAlign.justify,
+                      overflow: TextOverflow.visible,
+                      getAnswerText(),
+                      style: GoogleFonts.baloo2(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: getAnswerContainerTextColor(),
+                      ),
                     ),
                   ),
-                  trailing: buildTrailingIcon())),
+                  buildTrailingIcon(),
+                ],
+              ),
+            ),
+          ),
         ));
   }
 

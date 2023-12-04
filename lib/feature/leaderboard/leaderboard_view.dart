@@ -27,6 +27,7 @@ class LeaderboardView extends StatelessWidget {
 
       return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(StringConstants.leaderboard,
               style: GoogleFonts.baloo2(
@@ -36,7 +37,7 @@ class LeaderboardView extends StatelessWidget {
           leadingWidth: 100,
           leading: IconButton(
               onPressed: () {
-                //ref.read(leaderboardProvider.notifier).previousQuestion();
+
               },
               icon: Icon(
                 Icons.keyboard_arrow_left_sharp,
@@ -62,6 +63,7 @@ class LeaderboardView extends StatelessWidget {
                       ),
                     ),
                   ),
+
                 ],
               ),
       );
@@ -93,11 +95,19 @@ class _TopThreeRow extends StatelessWidget {
               left: context.sized.lowValue,
               right: context.sized.lowValue,
             ),
-            child: _buildProfileContainer(context, 'Name'),
+            child: _buildProfileContainer(context, getProfilName(index)),
           );
         },
       ),
     );
+  }
+
+  String getProfilName(int index) {
+    if (state.allUserTotalContents![index]!.userName == null) {
+      return StringConstants.nullUserName;
+    } else {
+      return state.allUserTotalContents![index]!.userName!;
+    }
   }
 
   Widget _buildProfileContainer(BuildContext context, String text) {

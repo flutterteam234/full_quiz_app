@@ -60,6 +60,14 @@ dependencies:
   animated_text_kit: ^4.2.2
   auto_size_text: ^3.0.0
 
+  #services
+  connectivity_plus: ^5.0.2
+
+  #widget
+  fluttertoast: ^8.2.4
+
+
+
 
 
 

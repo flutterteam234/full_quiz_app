@@ -23,9 +23,9 @@ class QuestionContainer extends StatelessWidget {
                     currentQuestion: currentQuestion!);
               });
         },
-        child: Container(
-          alignment: Alignment.center,
-          padding: context.padding.high,
+        child: Container(alignment: Alignment.center,
+
+          padding: EdgeInsets.symmetric(horizontal: context.sized.lowValue, vertical: context.sized.mediumValue),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -39,7 +39,8 @@ class QuestionContainer extends StatelessWidget {
             color: Color(ColorConstants.white.toRgba),
           ),
           child: Text(
-            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.justify,
+            overflow: TextOverflow.fade,
             currentQuestion!.question!,
             style: GoogleFonts.baloo2(
                 fontSize: 18, color: Color(ColorConstants.black.toRgba)),
