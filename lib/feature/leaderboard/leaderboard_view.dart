@@ -36,9 +36,7 @@ class LeaderboardView extends StatelessWidget {
           backgroundColor: Colors.transparent,
           leadingWidth: 100,
           leading: IconButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.keyboard_arrow_left_sharp,
                 color: Color(ColorConstants.white.toRgba),
@@ -63,7 +61,6 @@ class LeaderboardView extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ],
               ),
       );
@@ -80,26 +77,47 @@ class _TopThreeRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: context.sized.dynamicHeight(0.2),
-      width: context.sized.dynamicWidth(1),
-      alignment: Alignment.center,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: EdgeInsets.only(
-              bottom: index == 1 ? context.sized.mediumValue : 0,
-              left: context.sized.lowValue,
-              right: context.sized.lowValue,
+    return SizedBox(
+        height: context.sized.dynamicHeight(0.2),
+        width: context.sized.dynamicWidth(0.8),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: _buildProfileContainer(
+                context,
+                getProfilName(0),
+              ),
             ),
-            child: _buildProfileContainer(context, getProfilName(index)),
-          );
-        },
-      ),
-    );
+            Align(
+              alignment: Alignment.topCenter,
+              child: _buildProfileContainer(
+                context,
+                getProfilName(1),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: _buildProfileContainer(
+                context,
+                getProfilName(2),
+              ),
+            )
+          ],
+        ));
+  }
+
+  getProfilePictureAlignment(int index) {
+    switch (index) {
+      case 0:
+        return Alignment.centerLeft;
+      case 1:
+        return Alignment.center;
+      case 2:
+        return Alignment.centerRight;
+      default:
+        return Alignment.center;
+    }
   }
 
   String getProfilName(int index) {
@@ -111,27 +129,29 @@ class _TopThreeRow extends StatelessWidget {
   }
 
   Widget _buildProfileContainer(BuildContext context, String text) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Color(ColorConstants.smootWhite.toRgba),
-            border: Border.all(
-                color: Color(ColorConstants.ligthGreen.toRgba), width: 2),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(size: context.sized.highValue, Icons.person),
-        ),
-        Padding(
-          padding: context.padding.horizontalLow,
-        ),
-        Text(text,
-            style: GoogleFonts.baloo2(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Color(ColorConstants.darkGreen.toRgba),
-            )),
-      ],
-    );
+    return SizedBox(
+        height: 100,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Color(ColorConstants.smootWhite.toRgba),
+                border: Border.all(
+                    color: Color(ColorConstants.ligthGreen.toRgba), width: 2),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(size: 75, Icons.person),
+            ),
+            Padding(
+              padding: context.padding.horizontalLow,
+            ),
+            Text(text,
+                style: GoogleFonts.baloo2(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Color(ColorConstants.darkGreen.toRgba),
+                )),
+          ],
+        ));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
-import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/feature/quiz/components/answer_buton.dart';
 import 'package:riverpod_architecture/feature/quiz/components/next_button.dart';
 import 'package:riverpod_architecture/feature/quiz/components/question_container.dart';
@@ -35,76 +34,81 @@ class QuizView extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
-        appBar: currentQuestion == null ? AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  AuthService().signOut();
-                  Navigator.push(context, RouterItems.login.goScreen());
-                },
-                icon: const Icon(Icons.close))
-          ],
-          leadingWidth: 100,
-          leading: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    ref.read(quizProvider.notifier).previousQuestion();
-                  },
-                  icon: ImageConstants.leftRoundedIcon.toIconAsset,
-                  color: Color(ColorConstants.black.toRgba)),
-              Text(StringConstants.provious,
-                  style: TextStyle(
-                      color: Color(ColorConstants.ligthGreen.toRgba),
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold)),
-            ],
-          ),
-          centerTitle: true,
-          title: _QuestionNumberText(
-            quizState: quizState,
-          ),
-        ) : null,
+        appBar: currentQuestion == null
+            ? AppBar(
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        AuthService().signOut();
+                        Navigator.push(context, RouterItems.login.goScreen());
+                      },
+                      icon: const Icon(Icons.close))
+                ],
+                leadingWidth: 100,
+                leading: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          ref.read(quizProvider.notifier).previousQuestion();
+                        },
+                        icon: ImageConstants.leftRoundedIcon.toIconAsset,
+                        color: Color(ColorConstants.black.toRgba)),
+                    Text(StringConstants.provious,
+                        style: TextStyle(
+                            color: Color(ColorConstants.ligthGreen.toRgba),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                centerTitle: true,
+                title: _QuestionNumberText(
+                  quizState: quizState,
+                ),
+              )
+            : null,
         body: quizState.isLoading
             ? const Center(
                 child: LinearProgressIndicator(),
               )
-            : currentQuestion == null
+            : currentQuestion != null
                 ? const Error404()
-                : ListView(
-          padding: context.padding.normal,
-          children: [
-            QuestionContainer(currentQuestion: currentQuestion),
-
-            Padding(padding: context.padding.verticalMedium), // fixme
-
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: context.padding.verticalLow,
-                  child: AnswerButton(
-                      quizProvider: quizProvider,
-                      currentQuestion: currentQuestion,
-                      quizState: quizState,
-                      ref: ref,
-                      answerIndex: index),
-                );
-              },
-            ),
-            Padding(padding: context.padding.verticalLow), // fixme
-
-            NextButton(ref: ref, quizProvider: quizProvider),
-          ],
-        ),
+                : Text("saa")
       );
     });
   }
 }
 
+/*
+ListView(
+                    padding: context.padding.normal,
+                    children: [
+                      QuestionContainer(currentQuestion: currentQuestion),
+
+                      Padding(padding: context.padding.verticalMedium), // fixme
+
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: context.padding.verticalLow,
+                            child: AnswerButton(
+                                quizProvider: quizProvider,
+                                currentQuestion: currentQuestion,
+                                quizState: quizState,
+                                ref: ref,
+                                answerIndex: index),
+                          );
+                        },
+                      ),
+                      Padding(padding: context.padding.verticalLow), // fixme
+
+                      NextButton(ref: ref, quizProvider: quizProvider),
+                    ],
+                  ),
+ */
+
 class _QuestionNumberText extends StatelessWidget {
-  // ismi değiştir
   const _QuestionNumberText({required this.quizState});
 
   final QuizState? quizState;
