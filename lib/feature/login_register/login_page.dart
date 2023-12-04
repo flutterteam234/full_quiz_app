@@ -5,11 +5,6 @@ import 'package:riverpod_architecture/feature/login_register/register_page.dart'
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
 
-TextEditingController mail_controller = TextEditingController();
-TextEditingController password_controller = TextEditingController();
-TextEditingController name_controller = TextEditingController();
-bool passwordToggle = true;
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -18,6 +13,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController mail_controller = TextEditingController();
+  TextEditingController password_controller = TextEditingController();
+
+  bool passwordToggle = true;
+
+  @override
+  void dispose() {
+    mail_controller.dispose();
+    password_controller.dispose();
+    super.dispose();
+  }
+
   bool isVerificationCodeSent = false;
   @override
   Widget build(BuildContext context) {

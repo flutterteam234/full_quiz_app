@@ -27,14 +27,10 @@ class AuthService {
     User? user = userCredential.user;
     await user!.displayName;
     await user.reload();
-    user = firebaseAuth.currentUser;
 
     // Kullanıcı verilerinin firestore a kayıt olmasını istersek burayı kullanabiliriz.
 
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(firebaseAuth.currentUser!.uid)
-        .set({
+    FirebaseFirestore.instance.collection("users").doc(user.uid).set({
       "email": email,
       "name": name,
       "password": password,
@@ -75,6 +71,22 @@ class AuthService {
     if (user != null) {
       await user.sendEmailVerification();
       // Tekrar doğrulama kodu gönderilmesi için.
+    }
+  }
+
+  // Kullanıcı doğrulamasını kontrol etmek için
+  bool checkEmailVerification(String email) {
+    User? user = FirebaseAuth.instance.currentUser;
+    print(user.toString() + "  HAHAHAHHAHAHAHHA");
+    if (user != null && user.emailVerified) {
+      // Kullanıcı doğrulanmış bir e-posta adresine sahip
+      print('E-posta doğrulandı.');
+      return true;
+    } else {
+      // Kullanıcı henüz e-posta doğrulamasını tamamlamadı
+      AuthService().sendVerificationCode(email);
+      print('E-posta doğrulama gönderildi.');
+      return false;
     }
   }
 
