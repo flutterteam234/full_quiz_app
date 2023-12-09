@@ -18,31 +18,40 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFFa7e0d0),
-
-      /*  BoxDecoration(
-        color: Color.fromARGB(255, 64, 68, 75),
-        borderRadius: BorderRadius.circular(10),
-      ),*/
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                cursorColor: Colors.white,
-                style: Theme.of(context).textTheme.titleMedium,
-                obscureText: passwordgoz,
-                controller: _editingController,
-                decoration:
-                    InputDecoration(hintText: metin, border: InputBorder.none),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: TextField(
+            controller: _editingController,
+            obscureText: passwordgoz,
+            cursorColor: Colors.white,
+            decoration: InputDecoration(
+              iconColor: Colors.white,
+              suffixIcon: Icon(Icons.mail_outline),
+              hintText: metin,
+              labelText: metin,
+              fillColor: Colors.white,
+              hintStyle: TextStyle(color: Colors.white),
+              labelStyle: TextStyle(color: Colors.white),
+              floatingLabelStyle: TextStyle(color: Colors.white),
+              suffixIconColor: Colors.white,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.white), // Aktif durumda çizginin rengi
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        Colors.white), // Aktif olmayan durumda çizginin rengi
               ),
             ),
-            eye,
-          ],
-        ),
+          )),
+          eye,
+        ],
       ),
     );
   }
 }
+/**/
