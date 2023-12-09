@@ -6,7 +6,8 @@ class TextFieldWidget extends StatelessWidget {
       required TextEditingController editingController,
       required this.metin,
       required this.eye,
-      required this.passwordgoz})
+      required this.passwordgoz,
+      required this.icon})
       : _editingController = editingController,
         super(key: key);
 
@@ -14,35 +15,44 @@ class TextFieldWidget extends StatelessWidget {
   final String metin;
   final Padding eye;
   final bool passwordgoz;
+  final IconButton icon;
   // ignore: body_might_complete_normally_nullable
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFFa7e0d0),
-
-      /*  BoxDecoration(
-        color: Color.fromARGB(255, 64, 68, 75),
-        borderRadius: BorderRadius.circular(10),
-      ),*/
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                cursorColor: Colors.white,
-                style: Theme.of(context).textTheme.titleMedium,
-                obscureText: passwordgoz,
-                controller: _editingController,
-                decoration:
-                    InputDecoration(hintText: metin, border: InputBorder.none),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: TextField(
+            style: TextStyle(color: Colors.white),
+            controller: _editingController,
+            obscureText: passwordgoz,
+            cursorColor: Colors.white,
+            decoration: InputDecoration(
+              iconColor: Colors.white,
+              suffixIcon: icon,
+              hintText: metin,
+              fillColor: Colors.white,
+              hintStyle: TextStyle(color: Colors.white),
+              labelStyle: TextStyle(color: Colors.white),
+              floatingLabelStyle: TextStyle(color: Colors.white),
+              suffixIconColor: Colors.white,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.white), // Aktif durumda çizginin rengi
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        Colors.white), // Aktif olmayan durumda çizginin rengi
               ),
             ),
-            eye,
-          ],
-        ),
+          )),
+        ],
       ),
     );
   }
 }
+/**/
