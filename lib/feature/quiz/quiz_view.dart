@@ -34,7 +34,7 @@ class QuizView extends StatelessWidget {
 
       return Scaffold(
         backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
-        appBar: currentQuestion == null
+        appBar: currentQuestion != null
             ? AppBar(
                 actions: [
                   IconButton(
@@ -70,16 +70,9 @@ class QuizView extends StatelessWidget {
             ? const Center(
                 child: LinearProgressIndicator(),
               )
-            : currentQuestion != null
+            : currentQuestion == null
                 ? const Error404()
-                : Text("saa")
-      );
-    });
-  }
-}
-
-/*
-ListView(
+                : ListView(
                     padding: context.padding.normal,
                     children: [
                       QuestionContainer(currentQuestion: currentQuestion),
@@ -106,7 +99,10 @@ ListView(
                       NextButton(ref: ref, quizProvider: quizProvider),
                     ],
                   ),
- */
+      );
+    });
+  }
+}
 
 class _QuestionNumberText extends StatelessWidget {
   const _QuestionNumberText({required this.quizState});

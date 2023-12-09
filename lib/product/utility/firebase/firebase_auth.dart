@@ -8,6 +8,13 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_collecti
 class AuthService {
   final userCollection = FirebaseCollections.users.reference;
   final firebaseAuth = FirebaseAuth.instance;
+  User? _currentUser;
+
+  User? get currentUser => _currentUser;
+
+  AuthService() {
+    _currentUser = FirebaseAuth.instance.currentUser;
+  }
 
   void signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -91,8 +98,9 @@ class AuthService {
   }
 
   Future<void> checkLoginStatus(BuildContext context) async {
+    AuthService();
     if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(context, RouterItems.quiz.goScreen());
+      Navigator.push(context, RouterItems.leaderboard.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/home/home_view.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
 import 'package:riverpod_architecture/feature/login_register/register_page.dart';
@@ -31,6 +32,8 @@ extension PagesExtension on RouterItems {
         return const RegisterPage();
       case RouterItems.leaderboard:
         return const LeaderboardView();
+      case RouterItems.home:
+        return const HomeView();
     }
   }
 
