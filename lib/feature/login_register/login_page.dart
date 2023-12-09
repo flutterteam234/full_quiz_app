@@ -55,6 +55,14 @@ class _LoginPageState extends State<LoginPage> {
                 flex: 10,
               ),
               TextFieldWidget(
+                icon: IconButton(
+                  enableFeedback: false,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.mail_outline,
+                    color: Colors.white,
+                  ),
+                ),
                 editingController: mail_controller,
                 metin: "Email",
                 eye: const Padding(
@@ -69,9 +77,22 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   : Container(),
               const Spacer(
-                flex: 1,
+                flex: 5,
               ),
               TextFieldWidget(
+                icon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      passwordToggle == false
+                          ? passwordToggle = true
+                          : passwordToggle = false;
+                    });
+                  },
+                  icon: const Icon(
+                    Icons.remove_red_eye_outlined,
+                    color: Colors.white,
+                  ),
+                ),
                 editingController: password_controller,
                 metin: "Şifre",
                 eye: Padding(

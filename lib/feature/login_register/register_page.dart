@@ -60,6 +60,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 flex: 10,
               ),
               TextFieldWidget(
+                icon: IconButton(
+                  enableFeedback: false,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.person_outline,
+                    color: Colors.white,
+                  ),
+                ),
                 editingController: name_controller,
                 metin: "İsim",
                 eye: const Padding(
@@ -71,6 +79,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 flex: 1,
               ),
               TextFieldWidget(
+                icon: IconButton(
+                  enableFeedback: false,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.mail_outline,
+                    color: Colors.white,
+                  ),
+                ),
                 editingController: mail_controller,
                 metin: "Email",
                 eye: const Padding(
@@ -82,6 +98,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 flex: 1,
               ),
               TextFieldWidget(
+                icon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      passwordToggle == false
+                          ? passwordToggle = true
+                          : passwordToggle = false;
+                    });
+                  },
+                  icon: const Icon(
+                    Icons.remove_red_eye_outlined,
+                    color: Colors.white,
+                  ),
+                ),
                 editingController: password_controller,
                 metin: "Şifre",
                 eye: Padding(
