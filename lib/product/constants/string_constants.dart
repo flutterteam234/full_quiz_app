@@ -24,6 +24,9 @@ class StringConstants {
   // Leaderboard
   static const leaderboard = 'Leaderboard';
 
+  // Home
+  static const searchYourFavoritePlace = 'Search your favorite place...';
+
   // 404
   static const ohNo = 'Oh No!';
   static const backtoHomePageLong = 'May be bigfoot has broken this page. Come back to the homepage';

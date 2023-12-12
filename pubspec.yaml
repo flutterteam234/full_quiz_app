@@ -65,6 +65,7 @@ dependencies:
 
   #widget
   fluttertoast: ^8.2.4
+  flashy_tab_bar2: ^0.0.6
 
 
 

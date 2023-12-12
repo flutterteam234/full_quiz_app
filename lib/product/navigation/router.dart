@@ -19,6 +19,8 @@ class Routes {
   }
 }
 
+
+
 extension PagesExtension on RouterItems {
   Widget _screen() {
     switch (this) {
@@ -37,7 +39,10 @@ extension PagesExtension on RouterItems {
     }
   }
 
+  Widget get page => _screen();
+
   String get routeName => "/$name";
 
   Route goScreen() => MaterialPageRoute(builder: (_) => _screen());
 }
+

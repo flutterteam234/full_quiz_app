@@ -4,6 +4,7 @@ enum ImageConstants {
   appIcon('logo'),
   leftRoundedIcon('left_rounded'),
   error404Image('404'),
+  homePageTop1('home_page_top1')
   ;
 
   final String value;
