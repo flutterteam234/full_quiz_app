@@ -55,7 +55,7 @@ class AuthService {
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
       if (userCredential.user != null) {
-        Navigator.push(context, RouterItems.leaderboard.goScreen());
+        Navigator.push(context, RouterItems.home.goScreen());
       }
     } catch (e) {
       print("GİRİŞ YAPILAMADI");
