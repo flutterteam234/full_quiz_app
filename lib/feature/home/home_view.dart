@@ -5,7 +5,10 @@ import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/feature/home/home_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-
+import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
+import 'package:shaped_bottom_bar/shaped_bottom_bar.dart';
+import 'package:shaped_bottom_bar/utils/arrays.dart';
+import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
 import 'enum/page_enum.dart';
 
 class HomeView extends StatelessWidget {
@@ -47,7 +50,27 @@ class _BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlashyTabBar(
+    return ShapedBottomBar(
+      backgroundColor: Colors.black12,
+      iconsColor: Colors.black,
+      listItems: [
+        ShapedItemObject(iconData: Icons.add, title: "Home"),
+        ShapedItemObject(iconData: Icons.quiz, title: "Quiz"),
+        ShapedItemObject(iconData: Icons.details, title: "Details"),
+        ShapedItemObject(iconData: Icons.leaderboard, title: "Leaderboard"),
+      ],
+      onItemChanged: (position) {
+        state.pageIndex;
+      },
+      shape: ShapeType.SQUARE,
+      shapeColor: ColorConstants.smootGreen.getColor,
+      selectedIconColor: Colors.white,
+      animationType: ANIMATION_TYPE.FADE,
+    );
+  }
+}
+
+/*FlashyTabBar(
       iconSize: 22.0,
       onItemSelected: (int index) {
         ref.read(provider.notifier).changePage(index);
@@ -71,6 +94,4 @@ class _BottomBar extends StatelessWidget {
         ),
       ],
       selectedIndex: state.pageIndex,
-    );
-  }
-}
+    );*/

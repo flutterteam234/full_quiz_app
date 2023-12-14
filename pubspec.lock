@@ -621,6 +621,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.5"
+  shaped_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: shaped_bottom_bar
+      sha256: "730ac8196dc692322c0a9031247a1d639247c66abe99ab0da51e47a95506733f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   share_plus:
     dependency: transitive
     description:

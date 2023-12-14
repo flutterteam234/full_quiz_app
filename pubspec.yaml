@@ -66,6 +66,7 @@ dependencies:
   #widget
   fluttertoast: ^8.2.4
   flashy_tab_bar2: ^0.0.6
+  shaped_bottom_bar: ^1.1.0
 
 
 
