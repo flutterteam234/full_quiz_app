@@ -59,8 +59,8 @@ class _BottomBar extends StatelessWidget {
         ShapedItemObject(iconData: Icons.details, title: "Details"),
         ShapedItemObject(iconData: Icons.leaderboard, title: "Leaderboard"),
       ],
-      onItemChanged: (position) {
-        state.pageIndex;
+      onItemChanged: (int position) {
+        ref.read(provider.notifier).changePage(position);
       },
       shape: ShapeType.SQUARE,
       shapeColor: ColorConstants.smootGreen.getColor,
