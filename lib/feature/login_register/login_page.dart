@@ -42,11 +42,14 @@ class _LoginPageState extends State<LoginPage> {
               const Spacer(
                 flex: 20,
               ),
+              /*
               Image.asset(
                 ImageConstants.appIcon.toIcon,
                 height: height / 4,
                 width: width / 2,
               ),
+
+               */
               const Spacer(
                 flex: 10,
               ),

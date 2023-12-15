@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_architecture/product/constants/app_theme.dart';
 import 'package:riverpod_architecture/product/constants/settings_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:riverpod_architecture/product/initialize/app_start_init.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.getAppTheme(),
       title: StringConstants.appName,
       debugShowCheckedModeBanner: SettingsConstants.isShowDebugBanner,
       initialRoute: RouterItems.splash.routeName,

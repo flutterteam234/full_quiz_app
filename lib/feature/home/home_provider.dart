@@ -13,7 +13,7 @@ class HomeNotifier extends StateNotifier<HomeState> with FirebaseUtility {
 
 class HomeState {
   const HomeState({
-    this.pageIndex = 2,
+    this.pageIndex = 0,
   });
 
   final int pageIndex;

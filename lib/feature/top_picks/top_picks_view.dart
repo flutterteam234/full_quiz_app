@@ -64,7 +64,7 @@ class _TopPicksContainers extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Quiz",
+                      StringConstants.quiz,
                       style: GoogleFonts.baloo2(
                         color: ColorConstants.smootWhite.getColor,
                         fontSize: 18,
@@ -109,7 +109,7 @@ class _TopPicksRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Top Picks",
+              StringConstants.topPicks,
               style: GoogleFonts.baloo2(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
@@ -117,7 +117,7 @@ class _TopPicksRow extends StatelessWidget {
               ),
             ),
             Text(
-              "Let’s explore our programes",
+              StringConstants.exploreProgrames,
               style: GoogleFonts.baloo2(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
