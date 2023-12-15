@@ -7,6 +7,7 @@ import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
+import 'package:riverpod_architecture/product/widget/login_register/ButtonWidget.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -36,14 +37,9 @@ class _RegisterPageState extends State<RegisterPage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: ColorConstants.ligthGreen.getColor,
+      backgroundColor: ColorConstants.neutralWhite.getColor,
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Colors.teal.shade900,
-          Colors.teal.shade800,
-        ])),
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
@@ -63,9 +59,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 icon: IconButton(
                   enableFeedback: false,
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.person_outline,
-                    color: Colors.white,
+                    color: ColorConstants.black.getColor,
                   ),
                 ),
                 editingController: name_controller,
@@ -82,9 +78,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 icon: IconButton(
                   enableFeedback: false,
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.mail_outline,
-                    color: Colors.white,
+                    color: ColorConstants.black.getColor,
                   ),
                 ),
                 editingController: mail_controller,
@@ -106,9 +102,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           : passwordToggle = false;
                     });
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.remove_red_eye_outlined,
-                    color: Colors.white,
+                    color: ColorConstants.black.getColor,
                   ),
                 ),
                 editingController: password_controller,
@@ -124,9 +120,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               : passwordToggle = false;
                         });
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.remove_red_eye,
-                        color: Colors.grey,
+                        color: ColorConstants.black.getColor,
                       ),
                     ),
                   ),
@@ -136,106 +132,86 @@ class _RegisterPageState extends State<RegisterPage> {
               const Spacer(
                 flex: 5,
               ),
-              InkWell(
-                onTap: () async {
-                  bool success = registerUser(name_controller.text,
-                      mail_controller.text, password_controller.text);
-                  // ignore: await_only_futures
-                  logged = await AuthService()
-                      .checkEmailVerification(mail_controller.text);
+              CustomButton(
+                  onTap: () async {
+                    bool success = registerUser(name_controller.text,
+                        mail_controller.text, password_controller.text);
+                    // ignore: await_only_futures
+                    logged = await AuthService()
+                        .checkEmailVerification(mail_controller.text);
 
-                  if (success) {
-                    // ignore: use_build_context_synchronously
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: ColorConstants.ligthGreen.getColor,
-                            title: Text('Email Doğrulama',
-                                style: TextFamilyConstrants.bodyLarge.getFont),
-                            content: Text(
-                                'Lütfen mail hesabınızı kontrol ediniz ve doğrulamanızı gerçekleştiriniz.',
-                                style: TextFamilyConstrants.bodyMedium.getFont),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text("Tamam",
-                                    style:
-                                        TextFamilyConstrants.bodyLarge.getFont),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                    print(logged.toString() + "LOGGED HEHEHEHEHEH");
-                    if (logged) {
+                    if (success) {
                       // ignore: use_build_context_synchronously
-                      AuthService().signUp(context,
-                          name: name_controller.text,
-                          email: mail_controller.text,
-                          password: password_controller.text);
+                      _showMyDialog(
+                          context,
+                          "Email Doğrulama",
+                          "Lütfen mail hesabınızı kontrol ediniz ve doğrulamanızı gerçekleştiriniz.",
+                          "Tamam");
+
+                      print(logged.toString() + "LOGGED HEHEHEHEHEH");
+                      if (logged) {
+                        // ignore: use_build_context_synchronously
+                        AuthService().signUp(context,
+                            name: name_controller.text,
+                            email: mail_controller.text,
+                            password: password_controller.text);
+                      } else {
+                        print("KARDEŞİM DOĞRULAMA YAAAAAAAAAAAAP.(NOKTA)");
+                      }
                     } else {
-                      print("KARDEŞİM DOĞRULAMA YAAAAAAAAAAAAP.(NOKTA)");
+                      // ignore: use_build_context_synchronously
+                      _showMyDialog(
+                          context,
+                          "Kayıt Başarısız",
+                          "Daha güçü bir şifre belirleyiniz veya geçerli bir mail adresi giriniz lütfen.",
+                          "Tamam");
                     }
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: ColorConstants.ligthGreen.getColor,
-                            title: Text('Kayıt Başarısız',
-                                style: TextFamilyConstrants.bodyLarge.getFont),
-                            content: Text(
-                                'Daha güçü bir şifre belirleyiniz veya geçerli bir mail adresi giriniz lütfen.',
-                                style: TextFamilyConstrants.bodyMedium.getFont),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text("Tamam",
-                                    style:
-                                        TextFamilyConstrants.bodyLarge.getFont),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        });
-                  }
-                },
-                child: Card(
-                  color: Color(0xFFa7e0d0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    child: Center(
-                      child: Text(
-                        "Kayıt Ol",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+                  },
+                  text: "Kayıt Ol"),
               const Spacer(
-                flex: 40,
+                flex: 3,
               ),
               InkWell(
                 onTap: () {
                   Navigator.push(context, RouterItems.login.goScreen());
                 },
-                child: const Text(
+                child: Text(
                   "Hesabınız var mı ? Giriş Yap",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                      color: ColorConstants.black.getColor, fontSize: 16),
                 ),
               ),
               const Spacer(
-                flex: 3,
+                flex: 40,
               )
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showMyDialog(BuildContext context, String titleText, String contentText,
+      String childText) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ColorConstants.black.getColor,
+          title: Text(titleText, style: TextFamilyConstrants.bodyLarge.getFont),
+          content:
+              Text(contentText, style: TextFamilyConstrants.bodyMedium.getFont),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(childText,
+                  style: TextFamilyConstrants.bodyLarge.getFont),
+            ),
+          ],
+        );
+      },
     );
   }
 }

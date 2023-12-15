@@ -4,6 +4,7 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dar
 import 'package:riverpod_architecture/feature/login_register/register_page.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
+import 'package:riverpod_architecture/product/widget/login_register/ButtonWidget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,14 +32,9 @@ class _LoginPageState extends State<LoginPage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: ColorConstants.ligthGreen.getColor,
+      backgroundColor: ColorConstants.neutralWhite.getColor,
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Colors.teal.shade900,
-          Colors.teal.shade800,
-        ])),
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
@@ -58,9 +54,9 @@ class _LoginPageState extends State<LoginPage> {
                 icon: IconButton(
                   enableFeedback: false,
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.mail_outline,
-                    color: Colors.white,
+                    color: ColorConstants.black.getColor,
                   ),
                 ),
                 editingController: mail_controller,
@@ -73,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
               isVerificationCodeSent == true
                   ? Text(
                       "Mail adresinize doğrulama gönderildi lütfen kontrol eder misiniz.",
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: ColorConstants.darkRed.getColor),
                     )
                   : Container(),
               const Spacer(
@@ -88,9 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                           : passwordToggle = false;
                     });
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.remove_red_eye_outlined,
-                    color: Colors.white,
+                    color: ColorConstants.black.getColor,
                   ),
                 ),
                 editingController: password_controller,
@@ -106,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                               : passwordToggle = false;
                         });
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.remove_red_eye,
-                        color: Colors.grey,
+                        color: ColorConstants.black.getColor,
                       ),
                     ),
                   ),
@@ -118,27 +114,15 @@ class _LoginPageState extends State<LoginPage> {
               const Spacer(
                 flex: 5,
               ),
-              InkWell(
-                onTap: () {
-                  AuthService().signIn(context,
-                      email: mail_controller.text,
-                      password: password_controller.text);
-                },
-                child: Card(
-                  color: Color(0xFFa7e0d0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    child: Center(
-                      child: Text(
-                        "Giriş Yap",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              CustomButton(
+                  onTap: () {
+                    AuthService().signIn(context,
+                        email: mail_controller.text,
+                        password: password_controller.text);
+                  },
+                  text: "Giriş Yap"),
               const Spacer(
-                flex: 50,
+                flex: 3,
               ),
               InkWell(
                 onTap: () {
@@ -148,13 +132,14 @@ class _LoginPageState extends State<LoginPage> {
                         builder: (context) => const RegisterPage(),
                       ));
                 },
-                child: const Text(
+                child: Text(
                   "Hesabınız yok mu ? Kayıt Ol",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                      color: ColorConstants.black.getColor, fontSize: 16),
                 ),
               ),
               const Spacer(
-                flex: 3,
+                flex: 50,
               )
             ],
           ),

@@ -69,29 +69,3 @@ class _BottomBar extends StatelessWidget {
     );
   }
 }
-
-/*FlashyTabBar(
-      iconSize: 22.0,
-      onItemSelected: (int index) {
-        ref.read(provider.notifier).changePage(index);
-      },
-      items: [
-        FlashyTabBarItem(
-          icon: const Icon(Icons.add),
-          title: const Text('Home'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.quiz),
-          title: const Text('Quiz'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.details),
-          title: const Text('Details'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.leaderboard),
-          title: const Text('Leaderboard'),
-        ),
-      ],
-      selectedIndex: state.pageIndex,
-    );*/
