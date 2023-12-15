@@ -35,7 +35,7 @@ class _SplashViewState extends ConsumerState<SplashView>
     // fixme
 
     return Scaffold(
-      backgroundColor: ColorConstants.ligthGreen.getColor,
+      backgroundColor: ColorConstants.smootGreen.getColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

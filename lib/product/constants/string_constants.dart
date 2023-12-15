@@ -7,6 +7,10 @@ class StringConstants {
   // App
   static const String appName = 'Quiz Biyoloji';
 
+  // Pages
+  static const home = 'Home';
+  static const quiz = 'Quiz';
+
   // Login
   static const loginWelcome = 'Welcome 👋';
   static const loginWelcomeDetail = 'I am happy to see you';
@@ -27,9 +31,14 @@ class StringConstants {
   // Home
   static const searchYourFavoritePlace = 'Search your favorite place...';
 
+  // Top Picks
+  static const topPicks = 'Top Picks';
+  static const exploreProgrames = 'Let’s explore our programes';
+
   // 404
   static const ohNo = 'Oh No!';
-  static const backtoHomePageLong = 'May be bigfoot has broken this page. Come back to the homepage';
+  static const backtoHomePageLong =
+      'May be bigfoot has broken this page. Come back to the homepage';
   static const backtoHomePageShort = 'Back to Homepage';
 
   // Error Messages

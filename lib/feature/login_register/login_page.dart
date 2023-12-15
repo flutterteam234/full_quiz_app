@@ -31,14 +31,10 @@ class _LoginPageState extends State<LoginPage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: ColorConstants.ligthGreen.getColor,
+      backgroundColor: ColorConstants.smootGreen.getColor,
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Colors.teal.shade900,
-          Colors.teal.shade800,
-        ])),
+
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
@@ -46,11 +42,14 @@ class _LoginPageState extends State<LoginPage> {
               const Spacer(
                 flex: 20,
               ),
+              /*
               Image.asset(
                 ImageConstants.appIcon.toIcon,
                 height: height / 4,
                 width: width / 2,
               ),
+
+               */
               const Spacer(
                 flex: 10,
               ),
@@ -71,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 passwordgoz: false,
               ),
               isVerificationCodeSent == true
-                  ? Text(
+                  ? const Text(
                       "Mail adresinize doğrulama gönderildi lütfen kontrol eder misiniz.",
                       style: TextStyle(color: Colors.red),
                     )
@@ -125,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                       password: password_controller.text);
                 },
                 child: Card(
-                  color: Color(0xFFa7e0d0),
+                  color: const Color(0xFFa7e0d0),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Center(

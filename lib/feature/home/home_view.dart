@@ -1,14 +1,12 @@
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/feature/home/home_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-import 'package:shaped_bottom_bar/models/shaped_item_object.dart';
-import 'package:shaped_bottom_bar/shaped_bottom_bar.dart';
-import 'package:shaped_bottom_bar/utils/arrays.dart';
-import 'package:shaped_bottom_bar/widgets/shaped_bottom_bar_item.dart';
+import 'package:riverpod_architecture/product/constants/string_constants.dart';
+
 import 'enum/page_enum.dart';
 
 class HomeView extends StatelessWidget {
@@ -50,48 +48,65 @@ class _BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShapedBottomBar(
-      backgroundColor: Colors.black12,
-      iconsColor: Colors.black,
-      listItems: [
-        ShapedItemObject(iconData: Icons.add, title: "Home"),
-        ShapedItemObject(iconData: Icons.quiz, title: "Quiz"),
-        ShapedItemObject(iconData: Icons.details, title: "Details"),
-        ShapedItemObject(iconData: Icons.leaderboard, title: "Leaderboard"),
-      ],
-      onItemChanged: (int position) {
-        ref.read(provider.notifier).changePage(position);
-      },
-      shape: ShapeType.SQUARE,
-      shapeColor: ColorConstants.smootGreen.getColor,
-      selectedIconColor: Colors.white,
-      animationType: ANIMATION_TYPE.FADE,
-    );
+    return BottomNavigationBar(
+        currentIndex: state.pageIndex,
+        iconSize: 16,
+        unselectedItemColor: ColorConstants.black.getColor,
+        selectedItemColor: ColorConstants.smootWhite.getColor,
+        backgroundColor: ColorConstants.smootWhite.getColor,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: (index) {
+          ref.read(provider.notifier).changePage(index);
+        },
+        items: [
+
+          BottomNavigationBarItem(
+              icon: _getBottomBarItem(StringConstants.home, Icons.home_outlined,
+                  state.pageIndex == 0, context),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: _getBottomBarItem(StringConstants.quiz, Icons.quiz_outlined,
+                  state.pageIndex == 1, context),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: _getBottomBarItem(StringConstants.leaderboard,
+                  Icons.leaderboard_outlined, state.pageIndex == 2, context),
+              label: ''),
+        ]);
+  }
+
+  Widget _getBottomBarItem(
+      String title, IconData iconData, bool isSelected, BuildContext context) {
+    return AnimatedSwitcher(
+        duration: const Duration(seconds: 1),
+        child: Container(
+          key: ValueKey<int>(state.pageIndex),
+          padding: context.padding.low,
+          width: context.sized.dynamicWidth(0.2),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? ColorConstants.black.getColor
+                : ColorConstants.smootWhite.getColor,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Column(
+            children: [
+              Icon(
+                iconData,
+                color: isSelected
+                    ? ColorConstants.smootWhite.getColor
+                    : ColorConstants.black.getColor,
+              ),
+              Text(title,
+                  style: GoogleFonts.baloo2(
+                    fontSize: 12,
+                    color: isSelected
+                        ? ColorConstants.smootWhite.getColor
+                        : ColorConstants.black.getColor,
+                  )),
+            ],
+          ),
+        ));
   }
 }
-
-/*FlashyTabBar(
-      iconSize: 22.0,
-      onItemSelected: (int index) {
-        ref.read(provider.notifier).changePage(index);
-      },
-      items: [
-        FlashyTabBarItem(
-          icon: const Icon(Icons.add),
-          title: const Text('Home'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.quiz),
-          title: const Text('Quiz'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.details),
-          title: const Text('Details'),
-        ),
-        FlashyTabBarItem(
-          icon: const Icon(Icons.leaderboard),
-          title: const Text('Leaderboard'),
-        ),
-      ],
-      selectedIndex: state.pageIndex,
-    );*/
