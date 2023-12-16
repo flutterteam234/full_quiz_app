@@ -7,7 +7,9 @@ import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.d
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 
 class UserBox extends StatelessWidget {
-  const UserBox({Key? key, required this.ref ,required this.state, required this.index}) : super(key: key);
+  const UserBox(
+      {Key? key, required this.ref, required this.state, required this.index})
+      : super(key: key);
 
   final WidgetRef ref;
   final LeaderboardState state;
@@ -45,7 +47,7 @@ class UserBox extends StatelessWidget {
               Padding(
                 padding: context.padding.onlyRightLow,
                 child: Text(
-                   state.allUserTotalContents![index]!.userName!,
+                  state.allUserTotalContents![index]!.userName!,
                   style: GoogleFonts.baloo2(
                     fontSize: 17,
                     fontWeight: FontWeight.w500,
@@ -56,11 +58,22 @@ class UserBox extends StatelessWidget {
           ),
           Padding(
             padding: context.padding.onlyRightLow,
-            child: Text(
-              "${getTotalPoint(state.allUserTotalContents!, index)}",
-              style: GoogleFonts.baloo2(
-                fontWeight: FontWeight.w500,
-                fontSize: 17,
+            child: RichText(
+              text: TextSpan(
+                text: "${getTotalPoint(state.allUserTotalContents!, index)} ",
+                style: GoogleFonts.baloo2(
+                  color: ColorConstants.black.getColor,
+                  fontWeight: FontWeight.w500,
+                  wordSpacing: 1,
+                  fontSize: 17,
+                ),
+                children: [
+                  TextSpan(
+                    text: "pts",
+                    style: TextStyle(
+                        color: ColorConstants.black.getColor, fontSize: 13),
+                  ),
+                ],
               ),
             ),
           ),

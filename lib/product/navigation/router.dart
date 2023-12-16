@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/feature/app_notifications/app_notifications_view.dart';
 import 'package:riverpod_architecture/feature/home/home_view.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
@@ -19,8 +20,6 @@ class Routes {
   }
 }
 
-
-
 extension PagesExtension on RouterItems {
   Widget _screen() {
     switch (this) {
@@ -36,6 +35,8 @@ extension PagesExtension on RouterItems {
         return const LeaderboardView();
       case RouterItems.home:
         return const HomeView();
+      case RouterItems.appNotifications:
+        return const AppNotificationsView();
     }
   }
 
@@ -45,4 +46,3 @@ extension PagesExtension on RouterItems {
 
   Route goScreen() => MaterialPageRoute(builder: (_) => _screen());
 }
-

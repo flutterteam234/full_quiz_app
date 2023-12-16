@@ -31,7 +31,7 @@ class LeaderboardView extends StatelessWidget {
           centerTitle: true,
           title: Text(StringConstants.leaderboard,
               style: GoogleFonts.baloo2(
-                  color: Color(ColorConstants.white.toRgba),
+                  color: Color(ColorConstants.smootWhite.toRgba),
                   fontWeight: FontWeight.bold)),
           backgroundColor: Colors.transparent,
           leadingWidth: 100,
@@ -51,6 +51,7 @@ class LeaderboardView extends StatelessWidget {
               )
             : Column(
                 children: [
+                  Padding(padding: context.padding.verticalLow),
                   _TopThreeRow(ref: ref, state: leaderboardState),
                   Expanded(
                     child: Align(
@@ -140,7 +141,7 @@ class _TopThreeRow extends StatelessWidget {
                     color: Color(ColorConstants.ligthGreen.toRgba), width: 2),
                 shape: BoxShape.circle,
               ),
-              child: Icon(size: 75, Icons.person),
+              child: const Icon(size: 75, Icons.person), // profil resmi eklenicek
             ),
             Padding(
               padding: context.padding.horizontalLow,
