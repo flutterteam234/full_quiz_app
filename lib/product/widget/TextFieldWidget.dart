@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/product/constants/color_constants.dart';
+import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget(
@@ -26,27 +28,29 @@ class TextFieldWidget extends StatelessWidget {
         children: [
           Expanded(
               child: TextField(
-            style: TextStyle(color: Colors.white),
+            style: TextFamilyConstrants.bodyLargeBlack.getFont,
             controller: _editingController,
             obscureText: passwordgoz,
-            cursorColor: Colors.white,
+            cursorColor: ColorConstants.black.getColor,
             decoration: InputDecoration(
-              iconColor: Colors.white,
+              iconColor: ColorConstants.black.getColor,
               suffixIcon: icon,
               hintText: metin,
-              fillColor: Colors.white,
-              hintStyle: TextStyle(color: Colors.white),
-              labelStyle: TextStyle(color: Colors.white),
-              floatingLabelStyle: TextStyle(color: Colors.white),
-              suffixIconColor: Colors.white,
+              fillColor: ColorConstants.black.getColor,
+              hintStyle: TextFamilyConstrants.bodyLargeBlack.getFont,
+              labelStyle: TextFamilyConstrants.bodyLargeBlack.getFont,
+              floatingLabelStyle:
+                  TextStyle(color: ColorConstants.black.getColor),
+              suffixIconColor: ColorConstants.black.getColor,
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                    color: Colors.white), // Aktif durumda çizginin rengi
+                    color: ColorConstants
+                        .black.getColor), // Aktif durumda çizginin rengi
               ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                    color:
-                        Colors.white), // Aktif olmayan durumda çizginin rengi
+                    color: ColorConstants.black
+                        .getColor), // Aktif olmayan durumda çizginin rengi
               ),
             ),
           )),
