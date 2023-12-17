@@ -17,7 +17,6 @@ class ApplicationStart {
       [EmailAuthProvider()],
     );
 
-    await AppCache.instance.setup();
     await Future.delayed(const Duration(seconds: 1));
   }
 }

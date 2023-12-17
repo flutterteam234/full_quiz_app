@@ -11,9 +11,6 @@ import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
-import 'package:riverpod_architecture/product/navigation/router.dart';
-import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
 class QuizView extends StatelessWidget {
@@ -33,17 +30,10 @@ class QuizView extends StatelessWidget {
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
 
       return Scaffold(
-        backgroundColor: Color(ColorConstants.ligthGrey.toRgba),
+        backgroundColor: Color(ColorConstants.smootGreen.toRgba),
         appBar: currentQuestion != null
             ? AppBar(
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        AuthService().signOut();
-                        Navigator.push(context, RouterItems.login.goScreen());
-                      },
-                      icon: const Icon(Icons.close))
-                ],
+                backgroundColor: Colors.transparent,
                 leadingWidth: 100,
                 leading: Row(
                   children: [
@@ -76,9 +66,7 @@ class QuizView extends StatelessWidget {
                     padding: context.padding.normal,
                     children: [
                       QuestionContainer(currentQuestion: currentQuestion),
-
-                      Padding(padding: context.padding.verticalMedium), // fixme
-
+                      Padding(padding: context.padding.verticalLow),
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: 4,
@@ -94,8 +82,7 @@ class QuizView extends StatelessWidget {
                           );
                         },
                       ),
-                      Padding(padding: context.padding.verticalLow), // fixme
-
+                      Padding(padding: context.padding.verticalLow),
                       NextButton(ref: ref, quizProvider: quizProvider),
                     ],
                   ),

@@ -12,6 +12,7 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         color: ColorConstants.smootWhite.getColor,
       ),
+
     );
   }
 }

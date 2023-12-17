@@ -24,7 +24,9 @@ class QuestionContainer extends StatelessWidget {
               });
         },
         child: Container(alignment: Alignment.center,
-
+          constraints: BoxConstraints(
+            minHeight: context.sized.dynamicHeight(0.2),
+          ),
           padding: EdgeInsets.symmetric(horizontal: context.sized.lowValue, vertical: context.sized.mediumValue),
           decoration: BoxDecoration(
             boxShadow: [

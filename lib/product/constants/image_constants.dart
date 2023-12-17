@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 enum ImageConstants {
+  appIcon('logo'),
+  homePageTop1('home_page_top1'),
   emailIcon('emailicon'),
   homeIcon('home'),
   playlistIcon('playlist'),
   trophyIcon('trophy'),
+  error404Image('404'),
+  leftRoundedIcon('left_rounded')
   ;
 
   final String value;

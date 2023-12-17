@@ -39,6 +39,9 @@ class AnswerButton extends StatelessWidget {
           duration: const Duration(milliseconds: 500),
           child: Container(
             key: ValueKey<bool>(quizState.isPress),
+            constraints: BoxConstraints(
+              minHeight: context.sized.dynamicHeight(0.1), 
+            ),
             decoration: BoxDecoration(
               color: getAnswerContainerBackgroundColor(),
               borderRadius: BorderRadius.circular(20),

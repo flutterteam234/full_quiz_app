@@ -6,7 +6,6 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_collecti
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
 
-
 class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
 
