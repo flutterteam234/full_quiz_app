@@ -33,7 +33,6 @@ class TopPicksView extends StatelessWidget {
   }
 }
 
-
 class _TopPicksContainers extends StatelessWidget {
   const _TopPicksContainers({Key? key}) : super(key: key);
 
@@ -52,7 +51,7 @@ class _TopPicksContainers extends StatelessWidget {
                 height: context.sized.dynamicHeight(0.2),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(ImageConstants.homePageTop1.toImage),
+                    image: AssetImage(ImageConstants.homeIcon.toImage),
                     fit: BoxFit.cover,
                   ),
                   color: ColorConstants.smootWhite.getColor,

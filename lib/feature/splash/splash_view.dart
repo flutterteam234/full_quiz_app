@@ -7,7 +7,6 @@ import 'package:kartal/kartal.dart';
 
 import '../../product/utility/firebase/firebase_auth.dart';
 
-
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
 
