@@ -15,11 +15,11 @@ class Error404 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset(
+          /*    Image.asset(
             ImageConstants.error404Image.toImage,
             height: context.sized.dynamicHeight(0.4),
             width: context.sized.dynamicWidth(0.6),
-          ),
+          ),*/
           Column(
             children: [
               Text(
