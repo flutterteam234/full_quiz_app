@@ -30,7 +30,7 @@ class QuizView extends StatelessWidget {
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
 
       return Scaffold(
-        backgroundColor: Color(ColorConstants.smootGreen.toRgba),
+        backgroundColor: Color(ColorConstants.lightSilver.toRgba),
         appBar: currentQuestion != null
             ? AppBar(
                 backgroundColor: Colors.transparent,

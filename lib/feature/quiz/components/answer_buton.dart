@@ -25,10 +25,13 @@ class AnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AnswerModel currentAnswerData =
+        quizState.pastAnswersData[quizState.currentIndex];
+
     return InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          if (quizState.isPress) return;
+          if (currentAnswerData.isPress) return;
           if (questionCheck(answerIndex, quizState.currentIndex)) {
             ref.read(quizProvider.notifier).setIsAnswerTrue();
           }
@@ -38,12 +41,12 @@ class AnswerButton extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
           child: Container(
-            key: ValueKey<bool>(quizState.isPress),
+            key: ValueKey<bool>(currentAnswerData.isPress),
             constraints: BoxConstraints(
-              minHeight: context.sized.dynamicHeight(0.1), 
+              minHeight: context.sized.dynamicHeight(0.1),
             ),
             decoration: BoxDecoration(
-              color: getAnswerContainerBackgroundColor(),
+              color: getAnswerContainerBackgroundColor(currentAnswerData),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
@@ -59,11 +62,11 @@ class AnswerButton extends StatelessWidget {
                       style: GoogleFonts.baloo2(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: getAnswerContainerTextColor(),
+                        color: getAnswerContainerTextColor(currentAnswerData),
                       ),
                     ),
                   ),
-                  buildTrailingIcon(),
+                  buildTrailingIcon(currentAnswerData),
                 ],
               ),
             ),
@@ -85,17 +88,17 @@ class AnswerButton extends StatelessWidget {
     }
   }
 
-  Widget buildTrailingIcon() {
+  Widget buildTrailingIcon(AnswerModel currentAnswerData) {
     bool isQuestion =
         questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
-    if (isQuestion && quizState.isPress) {
+    if (isQuestion && currentAnswerData.isPress) {
       return Icon(
         Icons.check_circle,
         color: Color(ColorConstants.ligthGreen.toRgba),
       );
-    } else if (answerIndex == quizState.selectedAnswerIndex &&
-        quizState.isPress) {
+    } else if (answerIndex == currentAnswerData.selectedAnswerIndex &&
+        currentAnswerData.isPress) {
       return Icon(Icons.remove_circle_outline,
           color: Color(ColorConstants.darkRed.toRgba));
     } else {
@@ -103,32 +106,31 @@ class AnswerButton extends StatelessWidget {
     }
   }
 
-  Color getAnswerContainerBackgroundColor() {
+  Color getAnswerContainerBackgroundColor(AnswerModel currentAnswerData) {
     bool isQuestion =
         questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
-    if (isQuestion && quizState.isPress) {
+    if (isQuestion && currentAnswerData.isPress) {
       return Color(ColorConstants.smootGreen.toRgba);
-    } else if (answerIndex == quizState.selectedAnswerIndex &&
-        quizState.isPress) {
+    } else if (answerIndex == currentAnswerData.selectedAnswerIndex &&
+        currentAnswerData.isPress) {
       return Color(ColorConstants.lightRed.toRgba);
     } else {
       return Color(ColorConstants.white.toRgba);
     }
   }
 
-  Color getAnswerContainerTextColor() {
+  Color getAnswerContainerTextColor(AnswerModel currentAnswerData) {
     bool isQuestion =
         questionCheck(answerIndex, currentQuestion.correctQuestionIndex!);
 
-    if (isQuestion && quizState.isPress) {
+    if (isQuestion && currentAnswerData.isPress) {
       return Color(ColorConstants.ligthGreen.toRgba);
-    } else if (answerIndex == quizState.selectedAnswerIndex &&
-        quizState.isPress) {
+    } else if (answerIndex == currentAnswerData.selectedAnswerIndex &&
+        currentAnswerData.isPress) {
       return Color(ColorConstants.darkRed.toRgba);
     } else {
       return Color(ColorConstants.black.toRgba);
     }
   }
 }
-

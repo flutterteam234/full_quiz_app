@@ -5,32 +5,41 @@ import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptio
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
-
 class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
 
   Future<void> loadQuestions() async {
     try {
-      CollectionReference questions = FirebaseCollections.questions.reference;
+      final List<Questions?>? questions = await fetchList<Questions, Questions>(
+        Questions(),
+        FirebaseCollections.questions,
+      );
 
-      final response = await questions.withConverter<Questions?>(
-        fromFirestore: (snapshot, options) {
-          return Questions().fromFirebase(snapshot);
-        },
-        toFirestore: (value, options) {
-          return value!.toJson();
-        },
-      ).get();
+      if (questions != null) {
+        addQuestions(questions);
+        addAnswerData();
 
-      if (response.docs.isNotEmpty) {
-        final value = response.docs.map((e) => e.data()).toList();
-
-        addQuestions(value);
         await Future.delayed(const Duration(seconds: 1));
         setLoading(false);
       }
     } catch (error) {
       throw FirebaseCustomExceptions('$error null');
+    }
+  }
+
+  void addAnswerData() {
+    if (state.questions != null) {
+      final List<AnswerModel> newAnswers = List.generate(
+        state.questions!.length,
+        (index) => AnswerModel(
+          isAnswerTrue: false,
+          selectedAnswerIndex: 4,
+          isPress: false,
+        ),
+      );
+
+      state = state
+          .copyWith(pastAnswersData: [...state.pastAnswersData, ...newAnswers]);
     }
   }
 
@@ -41,13 +50,11 @@ class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   void nextQuestion() {
     if (state.currentIndex >= state.questions!.length - 1) return;
     state = state.copyWith(currentIndex: state.currentIndex + 1);
-    resetVeriables();
   }
 
   void previousQuestion() {
     if (state.currentIndex <= 0) return;
     state = state.copyWith(currentIndex: state.currentIndex - 1);
-    resetVeriables();
   }
 
   void setLoading(bool isLoading) {
@@ -56,63 +63,90 @@ class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
 
   void setSelectedAnswerIndex(int index) {
     if (index < 0 || index > 4) return;
-    state = state.copyWith(selectedAnswerIndex: index);
+    final List<AnswerModel> updatedPastAnswersData =
+        List.from(state.pastAnswersData);
+    updatedPastAnswersData[state.currentIndex] =
+        updatedPastAnswersData[state.currentIndex] = AnswerModel(
+      isAnswerTrue: updatedPastAnswersData[state.currentIndex].isAnswerTrue,
+      selectedAnswerIndex: index,
+      isPress: updatedPastAnswersData[state.currentIndex].isPress,
+    );
+
+    state = state.copyWith(pastAnswersData: updatedPastAnswersData);
   }
 
   void setIsAnswerTrue() {
-    state = state.copyWith(isAnswerTrue: !state.isAnswerTrue);
+    final List<AnswerModel> updatedPastAnswersData =
+        List.from(state.pastAnswersData);
+    updatedPastAnswersData[state.currentIndex] =
+        updatedPastAnswersData[state.currentIndex] = AnswerModel(
+      isAnswerTrue: !updatedPastAnswersData[state.currentIndex].isAnswerTrue,
+      selectedAnswerIndex:
+          updatedPastAnswersData[state.currentIndex].selectedAnswerIndex,
+      isPress: updatedPastAnswersData[state.currentIndex].isPress,
+    );
+    state = state.copyWith(pastAnswersData: updatedPastAnswersData);
   }
 
   void setIsPress() {
-    state = state.copyWith(isPress: !state.isPress);
-  }
-
-  void resetVeriables() {
-    state = state.copyWith(
-        isPress: false, isAnswerTrue: false, selectedAnswerIndex: 4);
+    final List<AnswerModel> updatedPastAnswersData =
+        List.from(state.pastAnswersData);
+    updatedPastAnswersData[state.currentIndex] =
+        updatedPastAnswersData[state.currentIndex] = AnswerModel(
+      isAnswerTrue: updatedPastAnswersData[state.currentIndex].isAnswerTrue,
+      selectedAnswerIndex:
+          updatedPastAnswersData[state.currentIndex].selectedAnswerIndex,
+      isPress: !updatedPastAnswersData[state.currentIndex].isPress,
+    );
+    state = state.copyWith(pastAnswersData: updatedPastAnswersData);
   }
 }
 
 class QuizState {
-  const QuizState(
-      {this.questions,
-        this.isLoading = true,
-        this.currentIndex = 0,
-        this.isAnswerTrue = false,
-        this.selectedAnswerIndex = 4,
-        this.isPress = false});
+  const QuizState({
+    this.questions,
+    this.pastAnswersData = const [],
+    this.isLoading = true,
+    this.currentIndex = 0,
+  });
 
   final List<Questions?>? questions;
+  final List<AnswerModel> pastAnswersData;
   final bool isLoading;
   final int currentIndex;
+
+  List<Object?> get props => [
+        questions,
+        pastAnswersData,
+        isLoading,
+        currentIndex,
+      ];
+
+  QuizState copyWith({
+    List<Questions?>? questions,
+    List<AnswerModel>? pastAnswersData,
+    bool? isLoading,
+    int? currentIndex,
+  }) {
+    return QuizState(
+      questions: questions ?? this.questions,
+      pastAnswersData: pastAnswersData ?? this.pastAnswersData,
+      isLoading: isLoading ?? this.isLoading,
+      currentIndex: currentIndex ?? this.currentIndex,
+    );
+  }
+}
+
+
+class AnswerModel {
   final bool isAnswerTrue;
   final int selectedAnswerIndex;
   final bool isPress;
 
-  List<Object?> get props => [
-    questions,
-    isLoading,
-    currentIndex,
-    isAnswerTrue,
-    selectedAnswerIndex,
-    isPress
-  ];
-
-  QuizState copyWith({
-    List<Questions?>? questions,
-    bool? isLoading,
-    int? currentIndex,
-    bool? isAnswerTrue,
-    int? selectedAnswerIndex,
-    bool? isPress,
-  }) {
-    return QuizState(
-      questions: questions ?? this.questions,
-      isLoading: isLoading ?? this.isLoading,
-      currentIndex: currentIndex ?? this.currentIndex,
-      isAnswerTrue: isAnswerTrue ?? this.isAnswerTrue,
-      selectedAnswerIndex: selectedAnswerIndex ?? this.selectedAnswerIndex,
-      isPress: isPress ?? this.isPress,
-    );
-  }
+  AnswerModel({
+    required this.isAnswerTrue,
+    required this.selectedAnswerIndex,
+    required this.isPress,
+  });
 }
+
