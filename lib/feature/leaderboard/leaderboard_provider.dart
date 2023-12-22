@@ -7,14 +7,19 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_collecti
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
 import '../../product/models/user.dart';
+import '../home/DataLoadManager.dart';
 
 class LeaderboardNotifier extends StateNotifier<LeaderboardState>
     with FirebaseUtility {
   LeaderboardNotifier() : super(const LeaderboardState());
 
+
   Future<void> loadPointsAndUsers() async {
     try {
-      CollectionReference pointsCollection = FirebaseCollections.points.reference;
+
+
+      CollectionReference pointsCollection =
+          FirebaseCollections.points.reference;
 
       final response = await pointsCollection.withConverter<Points?>(
         fromFirestore: (snapshot, options) {
@@ -95,7 +100,7 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
   Future<UserData?> loadUser(String userId) async {
     try {
       DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('users').doc(userId);
+          FirebaseFirestore.instance.collection('users').doc(userId);
 
       final response = await userDocRef.withConverter<UserData?>(
         fromFirestore: (snapshot, options) {

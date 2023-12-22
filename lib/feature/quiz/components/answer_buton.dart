@@ -47,7 +47,7 @@ class AnswerButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: context.padding.low,
+              padding: context.padding.onlyLeftLow + context.padding.onlyTopLow,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -131,3 +131,4 @@ class AnswerButton extends StatelessWidget {
     }
   }
 }
+

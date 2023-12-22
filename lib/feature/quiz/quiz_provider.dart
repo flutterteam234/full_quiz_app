@@ -76,11 +76,11 @@ class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
 class QuizState {
   const QuizState(
       {this.questions,
-      this.isLoading = true,
-      this.currentIndex = 0,
-      this.isAnswerTrue = false,
-      this.selectedAnswerIndex = 4,
-      this.isPress = false});
+        this.isLoading = true,
+        this.currentIndex = 0,
+        this.isAnswerTrue = false,
+        this.selectedAnswerIndex = 4,
+        this.isPress = false});
 
   final List<Questions?>? questions;
   final bool isLoading;
@@ -90,13 +90,13 @@ class QuizState {
   final bool isPress;
 
   List<Object?> get props => [
-        questions,
-        isLoading,
-        currentIndex,
-        isAnswerTrue,
-        selectedAnswerIndex,
-        isPress
-      ];
+    questions,
+    isLoading,
+    currentIndex,
+    isAnswerTrue,
+    selectedAnswerIndex,
+    isPress
+  ];
 
   QuizState copyWith({
     List<Questions?>? questions,
