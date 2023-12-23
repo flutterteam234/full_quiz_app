@@ -8,6 +8,7 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dar
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/widget/TextFieldWidget.dart';
 import 'package:riverpod_architecture/product/widget/login_register/ButtonWidget.dart';
+import 'profile_photo_add.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -22,7 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController name_controller = TextEditingController();
 
   bool passwordToggle = true;
-  bool logged = false;
 
   @override
   void dispose() {
@@ -137,8 +137,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     bool success = registerUser(name_controller.text,
                         mail_controller.text, password_controller.text);
                     // ignore: await_only_futures
-                    logged = await AuthService()
-                        .checkEmailVerification(mail_controller.text);
 
                     if (success) {
                       // ignore: use_build_context_synchronously
@@ -148,16 +146,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           "Lütfen mail hesabınızı kontrol ediniz ve doğrulamanızı gerçekleştiriniz.",
                           "Tamam");
 
-                      print(logged.toString() + "LOGGED HEHEHEHEHEH");
-                      if (logged) {
-                        // ignore: use_build_context_synchronously
-                        AuthService().signUp(context,
-                            name: name_controller.text,
-                            email: mail_controller.text,
-                            password: password_controller.text);
-                      } else {
-                        print("KARDEŞİM DOĞRULAMA YAAAAAAAAAAAAP.(NOKTA)");
-                      }
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PPAdd(
+                                name: name_controller.text,
+                                mail: mail_controller.text,
+                                password: password_controller.text),
+                          ));
                     } else {
                       // ignore: use_build_context_synchronously
                       _showMyDialog(
