@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
+import 'package:riverpod_architecture/feature/leaderboard/components/custom_circle_avatar.dart';
 import 'package:riverpod_architecture/feature/leaderboard/components/custom_clip_oval.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
@@ -85,24 +86,19 @@ class _TopThreeRow extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: _buildProfileContainer(
-                context,
-                getProfilName(0),
-              ),
+              child: _buildProfileContainer(context, state, 0),
             ),
             Align(
               alignment: Alignment.topCenter,
               child: _buildProfileContainer(
                 context,
-                getProfilName(1),
+                state,
+                1,
               ),
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: _buildProfileContainer(
-                context,
-                getProfilName(2),
-              ),
+              child: _buildProfileContainer(context, state, 2),
             )
           ],
         ));
@@ -129,24 +125,26 @@ class _TopThreeRow extends StatelessWidget {
     }
   }
 
-  Widget _buildProfileContainer(BuildContext context, String text) {
+  Widget _buildProfileContainer(
+      BuildContext context, LeaderboardState state, int index) {
     return SizedBox(
         height: 100,
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: Color(ColorConstants.smootWhite.toRgba),
-                border: Border.all(
-                    color: Color(ColorConstants.ligthGreen.toRgba), width: 2),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(size: 75, Icons.person), // profil resmi eklenicek
-            ),
+                decoration: BoxDecoration(
+                  color: Color(ColorConstants.smootWhite.toRgba),
+                  shape: BoxShape.circle,
+                ),
+                child: CustomCircleAvatar(
+                  state: state,
+                  index: index,
+                  radius: 30.0,
+                )),
             Padding(
               padding: context.padding.horizontalLow,
             ),
-            Text(text,
+            Text(state.allUserTotalContents![index]!.userName.toString(),
                 style: GoogleFonts.baloo2(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

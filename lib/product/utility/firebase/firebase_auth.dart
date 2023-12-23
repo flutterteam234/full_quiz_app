@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
+
+import '../../navigation/enum/router_items.dart';
 
 class AuthService {
   final userCollection = FirebaseCollections.users.reference;
@@ -30,48 +30,25 @@ class AuthService {
   Future<User?> signUp(BuildContext context,
       {required String name,
       required String email,
-      required String password,
-      File? imageFile}) async {
-    try {
-      final UserCredential userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .catchError((e) => print(e));
-      User? user = userCredential.user;
-      await user!.displayName;
-      await user.reload();
+      required String password, File? imageFile}) async {
+    final UserCredential userCredential = await firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .catchError((e) => print(e));
+    User? user = userCredential.user;
+    await user!.displayName;
+    await user.reload();
 
-      // Fotoğrafı Firebase Storage'a yükle
-      if (imageFile != null) {
-        firebase_storage.Reference ref = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child('user_images')
-            .child('${user.uid}.jpg');
+    // Kullanıcı verilerinin firestore a kayıt olmasını istersek burayı kullanabiliriz.
 
-        await ref.putFile(imageFile);
-        String photoURL = await ref.getDownloadURL();
+    FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+      "email": email,
+      "name": name,
+      "password": password,
+    }).catchError((error) => print(error));
 
-        // Firestore'a fotoğrafın URL'sini kaydet
-        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-          "email": email,
-          "name": name,
-          "password": password,
-          "photoURL": photoURL, // Fotoğrafın URL'sini Firestore'a kaydet
-        });
-      } else {
-        // Kullanıcı verilerinin firestore a kayıt olmasını istersek burayı kullanabiliriz.
-        FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-          "email": email,
-          "name": name,
-          "password": password,
-        }).catchError((error) => print(error));
-      }
-      Navigator.push(context, RouterItems.home.goScreen());
+    Navigator.push(context, RouterItems.leaderboard.goScreen());
 
-      return userCredential.user;
-    } catch (e) {
-      throw Exception(e);
-    }
+    return userCredential.user;
   }
 
   Future<void> signIn(BuildContext context,

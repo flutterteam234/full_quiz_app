@@ -6,19 +6,21 @@ import 'package:riverpod_architecture/product/utility/base/base_firebase_model.d
 import '../../../product/models/user.dart';
 
 @immutable
-class UserTotalContent extends Equatable with IdModel, BaseFirebaseModel<UserTotalContent> {
+class UserTotalContent extends Equatable
+    with IdModel, BaseFirebaseModel<UserTotalContent> {
   const UserTotalContent(
       {this.id,
       this.pointData,
       this.userName,
       this.userEmail,
-      this.userPassword});
-
+      this.userPassword,
+      this.profilUrl});
 
   final List<Points?>? pointData;
   final String? userName;
   final String? userEmail;
   final String? userPassword;
+  final String? profilUrl;
   @override
   final String? id;
 
@@ -32,12 +34,14 @@ class UserTotalContent extends Equatable with IdModel, BaseFirebaseModel<UserTot
     String? userName,
     String? userEmail,
     String? userPassword,
+    String? profilUrl,
   }) {
     return UserTotalContent(
         id: id ?? id,
         pointData: pointData ?? pointData,
         userEmail: userEmail,
         userName: userName,
+        profilUrl: profilUrl,
         userPassword: userPassword);
   }
 
@@ -48,6 +52,7 @@ class UserTotalContent extends Equatable with IdModel, BaseFirebaseModel<UserTot
       'userName': userName,
       'userEmail': userEmail,
       'userPassword': userPassword,
+      'profilUrl': profilUrl,
     };
   }
 
@@ -59,6 +64,7 @@ class UserTotalContent extends Equatable with IdModel, BaseFirebaseModel<UserTot
       userName: json['userName'] as String?,
       userEmail: json['userEmail'] as String?,
       userPassword: json['userPassword'] as String?,
+      profilUrl: json['profilUrl'] as String?,
     );
   }
 }

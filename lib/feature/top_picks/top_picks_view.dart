@@ -45,8 +45,7 @@ class _TopPicksContainers extends StatelessWidget {
       child: Column(
         children: [
           TopPickContainer(
-              backgroundImage:
-                  AssetImage(ImageConstants.homePageTop1.toImage),
+              backgroundImage: AssetImage(ImageConstants.homePageTop1.toImage),
               title: 'Quiz',
               navigatePage: RouterItems.leaderboard),
           Padding(padding: context.padding.onlyTopLow),
@@ -154,7 +153,10 @@ class _Header extends StatelessWidget {
             ),
           ],
         ),
-        CircleAvatar(backgroundColor: ColorConstants.white.getColor),
+        InkWell(
+          onTap: () {},
+          child: CircleAvatar(backgroundColor: ColorConstants.white.getColor),
+        )
       ],
     );
   }
