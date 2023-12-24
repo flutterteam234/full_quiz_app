@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
+import 'package:kartal/kartal.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -14,19 +16,23 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(20),
       onTap: onTap,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
         ),
-        color: ColorConstants.black.getColor,
+        color: ColorConstants.smootGreen.getColor,
         child: Padding(
-          padding: const EdgeInsets.only(top: 23, bottom: 23),
+          padding: EdgeInsets.symmetric(vertical: context.sized.mediumValue),
           child: Center(
             child: Text(
               text,
-              style:
-                  TextStyle(color: ColorConstants.white.getColor, fontSize: 18),
+              style: GoogleFonts.baloo2(
+                color: ColorConstants.black.getColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

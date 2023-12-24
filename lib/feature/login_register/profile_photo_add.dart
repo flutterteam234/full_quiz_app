@@ -1,24 +1,25 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
+import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sweep_animation_button/sweep_animation_button.dart';
-
+import 'package:kartal/kartal.dart';
 import '../../product/constants/image_constants.dart';
 
 File? changedPhoto;
 
 class PPAdd extends StatefulWidget {
-  const PPAdd(
-      {required this.name,
-      required this.mail,
-      required this.password,
-      super.key});
-  final String name;
-  final String mail;
-  final String password;
+  const PPAdd({this.name, this.mail, this.password, super.key});
+
+  final String? name;
+  final String? mail;
+  final String? password;
 
   @override
   State<PPAdd> createState() => _PPAddState();
@@ -26,6 +27,7 @@ class PPAdd extends StatefulWidget {
 
 class _PPAddState extends State<PPAdd> {
   final picker = ImagePicker();
+
   Future<void> choicePhoto() async {
     final secilenResim = await picker.pickImage(source: ImageSource.gallery);
 
@@ -40,109 +42,118 @@ class _PPAddState extends State<PPAdd> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: ColorConstants.neutralWhite.getColor,
       appBar: AppBar(
-        title: Text("Profil Fotoğrafını Seç",
-            style: Theme.of(context).textTheme.titleLarge),
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(context, RouterItems.register.goScreen());
+          },
+          child: Icon(Icons.arrow_back_ios_outlined,
+              color: ColorConstants.smootGreen.getColor, size: 25),
+        ),
+        title: Text(StringConstants.selectPhoto,
+            style: GoogleFonts.baloo2(
+              color: ColorConstants.ligthGreen.getColor,
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+            )),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: Center(
         child: Column(
           children: [
             Image.asset(
               ImageConstants.appIcon.toIcon,
-              height: height / 4,
-              width: width / 2,
+              height: context.sized.dynamicHeight(0.25),
+              width: context.sized.dynamicWidth(0.5),
             ),
-            Center(
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Theme.of(context).iconTheme.color,
-                    radius: 90,
-                    child: changedPhoto == null
-                        ? const CircleAvatar(
-                            radius: 85,
-                            backgroundImage: NetworkImage(
-                                "https://i.pinimg.com/564x/2a/2e/7f/2a2e7f0f60b750dfb36c15c268d0118d.jpg"),
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Theme.of(context).iconTheme.color,
-                            radius: 100,
-                            backgroundImage: FileImage(changedPhoto!),
-                          ),
-                  ),
-                  Positioned(
-                      bottom: 0,
-                      right: -15,
-                      child: RawMaterialButton(
-                        constraints: const BoxConstraints(
-                            minWidth: 70.0, minHeight: 36.0),
-                        onPressed: () {
-                          choicePhoto();
-                          print("Selaaam");
-                        },
-                        elevation: 2.0,
-                        fillColor: Theme.of(context).iconTheme.color,
-                        padding: const EdgeInsets.all(15.0),
-                        shape: const CircleBorder(),
-                        child: Icon(
-                          size: 25,
-                          Icons.add_photo_alternate_outlined,
-                          color: Theme.of(context).colorScheme.background,
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                CircleAvatar(
+                  backgroundColor: ColorConstants.lightSilver.getColor,
+                  radius: 90,
+                  child: changedPhoto == null
+                      ? const CircleAvatar(
+                          radius: 85,
+                          backgroundImage:
+                              NetworkImage(StringConstants.addPhotoUrl),
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Theme.of(context).iconTheme.color,
+                          radius: 100,
+                          backgroundImage: FileImage(changedPhoto!),
                         ),
-                      )),
-                ],
-              ),
+                ),
+                Positioned(
+                    bottom: 0,
+                    right: -15,
+                    child: RawMaterialButton(
+                      constraints:
+                          const BoxConstraints(minWidth: 70.0, minHeight: 36.0),
+                      onPressed: () {
+                        choicePhoto();
+                      },
+                      elevation: 2.0,
+                      fillColor:  ColorConstants.smootGreen.getColor,
+                      padding: const EdgeInsets.all(15.0),
+                      shape: const CircleBorder(),
+                      child: Icon(
+                        size: 25,
+                        Icons.add_photo_alternate_outlined,
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                    )),
+              ],
             ),
-            const Spacer(
-              flex: 1,
-            ),
+            Padding(padding: context.padding.verticalNormal),
             Text(
-              widget.name,
+              widget.name ?? '',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const Spacer(
-              flex: 15,
-            ),
-            SweepAnimationButton(
-              width: width / 1.6,
-              height: 50,
-              animationProgressColor: Colors.white,
-              borderRadius: 50,
-              animationColor: Colors.black,
-              backroundColor: Colors.grey.shade400,
-              durationCircle: 2,
-              hideIcon: true,
-              child: Text(
-                "Kayıt Ol",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey.shade200,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1,
-                ),
-              ),
-              onTap: () {
-                print(changedPhoto.toString() + "FOTOĞRAAFFFFFFFFFF");
-                AuthService().signUp(context,
-                    name: widget.name,
-                    email: widget.mail,
-                    password: widget.password,
-                    imageFile: changedPhoto);
-              },
-            ),
-            const Spacer(
-              flex: 10,
+            _SweepAnimationButton(
+              widget: widget,
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SweepAnimationButton extends StatelessWidget {
+  const _SweepAnimationButton({Key? key, required this.widget})
+      : super(key: key);
+
+  final PPAdd widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return SweepAnimationButton(
+      width: context.sized.dynamicWidth(0.7),
+      height: 50,
+      animationProgressColor: ColorConstants.smootWhite.getColor,
+      borderRadius: 50,
+      animationColor:  ColorConstants.ligthGreen.getColor,
+      backroundColor: ColorConstants.smootGreen.getColor,
+      durationCircle: 2,
+      hideIcon: true,
+      child: Text(
+        StringConstants.register,
+        style: GoogleFonts.baloo2(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+          color: ColorConstants.black.getColor,
+        ),
+      ),
+      onTap: () {
+        AuthService().signUp(context,
+            name: widget.name ?? '',
+            email: widget.mail ?? '',
+            password: widget.password ?? '',
+            imageFile: changedPhoto);
+      },
     );
   }
 }

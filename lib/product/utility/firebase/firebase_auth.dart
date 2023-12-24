@@ -150,7 +150,7 @@ class AuthService {
   Future<void> checkLoginStatus(BuildContext context) async {
     AuthService();
     if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(context, RouterItems.login.goScreen());
+      Navigator.push(context, RouterItems.register.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
     }

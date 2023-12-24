@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
 
@@ -28,7 +29,7 @@ class TextFieldWidget extends StatelessWidget {
         children: [
           Expanded(
               child: TextField(
-            style: TextFamilyConstrants.bodyLargeBlack.getFont,
+            style: getBaloo2Style(),
             controller: _editingController,
             obscureText: passwordgoz,
             cursorColor: ColorConstants.black.getColor,
@@ -37,15 +38,15 @@ class TextFieldWidget extends StatelessWidget {
               suffixIcon: icon,
               hintText: metin,
               fillColor: ColorConstants.black.getColor,
-              hintStyle: TextFamilyConstrants.bodyLargeBlack.getFont,
-              labelStyle: TextFamilyConstrants.bodyLargeBlack.getFont,
+              hintStyle: getBaloo2Style(),
+              labelStyle: getBaloo2Style(),
               floatingLabelStyle:
-                  TextStyle(color: ColorConstants.black.getColor),
+                  GoogleFonts.baloo2(color: ColorConstants.black.getColor),
               suffixIconColor: ColorConstants.black.getColor,
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                     color: ColorConstants
-                        .black.getColor), // Aktif durumda çizginin rengi
+                        .darkGreen.getColor), // Aktif durumda çizginin rengi
               ),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
@@ -56,6 +57,14 @@ class TextFieldWidget extends StatelessWidget {
           )),
         ],
       ),
+    );
+  }
+
+  TextStyle getBaloo2Style({double? size}){
+    return GoogleFonts.baloo2(
+      color: ColorConstants.black.getColor,
+      fontSize: size ?? 15,
+      fontWeight: FontWeight.w600,
     );
   }
 }

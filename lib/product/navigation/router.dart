@@ -3,6 +3,7 @@ import 'package:riverpod_architecture/feature/app_notifications/app_notification
 import 'package:riverpod_architecture/feature/home/home_view.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
+import 'package:riverpod_architecture/feature/login_register/profile_photo_add.dart';
 import 'package:riverpod_architecture/feature/login_register/register_page.dart';
 import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
 import 'package:riverpod_architecture/feature/splash/splash_view.dart';
@@ -37,6 +38,8 @@ extension PagesExtension on RouterItems {
         return const HomeView();
       case RouterItems.appNotifications:
         return const AppNotificationsView();
+      case RouterItems.addPhoto:
+        return const PPAdd(); // fix here
     }
   }
 
