@@ -53,8 +53,10 @@ class _PPAddState extends State<PPAdd> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const Spacer(
-              flex: 5,
+            Image.asset(
+              ImageConstants.appIcon.toIcon,
+              height: height / 4,
+              width: width / 2,
             ),
             Center(
               child: Stack(
@@ -62,16 +64,16 @@ class _PPAddState extends State<PPAdd> {
                 children: [
                   CircleAvatar(
                     backgroundColor: Theme.of(context).iconTheme.color,
-                    radius: 100,
+                    radius: 90,
                     child: changedPhoto == null
                         ? const CircleAvatar(
-                            radius: 95,
+                            radius: 85,
                             backgroundImage: NetworkImage(
                                 "https://i.pinimg.com/564x/2a/2e/7f/2a2e7f0f60b750dfb36c15c268d0118d.jpg"),
                           )
                         : CircleAvatar(
                             backgroundColor: Theme.of(context).iconTheme.color,
-                            radius: 110,
+                            radius: 100,
                             backgroundImage: FileImage(changedPhoto!),
                           ),
                   ),
@@ -90,7 +92,7 @@ class _PPAddState extends State<PPAdd> {
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
                         child: Icon(
-                          size: 30,
+                          size: 25,
                           Icons.add_photo_alternate_outlined,
                           color: Theme.of(context).colorScheme.background,
                         ),
@@ -111,9 +113,9 @@ class _PPAddState extends State<PPAdd> {
             SweepAnimationButton(
               width: width / 1.6,
               height: 50,
-              animationProgressColor: Colors.grey.shade800,
+              animationProgressColor: Colors.white,
               borderRadius: 50,
-              animationColor: Colors.grey,
+              animationColor: Colors.black,
               backroundColor: Colors.grey.shade400,
               durationCircle: 2,
               hideIcon: true,
@@ -121,7 +123,7 @@ class _PPAddState extends State<PPAdd> {
                 "Kayıt Ol",
                 style: TextStyle(
                   fontSize: 15,
-                  color: Colors.grey.shade600,
+                  color: Colors.grey.shade200,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1,
                 ),
