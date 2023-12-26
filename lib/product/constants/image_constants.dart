@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum ImageConstants {
   appIcon('logo'),
   homePageTop1('home_page_top1'),
+  homePageTop2('home_page_top2'),
   emailIcon('emailicon'),
   homeIcon('home'),
   playlistIcon('playlist'),

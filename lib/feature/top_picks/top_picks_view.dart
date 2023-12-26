@@ -48,7 +48,12 @@ class _TopPicksContainers extends StatelessWidget {
               backgroundImage: AssetImage(ImageConstants.homePageTop1.toImage),
               title: 'Quiz',
               navigatePage: RouterItems.leaderboard),
-          Padding(padding: context.padding.onlyTopLow),
+          Padding(padding: context.padding.onlyTopNormal),
+          TopPickContainer(
+              backgroundImage:
+              AssetImage(ImageConstants.homePageTop2.toImage),
+              title: 'Notes',
+              navigatePage: RouterItems.leaderboard),
         ],
       ),
     );

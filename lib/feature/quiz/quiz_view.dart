@@ -11,7 +11,10 @@ import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
+
+import '../../product/models/userData.dart';
 
 class QuizView extends StatelessWidget {
   const QuizView({Key? key}) : super(key: key);
@@ -25,6 +28,8 @@ class QuizView extends StatelessWidget {
     return BaseView<QuizNotifier, QuizState>(onInitState: (WidgetRef ref) {
       ref.read(quizProvider.notifier).loadQuestions();
     }, onPageBuilder: (BuildContext context, WidgetRef ref) {
+
+
       final quizState = ref.watch(quizProvider);
 
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];

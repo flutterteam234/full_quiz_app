@@ -15,15 +15,20 @@ class CustomCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(state.allUserTotalContents![index]?.userName);
+
+    print(state.allUserTotalContents![index]?.photoURL);
+    print("foto");
+
     return CircleAvatar(
       radius: radius ?? 20.0,
-      backgroundColor: state.allUserTotalContents![index]?.profilUrl != ''
+      backgroundColor: state.allUserTotalContents![index]?.photoURL != ''
           ? Colors.black
           : ColorUtils.getRandomColor(),
-      backgroundImage: state.allUserTotalContents![index]?.profilUrl != ''
-          ? NetworkImage(state.allUserTotalContents![index]!.profilUrl!)
+      backgroundImage: state.allUserTotalContents![index]?.photoURL != ''
+          ? NetworkImage(state.allUserTotalContents![index]!.photoURL!)
           : null,
-      child: state.allUserTotalContents![index]?.profilUrl == ''
+      child: state.allUserTotalContents![index]?.photoURL == ''
           ? Text(
               getInitials(state.allUserTotalContents![index]?.userName ?? ''),
               style: TextStyle(

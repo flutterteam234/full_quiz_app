@@ -9,3 +9,4 @@ enum FirebaseCollections {
   CollectionReference get reference =>
       FirebaseFirestore.instance.collection(name);
 }
+

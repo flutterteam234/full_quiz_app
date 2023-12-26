@@ -5,16 +5,15 @@ import 'package:riverpod_architecture/feature/leaderboard/model/user_total_conte
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
-import '../../product/models/user.dart';
+
+import '../../product/models/userData.dart';
 
 class LeaderboardNotifier extends StateNotifier<LeaderboardState>
     with FirebaseUtility {
   LeaderboardNotifier() : super(const LeaderboardState());
 
-
   Future<void> loadPointsAndUsers() async {
     try {
-
       CollectionReference pointsCollection =
           FirebaseCollections.points.reference;
 
@@ -48,7 +47,7 @@ class LeaderboardNotifier extends StateNotifier<LeaderboardState>
             userName: usersList[i]?.name ?? '',
             userEmail: usersList[i]?.email ?? '',
             userPassword: usersList[i]?.password ?? '',
-            profilUrl: usersList[i]?.profilUrl ?? '',
+            photoURL: usersList[i]?.photoURL ?? '',
           );
           userTotalList.add(userTotalContent);
         }

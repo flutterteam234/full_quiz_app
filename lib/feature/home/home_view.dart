@@ -6,6 +6,7 @@ import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/feature/home/home_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 
 import 'enum/page_enum.dart';
 
@@ -20,6 +21,7 @@ class HomeView extends StatelessWidget {
 
     return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
       final homeState = ref.watch(homeProvider);
+
 
       PageEnum currentPage = RouterItemsExtension.fromId(homeState.pageIndex);
       Widget selectedPage = (currentPage).page;

@@ -5,12 +5,12 @@ import 'package:riverpod_architecture/product/utility/base/base_firebase_model.d
 @immutable
 class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
   const UserData(
-      {this.id, this.name, this.email, this.password, this.profilUrl});
+      {this.id, this.name, this.email, this.password, this.photoURL});
 
   final String? name;
   final String? email;
   final String? password;
-  final String? profilUrl;
+  final String? photoURL;
   @override
   final String? id;
 
@@ -22,14 +22,14 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
     String? name,
     String? email,
     String? password,
-    String? profilUrl,
+    String? photoURL,
   }) {
     return UserData(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
-      profilUrl: profilUrl ?? this.profilUrl,
+      photoURL: photoURL ?? this.photoURL,
     );
   }
 
@@ -39,7 +39,7 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
       'name': name,
       'email': email,
       'password': password,
-      'profilUrl': profilUrl,
+      'photoURL': photoURL,
     };
   }
 
@@ -50,7 +50,7 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
       name: json['name'] as String?,
       email: json['email'] as String?,
       password: json['password'] as String?,
-      profilUrl: json['profilUrl'] as String?,
+      photoURL: json['photoURL'] as String?,
     );
   }
 }

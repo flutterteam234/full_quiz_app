@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:riverpod_architecture/firebase_options.dart';
 import 'package:riverpod_architecture/product/initialize/app_cache.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 
 class ApplicationStart {
   const ApplicationStart._();
@@ -16,6 +17,10 @@ class ApplicationStart {
     FirebaseUIAuth.configureProviders(
       [EmailAuthProvider()],
     );
+
+
+    FirebaseUser firebaseUser = FirebaseUser.getInstance();
+    await firebaseUser.getUserDocument();
 
     await Future.delayed(const Duration(seconds: 1));
   }

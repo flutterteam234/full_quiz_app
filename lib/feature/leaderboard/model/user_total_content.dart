@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:riverpod_architecture/feature/leaderboard/model/points.dart';
 import 'package:riverpod_architecture/product/utility/base/base_firebase_model.dart';
-
-import '../../../product/models/user.dart';
+import '../../../product/models/userData.dart';
 
 @immutable
 class UserTotalContent extends Equatable
@@ -14,13 +13,13 @@ class UserTotalContent extends Equatable
       this.userName,
       this.userEmail,
       this.userPassword,
-      this.profilUrl});
+      this.photoURL});
 
   final List<Points?>? pointData;
   final String? userName;
   final String? userEmail;
   final String? userPassword;
-  final String? profilUrl;
+  final String? photoURL;
   @override
   final String? id;
 
@@ -34,14 +33,14 @@ class UserTotalContent extends Equatable
     String? userName,
     String? userEmail,
     String? userPassword,
-    String? profilUrl,
+    String? photoURL,
   }) {
     return UserTotalContent(
         id: id ?? id,
         pointData: pointData ?? pointData,
         userEmail: userEmail,
         userName: userName,
-        profilUrl: profilUrl,
+        photoURL: photoURL,
         userPassword: userPassword);
   }
 
@@ -52,7 +51,7 @@ class UserTotalContent extends Equatable
       'userName': userName,
       'userEmail': userEmail,
       'userPassword': userPassword,
-      'profilUrl': profilUrl,
+      'photoURL': photoURL,
     };
   }
 
@@ -64,7 +63,7 @@ class UserTotalContent extends Equatable
       userName: json['userName'] as String?,
       userEmail: json['userEmail'] as String?,
       userPassword: json['userPassword'] as String?,
-      profilUrl: json['profilUrl'] as String?,
+      photoURL: json['photoURL'] as String?,
     );
   }
 }
