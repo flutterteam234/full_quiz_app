@@ -18,9 +18,8 @@ class ApplicationStart {
       [EmailAuthProvider()],
     );
 
-
-    FirebaseUser firebaseUser = FirebaseUser.getInstance();
-    await firebaseUser.getUserDocument();
+    FirebaseUser firebaseUser = FirebaseUser.instance;
+    await firebaseUser.getUserDataById();
 
     await Future.delayed(const Duration(seconds: 1));
   }

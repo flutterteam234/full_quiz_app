@@ -5,7 +5,10 @@ class StringConstants {
   const StringConstants._();
 
   // App
-  static const String appName = 'Quiz Biyoloji';
+  static const appName = 'Quiz Biyoloji';
+
+  // General
+  static const app = 'App';
 
   // Pages
   static const home = 'Home';
@@ -32,8 +35,13 @@ class StringConstants {
   static const searchYourFavoritePlace = 'Search your favorite place...';
 
   // Top Picks
+  static const topPicksWelcome = 'Welcome';
   static const topPicks = 'Top Picks';
   static const exploreProgrames = 'Let’s explore our programes';
+
+  // App Settings
+  static const editProfile = 'Edit Profile';
+  static const settings = 'Settings';
 
   // Register
   static const name = 'Name';
@@ -43,7 +51,8 @@ class StringConstants {
   static const checkYourMail = 'Please check your email account and verify.';
   static const okey = 'Okey';
   static const registrationFailed = 'Registration Failed';
-  static const strongPasswordPlease = 'Please choose a stronger password or enter a valid e-mail address.';
+  static const strongPasswordPlease =
+      'Please choose a stronger password or enter a valid e-mail address.';
   static const doYouHaveAccount = 'Do you have an account? Login';
 
   // Photo Add

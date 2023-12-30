@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+import 'package:riverpod_architecture/core/view/base_view.dart';
+import 'package:riverpod_architecture/feature/top_picks/components/custom_circle_avatar_top_picks.dart';
 import 'package:riverpod_architecture/feature/top_picks/components/top_pick_container.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 import '../../product/constants/color_constants.dart';
 import '../../product/constants/image_constants.dart';
 import '../../product/constants/string_constants.dart';
@@ -18,20 +21,24 @@ class TopPicksView extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
 
-    return SafeArea(
-        child: ListView(
-      padding: EdgeInsets.only(
-          left: context.sized.normalValue, right: context.sized.normalValue),
-      children: [
-        const _Header(),
-        Padding(padding: context.padding.onlyTopNormal),
-        _CustomField(controller),
-        Padding(padding: context.padding.onlyTopNormal),
-        const _TopPicksRow(),
-        Padding(padding: context.padding.onlyTopNormal),
-        const _TopPicksContainers()
-      ],
-    ));
+    return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
+
+
+      return SafeArea(
+          child: ListView(
+        padding: EdgeInsets.only(
+            left: context.sized.normalValue, right: context.sized.normalValue),
+        children: [
+          const _Header(),
+          Padding(padding: context.padding.onlyTopNormal),
+          _CustomField(controller),
+          Padding(padding: context.padding.onlyTopNormal),
+          const _TopPicksRow(),
+          Padding(padding: context.padding.onlyTopNormal),
+          const _TopPicksContainers()
+        ],
+      ));
+    });
   }
 }
 
@@ -50,8 +57,7 @@ class _TopPicksContainers extends StatelessWidget {
               navigatePage: RouterItems.leaderboard),
           Padding(padding: context.padding.onlyTopNormal),
           TopPickContainer(
-              backgroundImage:
-              AssetImage(ImageConstants.homePageTop2.toImage),
+              backgroundImage: AssetImage(ImageConstants.homePageTop2.toImage),
               title: 'Notes',
               navigatePage: RouterItems.leaderboard),
         ],
@@ -143,14 +149,14 @@ class _Header extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
-                text: 'Welcome',
+                text: StringConstants.topPicksWelcome,
                 color: ColorConstants.smootWhite.getColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18.0),
             Padding(
               padding: context.padding.onlyTopLow,
               child: SubTitleText(
-                text: 'Emir Bayraktar',
+                text: FirebaseUser.instance.userData!.name ?? '',
                 color: ColorConstants.smootWhite.getColor,
                 fontSize: 22.0,
                 fontWeight: FontWeight.w600,
@@ -158,9 +164,8 @@ class _Header extends StatelessWidget {
             ),
           ],
         ),
-        InkWell(
-          onTap: () {},
-          child: CircleAvatar(backgroundColor: ColorConstants.white.getColor),
+        CustomCircleAvatarTopPicks(
+          userData: FirebaseUser.instance.userData,
         )
       ],
     );

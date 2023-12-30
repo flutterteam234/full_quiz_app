@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/product/initialize/app_cache.dart';
-import 'package:riverpod_architecture/product/initialize/app_start_init.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 
 class SplashNotifier extends StateNotifier<SplashState> with FirebaseUtility {

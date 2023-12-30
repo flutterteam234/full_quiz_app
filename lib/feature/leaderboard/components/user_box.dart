@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
-import 'package:riverpod_architecture/feature/leaderboard/components/custom_circle_avatar.dart';
 import 'package:riverpod_architecture/feature/leaderboard/functions/list_functions.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 
-import '../../../product/utility/extentions/color_extentions.dart';
+import 'custom_circle_avatar_leaderboard.dart';
 
 class UserBox extends StatelessWidget {
   const UserBox(
@@ -43,7 +42,7 @@ class UserBox extends StatelessWidget {
               ),
               Padding(
                 padding: context.padding.low,
-                child: CustomCircleAvatar(state: state, index: index),
+                child: CustomCircleAvatarLeaderboard(state: state, index: index),
               ),
               Padding(
                 padding: context.padding.onlyRightLow,

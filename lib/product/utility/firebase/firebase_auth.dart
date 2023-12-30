@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +149,7 @@ class AuthService {
   Future<void> checkLoginStatus(BuildContext context) async {
     AuthService();
     if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(context, RouterItems.register.goScreen());
+      Navigator.push(context, RouterItems.home.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
     }

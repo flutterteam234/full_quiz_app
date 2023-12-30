@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/feature/app_notifications/app_notifications_view.dart';
+import 'package:riverpod_architecture/feature/app_settings/app_settings_view.dart';
 import 'package:riverpod_architecture/feature/home/home_view.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_architecture/feature/login_register/login_page.dart';
@@ -39,7 +40,9 @@ extension PagesExtension on RouterItems {
       case RouterItems.appNotifications:
         return const AppNotificationsView();
       case RouterItems.addPhoto:
-        return const PPAdd(); // fix here
+        return const PPAdd();
+      case RouterItems.appSettings:
+        return const AppSettingsView();
     }
   }
 

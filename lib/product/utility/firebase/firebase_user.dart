@@ -1,61 +1,40 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
-
+import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 import '../../models/userData.dart';
-import '../exceptions/custom_exceptions.dart';
 
-class FirebaseUser {
-  static FirebaseUser? _instance;
+class FirebaseUser with FirebaseUtility {
 
-  final CollectionReference _userCollection =
-      FirebaseCollections.users.reference;
+  static final FirebaseUser _instance = FirebaseUser._();
 
-  UserData? _userData;
+  FirebaseUser._();
 
-  static FirebaseUser getInstance() {
-    _instance ??= FirebaseUser._internal();
-    return _instance!;
-  }
+  static FirebaseUser get instance => _instance;
 
-  FirebaseUser._internal();
+  UserData? userData;
 
-  Future<void> getUserDocument() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
+  Future<void> getUserDataById() async {
+    User? user = FirebaseAuth.instance.currentUser;
 
-      if (user != null) {
-        String userId = user.uid;
+    if (user != null) {
+      try {
+        final documentId = user.uid;
+        final result = await fetchDocument<UserData, UserData>(
+          documentId,
+          const UserData(),
+          FirebaseCollections.users,
+        );
 
-        DocumentSnapshot<Object?> snapshot =
-        await _userCollection.doc(userId).get();
+        userData = result;
 
-        if (snapshot.data() != null) {
-          _userData = const UserData().fromJson(snapshot.data() as Map<String, dynamic>);
-        } else {
-          _userData = null;
-        }
-
-      } else {
-        throw Exception("No Found User");
+        print("data");
+        print(userData!.email);
+      } catch (e) {
+        throw Exception("Veri çekme hatası: $e");
       }
-    } catch (error) {
-      throw FirebaseCustomExceptions('$error null');
+    } else {
+      throw Exception("Kullanıcı oturumu açık değil.");
     }
-  }
 
-  UserData? get userData => _userData;
-
-  Future<void> updateData(UserData newData) async {
-    try {
-      if (_userData != null) {
-        await _userCollection.doc(newData.id).update(newData.toJson());
-        _userData = newData;
-      } else {
-        throw FirebaseCustomExceptions('UserData is null');
-      }
-    } catch (error) {
-      throw FirebaseCustomExceptions('$error null');
-    }
   }
 }

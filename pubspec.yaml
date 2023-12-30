@@ -43,6 +43,8 @@ dependencies:
   cloud_firestore: ^4.12.2
   firebase_auth: ^4.13.0
   firebase_ui_auth: ^1.10.0
+  firebase_storage: ^11.5.6
+
 
 
   # responsive
@@ -70,11 +72,6 @@ dependencies:
   shaped_bottom_bar: ^1.1.0
   image_picker: ^1.0.5
   sweep_animation_button: ^0.0.3
-  firebase_storage: ^11.5.6
-
-
-
-
 
 
 

@@ -4,11 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
-import 'package:riverpod_architecture/feature/leaderboard/components/custom_circle_avatar.dart';
+
 import 'package:riverpod_architecture/feature/leaderboard/components/custom_clip_oval.dart';
+import 'package:riverpod_architecture/feature/leaderboard/components/profile_container.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'components/custom_circle_avatar_leaderboard.dart';
+import 'components/total_point_richText.dart';
 
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({Key? key}) : super(key: key);
@@ -85,21 +88,20 @@ class _TopThreeRow extends StatelessWidget {
         child: Stack(
           children: [
             Align(
-              alignment: Alignment.centerLeft,
-              child: _buildProfileContainer(context, state, 0),
-            ),
+                alignment: Alignment.topCenter,
+                child: ProfileContainer(
+                  state: state,
+                  index: 0,
+                )),
             Align(
-              alignment: Alignment.topCenter,
-              child: _buildProfileContainer(
-                context,
-                state,
-                1,
-              ),
-            ),
+                alignment: Alignment.centerLeft,
+                child: ProfileContainer(state: state, index: 1)),
             Align(
-              alignment: Alignment.centerRight,
-              child: _buildProfileContainer(context, state, 2),
-            )
+                alignment: Alignment.centerRight,
+                child: ProfileContainer(
+                  state: state,
+                  index: 2,
+                ))
           ],
         ));
   }
@@ -123,34 +125,5 @@ class _TopThreeRow extends StatelessWidget {
     } else {
       return state.allUserTotalContents![index]!.userName!;
     }
-  }
-
-  Widget _buildProfileContainer(
-      BuildContext context, LeaderboardState state, int index) {
-    return SizedBox(
-        height: 100,
-        child: Column(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                  color: Color(ColorConstants.smootWhite.toRgba),
-                  shape: BoxShape.circle,
-                ),
-                child: CustomCircleAvatar(
-                  state: state,
-                  index: index,
-                  radius: 30.0,
-                )),
-            Padding(
-              padding: context.padding.horizontalLow,
-            ),
-            Text(state.allUserTotalContents![index]!.userName.toString(),
-                style: GoogleFonts.baloo2(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Color(ColorConstants.darkGreen.toRgba),
-                )),
-          ],
-        ));
   }
 }
