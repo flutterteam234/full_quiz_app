@@ -7,7 +7,6 @@ import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:sweep_animation_button/sweep_animation_button.dart';
 import 'package:kartal/kartal.dart';
 import '../../product/constants/image_constants.dart';

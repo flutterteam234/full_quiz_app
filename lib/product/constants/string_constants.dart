@@ -9,6 +9,9 @@ class StringConstants {
 
   // General
   static const app = 'App';
+  static const username = 'Username';
+  static const email = 'Email';
+  static const password = 'Password';
 
   // Pages
   static const home = 'Home';
@@ -42,11 +45,17 @@ class StringConstants {
   // App Settings
   static const editProfile = 'Edit Profile';
   static const settings = 'Settings';
+  static const appPreferences = 'App preferences';
+  static const appNotifications = 'App notifications';
+  static const helpAndSupport = 'Help and Support';
+  static const giveFeedback = 'Give a feedback';
+
+  // Edit Profile
+  static const edit = 'Edit';
+  static const profile = 'Profile';
+
 
   // Register
-  static const name = 'Name';
-  static const email = 'Email';
-  static const password = 'Password';
   static const emailVerification = 'Email Verification';
   static const checkYourMail = 'Please check your email account and verify.';
   static const okey = 'Okey';

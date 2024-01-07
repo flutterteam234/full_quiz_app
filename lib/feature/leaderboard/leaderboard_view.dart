@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
-
 import 'package:riverpod_architecture/feature/leaderboard/components/custom_clip_oval.dart';
 import 'package:riverpod_architecture/feature/leaderboard/components/profile_container.dart';
 import 'package:riverpod_architecture/feature/leaderboard/leaderboard_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
-import 'components/custom_circle_avatar_leaderboard.dart';
-import 'components/total_point_richText.dart';
 
 class LeaderboardView extends StatelessWidget {
   const LeaderboardView({Key? key}) : super(key: key);
@@ -82,28 +78,30 @@ class _TopThreeRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: context.sized.dynamicHeight(0.2),
-        width: context.sized.dynamicWidth(0.8),
-        child: Stack(
-          children: [
-            Align(
-                alignment: Alignment.topCenter,
-                child: ProfileContainer(
-                  state: state,
-                  index: 0,
-                )),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: ProfileContainer(state: state, index: 1)),
-            Align(
-                alignment: Alignment.centerRight,
-                child: ProfileContainer(
-                  state: state,
-                  index: 2,
-                ))
-          ],
-        ));
+    return state.allUserTotalContents!.length >= 3
+        ? SizedBox(
+            height: context.sized.dynamicHeight(0.2),
+            width: context.sized.dynamicWidth(0.8),
+            child: Stack(
+              children: [
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: ProfileContainer(
+                      state: state,
+                      index: 0,
+                    )),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: ProfileContainer(state: state, index: 1)),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: ProfileContainer(
+                      state: state,
+                      index: 2,
+                    ))
+              ],
+            ))
+        : const SizedBox();
   }
 
   getProfilePictureAlignment(int index) {

@@ -4,7 +4,7 @@ import 'package:riverpod_architecture/feature/top_picks/top_picks_view.dart';
 import '../../leaderboard/leaderboard_view.dart';
 import '../../quiz/quiz_view.dart';
 
-enum PageEnum { quiz, leaderboard, topPicks }
+enum PageEnum { topPicks, quiz, leaderboard }
 
 extension HomePagesExtension on PageEnum {
   Widget _screen() {

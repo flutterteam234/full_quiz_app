@@ -4,10 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:riverpod_architecture/feature/app_settings/components/change_photo_circle_avatar.dart';
+import 'package:riverpod_architecture/feature/app_settings/components/settings_button.dart';
 import 'package:riverpod_architecture/feature/app_settings/components/user_mail_text.dart';
 import 'package:riverpod_architecture/feature/app_settings/components/user_name_text.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 
 import '../../product/navigation/enum/router_items.dart';
 
@@ -28,6 +30,21 @@ class AppSettingsView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               _getEditProfileContainer(context),
+              Padding(padding: context.padding.verticalLow),
+              const SettingsButton(
+                  title: StringConstants.appPreferences, icon: Icons.settings),
+              Padding(padding: context.padding.verticalLow),
+              const SettingsButton(
+                  title: StringConstants.appNotifications,
+                  icon: Icons.notifications_none),
+              Padding(padding: context.padding.verticalLow),
+              const SettingsButton(
+                  title: StringConstants.helpAndSupport,
+                  icon: Icons.help_outline),
+              Padding(padding: context.padding.verticalLow),
+              const SettingsButton(
+                  title: StringConstants.giveFeedback,
+                  icon: Icons.feedback_outlined),
             ],
           ),
         ),
@@ -99,7 +116,11 @@ class AppSettingsView extends StatelessWidget {
         children: [
           _getEditProfile(),
           Padding(padding: context.padding.verticalLow),
-          const ChangePhotoCircleAvatar(),
+          ChangePhotoCircleAvatar(
+            function: (){
+              Navigator.push(context, RouterItems.editProfile.goScreen());
+            },
+          ),
           Padding(padding: context.padding.verticalLow),
           const Column(
             children: [

@@ -1,2 +1,12 @@
-
-enum RouterItems { quiz, splash, leaderboard, login, register, home, appNotifications, addPhoto, appSettings }
+enum RouterItems {
+  quiz,
+  splash,
+  leaderboard,
+  login,
+  register,
+  home,
+  appNotifications,
+  addPhoto,
+  appSettings,
+  editProfile
+}

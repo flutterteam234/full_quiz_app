@@ -59,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 editingController: name_controller,
-                metin: StringConstants.name,
+                metin: StringConstants.username,
                 eye: const Padding(
                   padding: EdgeInsets.all(10.0),
                 ),

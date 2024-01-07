@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/utility/extentions/string_extentions.dart';
@@ -6,11 +7,13 @@ import 'package:kartal/kartal.dart';
 import '../../../product/utility/extentions/color_extentions.dart';
 
 class ChangePhotoCircleAvatar extends StatelessWidget {
-  const ChangePhotoCircleAvatar({Key? key, this.function, this.radius})
+  const ChangePhotoCircleAvatar(
+      {Key? key, this.function, this.radius, this.photoFromGallery})
       : super(key: key);
 
   final void Function()? function;
   final double? radius;
+  final File? photoFromGallery;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +29,7 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
                       FirebaseUser.instance.userData!.photoURL != null
                           ? Colors.black
                           : ColorUtils.getRandomColor(),
-                  backgroundImage: FirebaseUser.instance.userData!.photoURL !=
-                          null
-                      ? NetworkImage(FirebaseUser.instance.userData!.photoURL!)
-                      : null,
+                  backgroundImage: _getProfilePhoto(photoFromGallery),
                   child: FirebaseUser.instance.userData!.photoURL == null
                       ? Text(
                           FirebaseUser.instance.userData!.name.getInitials(),
@@ -62,5 +62,18 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
         : CircleAvatar(
             radius: radius ?? context.sized.mediumValue,
           );
+  }
+
+  ImageProvider? _getProfilePhoto(File? photoFromGallery) {
+    if (photoFromGallery != null) {
+      return FileImage(photoFromGallery);
+    } else {
+      if (FirebaseUser.instance.userData!.photoURL != null) {
+        NetworkImage(FirebaseUser.instance.userData!.photoURL!);
+      } else {
+        null;
+      }
+    }
+    return null;
   }
 }

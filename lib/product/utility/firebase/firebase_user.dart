@@ -27,8 +27,6 @@ class FirebaseUser with FirebaseUtility {
 
         userData = result;
 
-        print("data");
-        print(userData!.email);
       } catch (e) {
         throw Exception("Veri çekme hatası: $e");
       }

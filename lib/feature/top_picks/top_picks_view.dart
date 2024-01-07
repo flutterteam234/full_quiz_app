@@ -153,7 +153,7 @@ class _Header extends StatelessWidget {
                 color: ColorConstants.smootWhite.getColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18.0),
-            Padding(
+            FirebaseUser.instance.userData != null ? Padding(
               padding: context.padding.onlyTopLow,
               child: SubTitleText(
                 text: FirebaseUser.instance.userData!.name ?? '',
@@ -161,7 +161,7 @@ class _Header extends StatelessWidget {
                 fontSize: 22.0,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ):const SizedBox(),
           ],
         ),
         CustomCircleAvatarTopPicks(
