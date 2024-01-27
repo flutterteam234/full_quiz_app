@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 extension StringInitialsExtension on String? {
   String getInitials() {
     if (this == null || this!.isEmpty) {
@@ -13,4 +15,14 @@ extension StringInitialsExtension on String? {
     }
     return initials;
   }
+}
+
+extension MaskingExtension on String? {
+  String maskCharacters() {
+    return this?.isEmpty ?? true ? "" : '*' * this!.length;
+  }
+}
+
+extension StringLocalization on String {
+  String get locale => this.tr();
 }

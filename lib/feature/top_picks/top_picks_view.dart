@@ -60,6 +60,8 @@ class _TopPicksContainers extends StatelessWidget {
               backgroundImage: AssetImage(ImageConstants.homePageTop2.toImage),
               title: 'Notes',
               navigatePage: RouterItems.leaderboard),
+
+
         ],
       ),
     );

@@ -67,6 +67,8 @@ dependencies:
 
   #services
   connectivity_plus: ^5.0.2
+  easy_localization: ^3.0.3
+
 
   #widget
   fluttertoast: ^8.2.4
@@ -94,9 +96,11 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  generate: true
   uses-material-design: true
 
 
   assets:
     - assets/icons/
     - assets/images/
+    - assets/translations/

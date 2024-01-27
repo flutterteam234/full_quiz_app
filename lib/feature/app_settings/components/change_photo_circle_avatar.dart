@@ -24,23 +24,20 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
               alignment: Alignment.bottomRight,
               children: [
                 CircleAvatar(
-                  radius: radius ?? context.sized.mediumValue,
-                  backgroundColor:
-                      FirebaseUser.instance.userData!.photoURL != null
-                          ? Colors.black
-                          : ColorUtils.getRandomColor(),
-                  backgroundImage: _getProfilePhoto(photoFromGallery),
-                  child: FirebaseUser.instance.userData!.photoURL == null
-                      ? Text(
-                          FirebaseUser.instance.userData!.name.getInitials(),
-                          style: TextStyle(
-                            color: ColorConstants.white.getColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
-                        )
-                      : null,
-                ),
+                    radius: radius ?? context.sized.mediumValue,
+                    backgroundColor:
+                        FirebaseUser.instance.userData!.photoURL != null
+                            ? Colors.black
+                            : ColorUtils.getRandomColor(),
+                    backgroundImage: _getProfilePhoto(photoFromGallery),
+                    child: Text(
+                      _getBackgroundText(photoFromGallery),
+                      style: TextStyle(
+                        color: ColorConstants.white.getColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    )),
                 Positioned(
                   bottom: 0,
                   right: 0,
@@ -75,5 +72,17 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
       }
     }
     return null;
+  }
+
+  String _getBackgroundText(File? photoFromGallery) {
+    if (photoFromGallery != null) {
+      return "";
+    } else {
+      if (FirebaseUser.instance.userData!.photoURL == null) {
+        return FirebaseUser.instance.userData!.name.getInitials();
+      } else {
+        return "";
+      }
+    }
   }
 }

@@ -1,0 +1,52 @@
+{
+  "app": {
+    "appName": "Quiz Biyoloji"
+  },
+  "general": {
+    "app": "App",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password"
+  },
+  "pages": {
+    "home": "Home",
+    "quiz": "Quiz"
+  },
+  "login": {
+    "loginWelcome": "Welcome \uD83D\uDC4B",
+    "loginWelcomeDetail": "I am happy to see you",
+    "loginWelcomeBack": "Welcome Back \uD83D\uDC4B",
+    "loginWelcomeBackDetail": "I am happy to see you again. You can continue where you left off by logging in",
+    "continueToApp": "Continue to app"
+  },
+  "quiz": {
+    "provious": "Previous",
+    "next": "Next"
+  },
+  "leaderboard": {
+    "leaderboard": "Leaderboard"
+  },
+  "home": {
+    "searchYourFavoritePlace": "Search your favorite place..."
+  },
+  "topPicks": {
+    "topPicksWelcome": "Welcome",
+    "topPicks": "topPicks",
+    "exploreProgrames": "Let’s explore our programes"
+  },
+  "appSettings": {
+    "editProfile": "Edit Profile",
+    "settings": "Settings",
+    "appPreferences": "App preferences",
+    "appNotifications": "App notifications",
+    "helpAndSupport": "Help and Support",
+    "giveFeedback": "Give a feedback"
+  },
+  "editProfile": {
+    "edit": "Edit",
+    "profile": "Profile"
+  },
+  "register": {
+
+  }
+}

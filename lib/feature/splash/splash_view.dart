@@ -4,7 +4,6 @@ import 'package:riverpod_architecture/feature/splash/splash_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:kartal/kartal.dart';
-
 import '../../product/utility/firebase/firebase_auth.dart';
 
 class SplashView extends ConsumerStatefulWidget {
@@ -31,8 +30,6 @@ class _SplashViewState extends ConsumerState<SplashView>
   Widget build(BuildContext context) {
     listenAndNavigate(splashProvider);
 
-    // fixme
-
     return Scaffold(
       backgroundColor: ColorConstants.smootGreen.getColor,
       body: Center(
@@ -56,9 +53,7 @@ mixin _SplashViewListenMixin on ConsumerState<SplashView> {
     StateNotifierProvider<SplashNotifier, SplashState> provider,
   ) {
     ref.listen<SplashState>(provider, (previous, next) {
-      // fixme
       if (next.isLoading) {
-        // blabla
       } else {
         AuthService().checkLoginStatus(context);
       }

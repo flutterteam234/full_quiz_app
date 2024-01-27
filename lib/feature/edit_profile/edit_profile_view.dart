@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,8 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:riverpod_architecture/feature/app_settings/components/change_photo_circle_avatar.dart';
+import 'package:riverpod_architecture/feature/edit_profile/components/user_contents_container.dart';
 import 'package:riverpod_architecture/feature/edit_profile/edit_profile_provider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:riverpod_architecture/feature/edit_profile/enum/edit_profile_enum.dart';
 import '../../product/constants/color_constants.dart';
 import '../../product/constants/string_constants.dart';
 
@@ -21,10 +24,17 @@ class EditProfileView extends StatelessWidget {
     });
 
     final ImagePicker imagePicker = ImagePicker();
+    final TextEditingController controller = TextEditingController();
 
     return BaseView<EditProfileNotifier, EditProfileState>(
         onInitState: (WidgetRef ref) {},
+        onDispose: () {
+          controller.dispose();
+        },
         onPageBuilder: (BuildContext context, WidgetRef ref) {
+          final editProfileState = ref.watch(editProfileProvider);
+          final editProfileNotifier = ref.read(editProfileProvider.notifier);
+
           return Scaffold(
             backgroundColor: ColorConstants.smootGreen.getColor,
             appBar: _getAppBar(context),
@@ -40,32 +50,26 @@ class EditProfileView extends StatelessWidget {
                           .read(editProfileProvider.notifier)
                           .selectPhotoFromGallery(imagePicker);
                     },
+                    photoFromGallery: editProfileState.selectedGalleryPhoto,
                   ),
                   Padding(padding: context.padding.verticalMedium),
-                  Container(
-                    margin: context.padding.horizontalNormal,
-                    padding: context.padding.verticalNormal,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: ColorConstants.smootWhite.getColor,
-                    ),
-                    child: ListTile(
-                      subtitle: Text("İsim",style: GoogleFonts.baloo2(
-                        fontSize: 21,
-                        fontWeight: FontWeight.w500,
-                      ),), // fixme
-                      title: Text(StringConstants.username,
-                          style: GoogleFonts.baloo2(
-                            color: ColorConstants.black.getColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          )),
-                      trailing: Icon(
-                        MdiIcons.pencilOutline,
-                        size: context.sized.mediumValue,
-                      ),
-                    ),
-                  )
+                  UserContentsContainer(
+                      state: editProfileState,
+                      notifier: editProfileNotifier,
+                      editProfileEnum: EditProfileEnum.username,
+                      controller: controller),
+                  Padding(padding: context.padding.verticalNormal),
+                  UserContentsContainer(
+                      state: editProfileState,
+                      notifier: editProfileNotifier,
+                      editProfileEnum: EditProfileEnum.email,
+                      controller: controller),
+                  Padding(padding: context.padding.verticalNormal),
+                  UserContentsContainer(
+                      state: editProfileState,
+                      notifier: editProfileNotifier,
+                      editProfileEnum: EditProfileEnum.password,
+                      controller: controller)
                 ],
               ),
             )),

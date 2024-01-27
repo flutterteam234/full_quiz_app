@@ -1,4 +1,5 @@
-import 'package:riverpod_architecture/product/initialize/app_cache.dart';
+
+import '../init/app_cache.dart';
 
 enum CacheItems {
   token('token');
