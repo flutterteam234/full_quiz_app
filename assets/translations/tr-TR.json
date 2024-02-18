@@ -1,0 +1,91 @@
+{
+  "app": {
+    "appName": "Quiz Biyoloji"
+  },
+  "general": {
+    "app": "Uygulama",
+    "username": "Kullanıcı Adı",
+    "email": "E-posta",
+    "password": "Şifre",
+    "exit": "Çıkış"
+  },
+  "pages": {
+    "home": "Ana Sayfa",
+    "quiz": "Quiz"
+  },
+  "splash": {
+    "update": "Güncelle",
+    "timeToUpdate": "Güncelleme Zamanı",
+    "updateMessage": "Deneyiminizi olabildiğince sorunsuz hale getirmek için birçok yeni özellik ekledik ve bazı hataları düzelttik",
+    "serverOff": "Uygulama çevrimdışı",
+    "serverOffMessage": "Uygulamayı elimizde olmayan sebeplerden ötürü çevrimdışı bırakmak zorunda kaldık",
+    "refresh": "Yenile"
+  },
+  "login": {
+    "loginWelcome": "Hoş Geldiniz 👋",
+    "loginWelcomeDetail": "Sizi gördüğüme sevindim",
+    "loginWelcomeBack": "Tekrar Hoş Geldiniz 👋",
+    "loginWelcomeBackDetail": "Sizi tekrar gördüğüme sevindim. Giriş yaparak kaldığınız yerden devam edebilirsiniz",
+    "continueToApp": "Uygulamaya devam et"
+  },
+  "quiz": {
+    "provious": "Önceki",
+    "next": "Sonraki"
+  },
+  "leaderboard": {
+    "leaderboard": "Liderlik Tablosu"
+  },
+  "home": {
+    "searchYourFavoritePlace": "Favori yerini ara..."
+  },
+  "topPicks": {
+    "topPicksWelcome": "Hoş Geldiniz",
+    "topPicks": "En İyiler",
+    "exploreProgrames": "Hadi programlarımızı keşfet"
+  },
+  "appSettings": {
+    "editProfile": "Profili Düzenle",
+    "settings": "Ayarlar",
+    "appPreferences": "Uygulama Tercihleri",
+    "appNotifications": "Uygulama Bildirimleri",
+    "helpAndSupport": "Yardım ve Destek",
+    "giveFeedback": "Geri Bildirim Ver",
+    "preference": "Tercih"
+  },
+  "editProfile": {
+    "edit": "Düzenle",
+    "profile": "Profil"
+  },
+  "appPreference": {
+    "darkMode": "Siyah Tema",
+    "language": "Dil"
+  },
+  "appLanguage": {
+    "turkish": "Türkçe",
+    "english": "İngilizce"
+  },
+  "appNotes": {
+    "notes": "Notlar"
+  },
+  "register": {
+    "emailVerification": "E-posta Doğrulama",
+    "checkYourMail": "Lütfen e-posta hesabınızı kontrol edin ve doğrulama yapın.",
+    "okey": "Tamam",
+    "registrationFailed": "Kayıt Başarısız",
+    "strongPasswordPlease": "Lütfen daha güçlü bir şifre seçin veya geçerli bir e-posta adresi girin.",
+    "doYouHaveAccount": "Hesabınız var mı? Giriş yapın"
+  },
+  "photoAdd": {
+    "selectPhoto": "Fotoğraf Seç",
+    "register": "Kayıt Ol",
+    "addPhotoUrl": "https://i.pinimg.com/564x/2a/2e/7f/2a2e7f0f60b750dfb36c15c268d0118d.jpg"
+  },
+  "error": {
+    "ohNo": "Oh Hayır!",
+    "backtoHomePageLong": "Belki de bigfoot bu sayfayı kırdı. Ana sayfaya geri dön",
+    "backtoHomePageShort": "Ana Sayfaya Geri Dön"
+  },
+  "errorMessages": {
+    "nullUserName": "null"
+  }
+}
