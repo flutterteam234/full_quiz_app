@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import '../../../product/constants/color_constants.dart';
 import '../model/questions.dart';
-import '../quiz_provider.dart';
-import '../quiz_view.dart';
+import '../provider/quiz_provider.dart';
+import '../feature/quiz_view.dart';
 
 class AnswerButton extends StatelessWidget {
   const AnswerButton(

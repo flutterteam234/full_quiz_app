@@ -6,8 +6,10 @@ import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:riverpod_architecture/feature/top_picks/components/custom_circle_avatar_top_picks.dart';
 import 'package:riverpod_architecture/feature/top_picks/components/top_pick_container.dart';
+import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
+import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
 import '../../product/constants/color_constants.dart';
 import '../../product/constants/image_constants.dart';
 import '../../product/constants/string_constants.dart';
@@ -54,12 +56,12 @@ class _TopPicksContainers extends StatelessWidget {
           TopPickContainer(
               backgroundImage: AssetImage(ImageConstants.homePageTop1.toImage),
               title: 'Quiz',
-              navigatePage: RouterItems.leaderboard),
+              navigatePage: RouterItems.quizMain),
           Padding(padding: context.padding.onlyTopNormal),
           TopPickContainer(
               backgroundImage: AssetImage(ImageConstants.homePageTop2.toImage),
               title: 'Notes',
-              navigatePage: RouterItems.leaderboard),
+              navigatePage: RouterItems.appNotes),
 
 
         ],

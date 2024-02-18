@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
-import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
-import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import '../../../product/constants/color_constants.dart';
-
 
 class NotesContainer extends StatelessWidget {
   const NotesContainer(
       {Key? key,
-        required this.backgroundImage,
-        required this.title,
-        required this.navigatePage})
+      required this.backgroundImagePath,
+      required this.title,
+      required this.function})
       : super(key: key);
 
-  final ImageProvider<Object> backgroundImage;
-  final String title;
-  final RouterItems navigatePage;
+  final String? backgroundImagePath;
+  final String? title;
+  final Function()? function;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(context, navigatePage.goScreen());
-      },
+      onTap: function,
       child: Container(
         height: context.sized.dynamicHeight(0.2),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: backgroundImage,
+            image: _getImageProvider(),
             fit: BoxFit.cover,
           ),
           color: ColorConstants.smootWhite.getColor,
@@ -40,7 +36,7 @@ class NotesContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              title != null ? title! : "",
               style: GoogleFonts.baloo2(
                 color: ColorConstants.smootWhite.getColor,
                 fontSize: 18,
@@ -65,5 +61,13 @@ class NotesContainer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ImageProvider<Object> _getImageProvider() {
+    if (backgroundImagePath != null) {
+      return NetworkImage(backgroundImagePath!);
+    } else {
+      return AssetImage(ImageConstants.warning.toImage);
+    }
   }
 }

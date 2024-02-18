@@ -47,7 +47,9 @@ mixin FirebaseUtility {
       } else {
         return null;
       }
-    } catch (error) {
+    } catch (error, stackTrace) {
+      print("Hata: ${error}");
+      print("StackTrace: $stackTrace");
       throw FirebaseCustomExceptions('$error null');
     }
   }

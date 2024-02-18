@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_architecture/feature/quiz/model/questions.dart';
+import 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
+import 'package:riverpod_architecture/product/utility/base/base_firebase_model.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
@@ -8,20 +9,22 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.
 class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
 
-  Future<void> loadQuestions() async {
+  Future<void> loadQuestions(UnitQuestionsModel? unitQuestionsModel) async {
     try {
-      final List<Questions?>? questions = await fetchList<Questions, Questions>(
-        Questions(),
-        FirebaseCollections.questions,
-      );
+      if (unitQuestionsModel == null) return;
 
-      if (questions != null) {
-        addQuestions(questions);
-        addAnswerData();
-
-        await Future.delayed(const Duration(seconds: 1));
-        setLoading(false);
+      final List<Questions?> questionList = [];
+      for (String value in unitQuestionsModel.documentIds!) {
+        final Questions? questions = await fetchDocument<Questions, Questions>(
+            value, Questions(), FirebaseCollections.questions);
+        if (questions == null) return;
+        questionList.add(questions);
       }
+      addQuestions(questionList);
+      addAnswerData();
+
+      await Future.delayed(const Duration(seconds: 1));
+      setLoading(false);
     } catch (error) {
       throw FirebaseCustomExceptions('$error null');
     }
@@ -137,7 +140,6 @@ class QuizState {
   }
 }
 
-
 class AnswerModel {
   final bool isAnswerTrue;
   final int selectedAnswerIndex;
@@ -149,4 +151,3 @@ class AnswerModel {
     required this.isPress,
   });
 }
-

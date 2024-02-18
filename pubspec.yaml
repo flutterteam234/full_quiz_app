@@ -63,11 +63,15 @@ dependencies:
   animated_text_kit: ^4.2.2
   auto_size_text: ^3.0.0
   material_design_icons_flutter: ^7.0.7296
+  syncfusion_flutter_pdfviewer: ^24.2.4
+
 
 
   #services
   connectivity_plus: ^5.0.2
   easy_localization: ^3.0.3
+  package_info_plus: ^4.2.0
+
 
 
   #widget

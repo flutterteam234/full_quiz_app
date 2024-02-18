@@ -1,5 +1,6 @@
 enum RouterItems {
   quiz,
+  quizMain,
   splash,
   leaderboard,
   login,
@@ -8,5 +9,9 @@ enum RouterItems {
   appNotifications,
   addPhoto,
   appSettings,
-  editProfile
+  editProfile,
+  appPreference,
+  appLanguage,
+  appNotes,
+  pdfView,
 }

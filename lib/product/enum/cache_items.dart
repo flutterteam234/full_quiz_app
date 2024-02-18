@@ -1,8 +1,8 @@
-
 import '../init/app_cache.dart';
 
 enum CacheItems {
-  token('token');
+  token('token'),
+  language('language');
 
   final String value;
 
@@ -10,6 +10,6 @@ enum CacheItems {
 
   String get read => AppCache.instance.sharedPreferences.getString(value) ?? '';
 
-  Future<bool> write(String value) =>
-      AppCache.instance.sharedPreferences.setString(value, value);
+  Future<bool> write(String text) =>
+      AppCache.instance.sharedPreferences.setString(value, text);
 }

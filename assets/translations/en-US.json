@@ -6,16 +6,25 @@
     "app": "App",
     "username": "Username",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "exit": "Exit"
   },
   "pages": {
     "home": "Home",
     "quiz": "Quiz"
   },
+  "splash": {
+    "update": "Update",
+    "timeToUpdate": "Time to Update",
+    "updateMessage": "We added lots of new features and fix some bugs to make your experience as smooth as possible",
+    "serverOff": "App is Offline",
+    "serverOffMessage": "We had to leave the application offline due to reasons beyond our control.",
+    "refresh": "Refresh"
+  },
   "login": {
-    "loginWelcome": "Welcome \uD83D\uDC4B",
+    "loginWelcome": "Welcome 👋",
     "loginWelcomeDetail": "I am happy to see you",
-    "loginWelcomeBack": "Welcome Back \uD83D\uDC4B",
+    "loginWelcomeBack": "Welcome Back 👋",
     "loginWelcomeBackDetail": "I am happy to see you again. You can continue where you left off by logging in",
     "continueToApp": "Continue to app"
   },
@@ -31,7 +40,7 @@
   },
   "topPicks": {
     "topPicksWelcome": "Welcome",
-    "topPicks": "topPicks",
+    "topPicks": "Top Picks",
     "exploreProgrames": "Let’s explore our programes"
   },
   "appSettings": {
@@ -40,13 +49,43 @@
     "appPreferences": "App preferences",
     "appNotifications": "App notifications",
     "helpAndSupport": "Help and Support",
-    "giveFeedback": "Give a feedback"
+    "giveFeedback": "Give a feedback",
+    "preference": "Preference"
   },
   "editProfile": {
     "edit": "Edit",
     "profile": "Profile"
   },
+  "appPreference": {
+    "darkMode": "Dark Mode",
+    "language": "Language"
+  },
+  "appLanguage": {
+    "turkish": "Turkish",
+    "english": "English"
+  },
+  "appNotes": {
+    "notes": "Notes"
+  },
   "register": {
-
+    "emailVerification": "Email Verification",
+    "checkYourMail": "Please check your email account and verify.",
+    "okey": "Okey",
+    "registrationFailed": "Registration Failed",
+    "strongPasswordPlease": "Please choose a stronger password or enter a valid e-mail address.",
+    "doYouHaveAccount": "Do you have an account? Login"
+  },
+  "photoAdd": {
+    "selectPhoto": "Select a Photo",
+    "register": "Register",
+    "addPhotoUrl": "https://i.pinimg.com/564x/2a/2e/7f/2a2e7f0f60b750dfb36c15c268d0118d.jpg"
+  },
+  "error": {
+    "ohNo": "Oh No!",
+    "backtoHomePageLong": "May be bigfoot has broken this page. Come back to the homepage",
+    "backtoHomePageShort": "Back to Homepage"
+  },
+  "errorMessages": {
+    "nullUserName": "null"
   }
 }

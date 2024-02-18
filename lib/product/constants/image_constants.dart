@@ -9,7 +9,13 @@ enum ImageConstants {
   playlistIcon('playlist'),
   trophyIcon('trophy'),
   error404Image('404'),
-  leftRoundedIcon('left_rounded')
+  leftRoundedIcon('left_rounded'),
+  moonIcon('moon'),
+  globalIcon('global'),
+  flagTr("flag_tr"),
+  flagUs("flag_us"),
+  warning("warning"),
+  serverOff("server_off")
   ;
 
   final String value;

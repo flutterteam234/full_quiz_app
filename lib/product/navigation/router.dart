@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/app_notifications/app_notifications_view.dart';
-import 'package:riverpod_architecture/feature/app_settings/app_settings_view.dart';
-import 'package:riverpod_architecture/feature/edit_profile/edit_profile_view.dart';
-import 'package:riverpod_architecture/feature/home/home_view.dart';
-import 'package:riverpod_architecture/feature/leaderboard/leaderboard_view.dart';
-import 'package:riverpod_architecture/feature/login_register/login_page.dart';
-import 'package:riverpod_architecture/feature/login_register/profile_photo_add.dart';
-import 'package:riverpod_architecture/feature/login_register/register_page.dart';
-import 'package:riverpod_architecture/feature/quiz/quiz_view.dart';
-import 'package:riverpod_architecture/feature/splash/splash_view.dart';
-import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'router_import.dart';
 
 class Routes {
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,10 +14,12 @@ class Routes {
 }
 
 extension PagesExtension on RouterItems {
-  Widget _screen() {
+  Widget _screen({String? url, UnitQuestionsModel? unitQuestionsModel}) {
     switch (this) {
       case RouterItems.quiz:
-        return const QuizView();
+        return  QuizView(unitQuestionsModel: unitQuestionsModel,);
+      case RouterItems.quizMain:
+        return const QuizMainView();
       case RouterItems.splash:
         return const SplashView();
       case RouterItems.login:
@@ -46,6 +38,14 @@ extension PagesExtension on RouterItems {
         return const AppSettingsView();
       case RouterItems.editProfile:
         return const EditProfileView();
+      case RouterItems.appPreference:
+        return const AppPreferenceView();
+      case RouterItems.appLanguage:
+        return const AppLanguageView();
+      case RouterItems.appNotes:
+        return const AppNotesView();
+      case RouterItems.pdfView:
+        return PdfView(url: url);
     }
   }
 
@@ -53,5 +53,6 @@ extension PagesExtension on RouterItems {
 
   String get routeName => "/$name";
 
-  Route goScreen() => MaterialPageRoute(builder: (_) => _screen());
+  Route goScreen({String? url, UnitQuestionsModel? unitQuestionsModel}) =>
+      MaterialPageRoute(builder: (_) => _screen(url: url,unitQuestionsModel: unitQuestionsModel));
 }

@@ -5,19 +5,20 @@ import 'package:riverpod_architecture/feature/quiz/components/answer_buton.dart'
 import 'package:riverpod_architecture/feature/quiz/components/next_button.dart';
 import 'package:riverpod_architecture/feature/quiz/components/question_container.dart';
 import 'package:riverpod_architecture/feature/quiz/model/questions.dart';
-import 'package:riverpod_architecture/feature/quiz/quiz_provider.dart';
+import 'package:riverpod_architecture/feature/quiz/provider/quiz_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
+import 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
-import '../../product/models/userData.dart';
-
 class QuizView extends StatelessWidget {
-  const QuizView({Key? key}) : super(key: key);
+  const QuizView({Key? key, this.unitQuestionsModel})
+      : super(key: key);
+
+  final UnitQuestionsModel? unitQuestionsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,8 @@ class QuizView extends StatelessWidget {
     });
 
     return BaseView<QuizNotifier, QuizState>(onInitState: (WidgetRef ref) {
-      ref.read(quizProvider.notifier).loadQuestions();
+      ref.read(quizProvider.notifier).loadQuestions(unitQuestionsModel);
     }, onPageBuilder: (BuildContext context, WidgetRef ref) {
-
-
       final quizState = ref.watch(quizProvider);
 
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];

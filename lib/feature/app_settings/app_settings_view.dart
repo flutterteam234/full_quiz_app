@@ -31,8 +31,13 @@ class AppSettingsView extends StatelessWidget {
             children: [
               _getEditProfileContainer(context),
               Padding(padding: context.padding.verticalLow),
-              const SettingsButton(
-                  title: StringConstants.appPreferences, icon: Icons.settings),
+              SettingsButton(
+                title: StringConstants.appPreferences,
+                icon: Icons.settings,
+                function: () {
+                  Navigator.push(context, RouterItems.appPreference.goScreen());
+                },
+              ),
               Padding(padding: context.padding.verticalLow),
               const SettingsButton(
                   title: StringConstants.appNotifications,
@@ -117,7 +122,7 @@ class AppSettingsView extends StatelessWidget {
           _getEditProfile(),
           Padding(padding: context.padding.verticalLow),
           ChangePhotoCircleAvatar(
-            function: (){
+            function: () {
               Navigator.push(context, RouterItems.editProfile.goScreen());
             },
           ),

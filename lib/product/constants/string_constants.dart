@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// This part was canceled and easy localization was passed.
+
 @immutable
 class StringConstants {
   const StringConstants._();
@@ -54,6 +56,14 @@ class StringConstants {
   static const edit = 'Edit';
   static const profile = 'Profile';
 
+  // App Preference
+  static const darkMode = 'Dark Mode';
+  static const language = 'Language';
+
+  // App Language
+  static const turkish = 'Turkish';
+  static const english = 'English';
+  static const arabic = 'Arabic';
 
   // Register
   static const emailVerification = 'Email Verification';

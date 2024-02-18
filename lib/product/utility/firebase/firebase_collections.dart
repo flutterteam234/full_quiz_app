@@ -4,6 +4,10 @@ enum FirebaseCollections {
   questions,
   points,
   users,
+  app,
+  notes,
+  subNotes,
+  unitQuestions
   ;
 
   CollectionReference get reference =>

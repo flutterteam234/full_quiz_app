@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/product/constants/app_theme.dart';
 import 'package:riverpod_architecture/product/constants/settings_constants.dart';
 import 'package:riverpod_architecture/product/constants/string_constants.dart';
+import 'package:riverpod_architecture/product/init/app_cache.dart';
 import 'package:riverpod_architecture/product/init/app_start_init.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
@@ -13,7 +14,7 @@ void main() async {
 
   runApp(EasyLocalization(
       useOnlyLangCode: false,
-      startLocale: SettingsConstants.EN_LOCALE,
+      startLocale: AppCache.instance.getLanguage(),
       supportedLocales: SettingsConstants.SUPPORTED_LOCALE,
       path: SettingsConstants.LANG_PATH,
       child: const ProviderScope(child: MyApp())));

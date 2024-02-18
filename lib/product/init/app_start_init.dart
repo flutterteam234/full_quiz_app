@@ -1,9 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:riverpod_architecture/firebase_options.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
+
+import 'app_cache.dart';
 
 class ApplicationStart {
   const ApplicationStart._();
@@ -14,7 +15,10 @@ class ApplicationStart {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    await EasyLocalization.ensureInitialized();
+    //await EasyLocalization.ensureInitialized();
+
+    await AppCache.instance.setup();
+
 
     FirebaseUIAuth.configureProviders(
       [EmailAuthProvider()],

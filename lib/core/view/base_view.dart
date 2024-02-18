@@ -1,11 +1,6 @@
-import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:riverpod_architecture/product/widget/connection_change_toast/connection_change_toast_message.dart';
-
 import '../../product/services/ConnectionChange/network_change_manager.dart';
 
 class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
