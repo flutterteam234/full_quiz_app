@@ -35,6 +35,7 @@ class Points extends Equatable with IdModel, BaseFirebaseModel<Points> {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

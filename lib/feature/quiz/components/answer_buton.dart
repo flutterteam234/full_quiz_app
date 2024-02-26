@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+import 'package:riverpod_architecture/feature/quiz/feature/quiz_view_mixin.dart';
 import '../../../product/constants/color_constants.dart';
 import '../model/questions.dart';
 import '../provider/quiz_provider.dart';
 import '../feature/quiz_view.dart';
 
-class AnswerButton extends StatelessWidget {
+class AnswerButton extends StatelessWidget with QuizViewMixin {
   const AnswerButton(
       {Key? key,
       required this.ref,
@@ -37,6 +38,8 @@ class AnswerButton extends StatelessWidget {
           }
           ref.read(quizProvider.notifier).setSelectedAnswerIndex(answerIndex);
           ref.read(quizProvider.notifier).setIsPress();
+
+
         },
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),

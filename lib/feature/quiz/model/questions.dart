@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:riverpod_architecture/product/utility/base/base_firebase_model.dart';
-
+import 'package:riverpod_architecture/core/model/base_model.dart';
+import '../../../product/utility/base/base_firebase_model.dart';
 import 'answers.dart';
 
 @immutable
-class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> {
+class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> implements BaseModel {
   Questions({
     this.id,
     this.questionTitle,
@@ -15,6 +15,7 @@ class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> {
     this.answers,
     this.correctQuestionIndex,
   });
+
 
   final String? questionTitle;
   final String? question;
@@ -45,7 +46,7 @@ class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> {
     );
   }
 
-
+  @override
   Map<String, dynamic> toJson() {
     return {
       'questionTitle': questionTitle,
@@ -68,3 +69,4 @@ class Questions extends Equatable with IdModel, BaseFirebaseModel<Questions> {
         correctQuestionIndex: json['correctQuestionIndex'] as int?);
   }
 }
+

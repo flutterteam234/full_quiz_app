@@ -21,9 +21,8 @@ class SettingsConstants {
 
   static const startLocale = SettingsConstants.EN_LOCALE;
 
-
-  static const defaultImagePath = "https://img.freepik.com/free-vector/error-lettering-font-typography_53876-99614.jpg?w=1380&t=st=1708180228~exp=1708180828~hmac=55b7f04179f619c53ea6aa3c449f7459c4d5f2fbff54ebacee157526e287a225";
-
+  static const defaultImagePath =
+      "https://img.freepik.com/free-vector/error-lettering-font-typography_53876-99614.jpg?w=1380&t=st=1708180228~exp=1708180828~hmac=55b7f04179f619c53ea6aa3c449f7459c4d5f2fbff54ebacee157526e287a225";
 
   // Edit Profile
   static const int inputLenghtUsername = 15;
@@ -32,4 +31,7 @@ class SettingsConstants {
   // App Notes
   static const double zoomInLevel = 0.2;
   static const double zoomOutLevel = 0.2;
+
+  // Points System
+  static const int correctAnswerPoint = 10;
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 
@@ -47,10 +48,23 @@ mixin FirebaseUtility {
       } else {
         return null;
       }
-    } catch (error, stackTrace) {
-      print("Hata: ${error}");
-      print("StackTrace: $stackTrace");
+    } catch (error) {
       throw FirebaseCustomExceptions('$error null');
+    }
+  }
+
+  Future<void> addDocument<T extends IdModel, R extends BaseFirebaseModel<T>>(
+    R? data,
+    CollectionReference collectionReference,
+  ) async {
+    if (data == null) return;
+
+    try {
+      final Map<String, dynamic> dataToJson = data.toJson();
+      await collectionReference.add(dataToJson);
+    } catch (error) {
+      throw FirebaseCustomExceptions(
+          'Error adding document to ${collectionReference.path}: $error');
     }
   }
 }

@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../product/services/ConnectionChange/connection_change_provider.dart';
 import '../../product/services/ConnectionChange/network_change_manager.dart';
 
 class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
@@ -20,10 +20,18 @@ class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
 }
 
 class _BaseViewState<T extends StateNotifier<U>, U>
-    extends ConsumerState<BaseView<T, U>> {
+    extends ConsumerState<BaseView<T, U>> with ConnectionChangeLoggerMixin {
+  late ConnectionChangeLogger _connectionChangeLogger;
+
+  @override
+  ConnectionChangeLogger get connectionChangeLogger => _connectionChangeLogger;
+
   @override
   void initState() {
     super.initState();
+
+    _connectionChangeLogger = ref.read(connectionChangeLoggerProvider);
+
     if (widget.onInitState != null) widget.onInitState!(ref);
   }
 
@@ -36,8 +44,6 @@ class _BaseViewState<T extends StateNotifier<U>, U>
 
   @override
   Widget build(BuildContext context) {
-    ConnectionChangeLogger();
-
     return widget.onPageBuilder(context, ref);
   }
 }

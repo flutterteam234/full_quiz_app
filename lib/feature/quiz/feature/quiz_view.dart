@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
@@ -12,11 +13,14 @@ import 'package:riverpod_architecture/product/constants/string_constants.dart';
 import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
+import 'package:riverpod_architecture/product/services/ConnectionChange/connection_change_enum.dart';
+import 'package:riverpod_architecture/product/services/ConnectionChange/network_change_manager.dart';
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
-class QuizView extends StatelessWidget {
-  const QuizView({Key? key, this.unitQuestionsModel})
-      : super(key: key);
+import '../../../product/services/ConnectionChange/connection_change_provider.dart';
+
+class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
+  const QuizView({Key? key, this.unitQuestionsModel}) : super(key: key);
 
   final UnitQuestionsModel? unitQuestionsModel;
 
@@ -26,12 +30,17 @@ class QuizView extends StatelessWidget {
       return QuizNotifier();
     });
 
+    late final ConnectionChangeLogger connectionChangeLogger;
+
     return BaseView<QuizNotifier, QuizState>(onInitState: (WidgetRef ref) {
       ref.read(quizProvider.notifier).loadQuestions(unitQuestionsModel);
+      connectionChangeLogger = ref.read(connectionChangeLoggerProvider);
     }, onPageBuilder: (BuildContext context, WidgetRef ref) {
       final quizState = ref.watch(quizProvider);
 
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
+
+      print(connectionChangeLogger.getCurrentNetworkStatus());
 
       return Scaffold(
         backgroundColor: Color(ColorConstants.lightSilver.toRgba),
@@ -87,7 +96,10 @@ class QuizView extends StatelessWidget {
                         },
                       ),
                       Padding(padding: context.padding.verticalLow),
-                      NextButton(ref: ref, quizProvider: quizProvider),
+                      NextButton(
+                          ref: ref,
+                          quizProvider: quizProvider,
+                          networkResult: NetworkResult.on),
                     ],
                   ),
       );
@@ -119,13 +131,5 @@ class _QuestionNumberText extends StatelessWidget {
     } else {
       return '${quizState!.currentIndex + 1}/${quizState!.questions!.length}';
     }
-  }
-}
-
-bool questionCheck(int questionIndex, int correctAnswerIndex) {
-  if (questionIndex == correctAnswerIndex) {
-    return true;
-  } else {
-    return false;
   }
 }

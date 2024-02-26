@@ -1,10 +1,19 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:riverpod_architecture/product/widget/connection_change_toast/connection_change_toast_message.dart';
 
-enum NetworkResult {
-  on,
-  off,
+import 'connection_change_enum.dart';
+
+
+
+
+
+
+
+mixin ConnectionChangeLoggerMixin { // fixme
+  ConnectionChangeLogger get connectionChangeLogger =>
+      ConnectionChangeLogger();
 }
 
 class NetworkChangeManager {
@@ -13,6 +22,7 @@ class NetworkChangeManager {
   NetworkChangeManager() {
     _connectivity = Connectivity();
   }
+
 
   Future<NetworkResult> checkNetworkFirstTime() async {
     final connectivityResult = await _connectivity.checkConnectivity();
@@ -38,6 +48,7 @@ class NetworkChangeManager {
 
 class ConnectionChangeLogger {
   late final NetworkChangeManager _networkChange;
+  late NetworkResult _currentNetworkStatus;
 
   ConnectionChangeLogger() {
     _networkChange = NetworkChangeManager();
@@ -48,10 +59,12 @@ class ConnectionChangeLogger {
       } else {
         ConnectionChangeToastMessage.showToastOff();
       }
+      _currentNetworkStatus = result;
     });
 
     _networkChange.checkNetworkFirstTime().then((result) {
       _logInitialConnection(result);
+      _currentNetworkStatus = result;
     });
   }
 
@@ -61,5 +74,9 @@ class ConnectionChangeLogger {
     } else {
       print('No internet connection initially');
     }
+  }
+
+  NetworkResult getCurrentNetworkStatus() {
+    return _currentNetworkStatus;
   }
 }

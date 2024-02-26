@@ -7,6 +7,10 @@ abstract class IdModel {
 }
 
 abstract class BaseFirebaseModel<T extends IdModel> {
+
+
+  Map<String,dynamic> toJson();
+
   T fromJson(Map<String, dynamic> json);
 
   T fromFirebase(DocumentSnapshot<Map<String, dynamic>> snapshot) {

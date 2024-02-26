@@ -1,13 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_architecture/feature/quiz/model/questions.dart';
+import 'package:riverpod_architecture/product/constants/settings_constants.dart';
 import 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
-import 'package:riverpod_architecture/product/utility/base/base_firebase_model.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
+import 'package:riverpod_architecture/product/utility/extentions/time_extentions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
+import '../../../product/services/ConnectionChange/connection_change_enum.dart';
+import '../../leaderboard/model/points.dart';
 
 class QuizNotifier extends StateNotifier<QuizState> with FirebaseUtility {
   QuizNotifier() : super(const QuizState());
+
+  Future<void> savePoints(NetworkResult networkResult) async {
+    if (networkResult.getIsConnected) {
+      for (AnswerModel answerModel in state.pastAnswersData) {
+        if (answerModel.isAnswerTrue) {
+          Points points = Points(
+              date: DateTimeExtensions.currentTimestamp(),
+              point: SettingsConstants.correctAnswerPoint);
+          addDocument(points, FirebaseCollections.points.reference);
+        }
+      }
+    } else {
+      // save localdatabase
+    }
+  }
 
   Future<void> loadQuestions(UnitQuestionsModel? unitQuestionsModel) async {
     try {
