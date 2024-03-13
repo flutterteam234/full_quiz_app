@@ -8,6 +8,7 @@ abstract class  LocaleKeys {
   static const general_email = 'general.email';
   static const general_password = 'general.password';
   static const general_exit = 'general.exit';
+  static const general_close = 'general.close';
   static const general = 'general';
   static const pages_home = 'pages.home';
   static const pages_quiz = 'pages.quiz';
@@ -27,6 +28,7 @@ abstract class  LocaleKeys {
   static const login = 'login';
   static const quiz_provious = 'quiz.provious';
   static const quiz_next = 'quiz.next';
+  static const quiz_quiz = 'quiz.quiz';
   static const quiz = 'quiz';
   static const leaderboard_leaderboard = 'leaderboard.leaderboard';
   static const leaderboard = 'leaderboard';
@@ -46,6 +48,9 @@ abstract class  LocaleKeys {
   static const appSettings = 'appSettings';
   static const editProfile_edit = 'editProfile.edit';
   static const editProfile_profile = 'editProfile.profile';
+  static const editProfile_save = 'editProfile.save';
+  static const editProfile_failed = 'editProfile.failed';
+  static const editProfile_oparationFailed = 'editProfile.oparationFailed';
   static const editProfile = 'editProfile';
   static const appPreference_darkMode = 'appPreference.darkMode';
   static const appPreference_language = 'appPreference.language';
@@ -72,5 +77,9 @@ abstract class  LocaleKeys {
   static const error = 'error';
   static const errorMessages_nullUserName = 'errorMessages.nullUserName';
   static const errorMessages = 'errorMessages';
+  static const verification_clearAll = 'verification.clearAll';
+  static const verification_verificationCode = 'verification.verificationCode';
+  static const verification_verificationCodeDetail = 'verification.verificationCodeDetail';
+  static const verification = 'verification';
 
 }

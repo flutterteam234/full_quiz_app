@@ -9,7 +9,8 @@ import 'package:riverpod_architecture/feature/top_picks/components/top_pick_cont
 import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
-import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
+import 'package:riverpod_architecture/product/widget/search_delegate/base_delegate_model.dart';
+import 'package:riverpod_architecture/product/widget/search_delegate/search_delegate.dart';
 import '../../product/constants/color_constants.dart';
 import '../../product/constants/image_constants.dart';
 import '../../product/constants/string_constants.dart';
@@ -24,8 +25,6 @@ class TopPicksView extends StatelessWidget {
     final TextEditingController controller = TextEditingController();
 
     return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
-
-
       return SafeArea(
           child: ListView(
         padding: EdgeInsets.only(
@@ -55,15 +54,13 @@ class _TopPicksContainers extends StatelessWidget {
         children: [
           TopPickContainer(
               backgroundImage: AssetImage(ImageConstants.homePageTop1.toImage),
-              title: 'Quiz',
+              title: LocaleKeys.quiz_quiz,
               navigatePage: RouterItems.quizMain),
           Padding(padding: context.padding.onlyTopNormal),
           TopPickContainer(
               backgroundImage: AssetImage(ImageConstants.homePageTop2.toImage),
-              title: 'Notes',
+              title: LocaleKeys.appNotes_notes,
               navigatePage: RouterItems.appNotes),
-
-
         ],
       ),
     );
@@ -107,25 +104,26 @@ class _TopPicksRow extends StatelessWidget {
 }
 
 class _CustomField extends ConsumerWidget {
-  const _CustomField(this.controller);
+  _CustomField(this.controller);
 
   final TextEditingController controller;
+
+  final List<DelegateModel> items = [
+    DelegateModel(
+        text: LocaleKeys.quiz_quiz, routerItems: RouterItems.quizMain),
+    DelegateModel(
+        text: LocaleKeys.appNotes_notes, routerItems: RouterItems.appNotes),
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
       controller: controller,
       onTap: () async {
-        /*
-        final response = await showSearch<Tag?>(
+        final response = await showSearch<DelegateModel?>(
           context: context,
-          delegate: HomeSearchDelegate(
-            ref.read(_homeProvider.notifier).fullTagList,
-          ),
+          delegate: CustomSearchDelegate(items: items),
         );
-        ref.read(_homeProvider.notifier).updateSelectedTag(response);
-
-         */
       },
       decoration: const InputDecoration(
         suffixIcon: Icon(Icons.search, size: 22.0),
@@ -157,15 +155,17 @@ class _Header extends StatelessWidget {
                 color: ColorConstants.smootWhite.getColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18.0),
-            FirebaseUser.instance.userData != null ? Padding(
-              padding: context.padding.onlyTopLow,
-              child: SubTitleText(
-                text: FirebaseUser.instance.userData!.name ?? '',
-                color: ColorConstants.smootWhite.getColor,
-                fontSize: 22.0,
-                fontWeight: FontWeight.w600,
-              ),
-            ):const SizedBox(),
+            FirebaseUser.instance.userData != null
+                ? Padding(
+                    padding: context.padding.onlyTopLow,
+                    child: SubTitleText(
+                      text: FirebaseUser.instance.userData!.name ?? '',
+                      color: ColorConstants.smootWhite.getColor,
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                : const SizedBox(),
           ],
         ),
         CustomCircleAvatarTopPicks(

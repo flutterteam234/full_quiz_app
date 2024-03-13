@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 
 class SettingsConstants {
   SettingsConstants._();
@@ -34,4 +34,12 @@ class SettingsConstants {
 
   // Points System
   static const int correctAnswerPoint = 10;
+
+  // Verification
+  static const int verificationLenght = 6;
+  static const int verificationSecond = 180;
+  static const TextInputType textInputType = TextInputType.number;
+
+  /// If want the change textInputType you have to change something in VerificationState or App is not work
+
 }

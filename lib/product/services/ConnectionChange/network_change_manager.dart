@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-import 'package:riverpod_architecture/product/widget/connection_change_toast/connection_change_toast_message.dart';
+import 'package:riverpod_architecture/product/widget/toast_message/connection_change_toast_message.dart';
 
 import 'connection_change_enum.dart';
 

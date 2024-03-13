@@ -130,10 +130,10 @@ class AuthService {
     }
   }
 
+
   // Kullanıcı doğrulamasını kontrol etmek için
   bool checkEmailVerification(String email) {
     User? user = FirebaseAuth.instance.currentUser;
-    print(user.toString() + "  HAHAHAHHAHAHAHHA");
     if (user != null && user.emailVerified) {
       // Kullanıcı doğrulanmış bir e-posta adresine sahip
       print('E-posta doğrulandı.');
@@ -146,12 +146,25 @@ class AuthService {
     }
   }
 
+
   Future<void> checkLoginStatus(BuildContext context) async {
     //AuthService();
     if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.push(context, RouterItems.quizMain.goScreen());
+      Navigator.push(context, RouterItems.home.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
+    }
+  }
+
+  Future<void> changeEmail(String newEmail) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if(user == null) return;
+
+    try {
+      await user.updateEmail(newEmail);
+      print("Email adresi başarıyla güncellendi: $newEmail");
+    } catch (e) {
+      print("Email adresi güncellenirken bir hata oluştu: $e");
     }
   }
 }

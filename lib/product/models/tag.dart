@@ -28,6 +28,7 @@ class Tag with EquatableMixin, IdModel, BaseFirebaseModel<Tag> {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'name': name,

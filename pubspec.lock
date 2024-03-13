@@ -608,6 +608,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_verification_code:
+    dependency: "direct main"
+    description:
+      name: flutter_verification_code
+      sha256: "75f520c884c08eb44d91920f6f62f2546fd5b56f32d0ba199e1d72044bd575b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.7"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

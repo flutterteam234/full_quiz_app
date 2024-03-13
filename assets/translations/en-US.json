@@ -7,7 +7,8 @@
     "username": "Username",
     "email": "Email",
     "password": "Password",
-    "exit": "Exit"
+    "exit": "Exit",
+    "close": "Close"
   },
   "pages": {
     "home": "Home",
@@ -30,7 +31,8 @@
   },
   "quiz": {
     "provious": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "quiz": "Quiz"
   },
   "leaderboard": {
     "leaderboard": "Leaderboard"
@@ -54,7 +56,10 @@
   },
   "editProfile": {
     "edit": "Edit",
-    "profile": "Profile"
+    "profile": "Profile",
+    "save": "Save",
+    "failed": "Failed",
+    "oparationFailed": "Operation failed"
   },
   "appPreference": {
     "darkMode": "Dark Mode",
@@ -87,5 +92,10 @@
   },
   "errorMessages": {
     "nullUserName": "null"
+  },
+  "verification": {
+    "clearAll": "Clear All",
+    "verificationCode": "Verification Code",
+    "verificationCodeDetail": "We have sent the verification code to your email address"
   }
 }

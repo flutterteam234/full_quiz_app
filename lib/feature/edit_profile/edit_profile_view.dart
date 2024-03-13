@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/core/view/base_view.dart';
@@ -10,8 +7,12 @@ import 'package:riverpod_architecture/feature/app_settings/components/change_pho
 import 'package:riverpod_architecture/feature/edit_profile/components/user_contents_container.dart';
 import 'package:riverpod_architecture/feature/edit_profile/edit_profile_provider.dart';
 import 'package:riverpod_architecture/feature/edit_profile/enum/edit_profile_enum.dart';
+import 'package:riverpod_architecture/generated/locale_keys.g.dart';
+import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/widget/appbars/custom_app_bar.dart';
 import '../../product/constants/color_constants.dart';
-import '../../product/constants/string_constants.dart';
+import '../../product/widget/buttons/save_button.dart';
 
 class EditProfileView extends StatelessWidget {
   const EditProfileView({Key? key}) : super(key: key);
@@ -37,7 +38,12 @@ class EditProfileView extends StatelessWidget {
 
           return Scaffold(
             backgroundColor: ColorConstants.smootGreen.getColor,
-            appBar: _getAppBar(context),
+            appBar: CustomAppBar(
+                title: LocaleKeys.editProfile_edit,
+                subTitle: LocaleKeys.editProfile_profile,
+                function: () {
+                  Navigator.push(context, RouterItems.appPreference.goScreen());
+                }),
             body: SingleChildScrollView(
                 child: Center(
               child: Column(
@@ -69,54 +75,24 @@ class EditProfileView extends StatelessWidget {
                       state: editProfileState,
                       notifier: editProfileNotifier,
                       editProfileEnum: EditProfileEnum.password,
-                      controller: controller)
+                      controller: controller),
+                  Padding(padding: context.padding.verticalLow),
+                  SaveButton(
+                      title: LocaleKeys.editProfile_save,
+                      style: ElevatedButton.styleFrom(
+                        padding: context.padding.normal +
+                            context.padding.horizontalNormal,
+                        animationDuration: Durations.short1,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                      ),
+                      function: () async {
+                        await editProfileNotifier.saveContent();
+                      }),
                 ],
               ),
             )),
           );
         });
-  }
-
-  PreferredSizeWidget _getAppBar(BuildContext context) {
-    return AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        leadingWidth: 100,
-        title: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.keyboard_arrow_left_sharp,
-                color: Color(ColorConstants.smootWhite.toRgba),
-              ),
-              iconSize: 40,
-              color: Color(ColorConstants.black.toRgba),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringConstants.edit,
-                  style: GoogleFonts.baloo2(
-                      fontWeight: FontWeight.w500,
-                      wordSpacing: 1,
-                      fontSize: 17,
-                      color: ColorConstants.lightSilver.getColor),
-                ),
-                Text(
-                  StringConstants.profile,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                      color: ColorConstants.smootWhite.getColor),
-                ),
-              ],
-            ),
-          ],
-        ));
   }
 }

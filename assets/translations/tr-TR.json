@@ -7,7 +7,8 @@
     "username": "Kullanıcı Adı",
     "email": "E-posta",
     "password": "Şifre",
-    "exit": "Çıkış"
+    "exit": "Çıkış",
+    "close": "Kapat"
   },
   "pages": {
     "home": "Ana Sayfa",
@@ -30,7 +31,8 @@
   },
   "quiz": {
     "provious": "Önceki",
-    "next": "Sonraki"
+    "next": "Sonraki",
+    "quiz": "Test"
   },
   "leaderboard": {
     "leaderboard": "Liderlik Tablosu"
@@ -54,7 +56,10 @@
   },
   "editProfile": {
     "edit": "Düzenle",
-    "profile": "Profil"
+    "profile": "Profil",
+    "save": "Kaydet",
+    "failed": "Başarısız",
+    "oparationFailed": "İşlem Başarısız"
   },
   "appPreference": {
     "darkMode": "Siyah Tema",
@@ -87,5 +92,10 @@
   },
   "errorMessages": {
     "nullUserName": "null"
+  },
+  "verification": {
+    "clearAll": "Hepsini Temizle",
+    "verificationCode": "Doğrulama Kodu",
+    "verificationCodeDetail": "Doğrulama kodunu e-posta adresinize gönderdik"
   }
 }

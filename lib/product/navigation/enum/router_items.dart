@@ -14,4 +14,5 @@ enum RouterItems {
   appLanguage,
   appNotes,
   pdfView,
+  verificationView
 }

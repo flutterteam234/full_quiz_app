@@ -16,7 +16,8 @@ enum ColorConstants {
   darkBlue('102C56'),
   lightGreyText('8A94A4'),
   lightBlue("6741FC"),
-  shadowBlack('A2A2A2')
+  shadowBlack('A2A2A2'),
+  lightBlack('B6B6B6'),
   ;
 
   final String value;
