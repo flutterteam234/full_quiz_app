@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +9,7 @@ import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/services/logout_log/logout_log_manager.dart';
 import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
 
 import '../../product/constants/color_constants.dart';
@@ -25,8 +27,6 @@ class AppPreferenceView extends StatelessWidget {
     });
   }
 
-
-
   Widget _getBody(BuildContext context) {
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
@@ -35,94 +35,142 @@ class AppPreferenceView extends StatelessWidget {
         padding: context.padding.normal,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Container(
-            padding: context.padding.low,
-            alignment: Alignment.center,
-            height: context.sized.dynamicHeight(0.125),
-            decoration: BoxDecoration(
-                color: ColorConstants.smootWhite.getColor,
-                borderRadius: BorderRadius.circular(25.0)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      ImageConstants.moonIcon.toIcon,
-                      width: context.sized.highValue,
-                      height: context.sized.highValue,
-                    ),
-                    Padding(padding: context.padding.horizontalLow),
-                    LocaleText(
-                      text: LocaleKeys.appPreference_darkMode,
-                      textStyle: GoogleFonts.baloo2(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
+          _getDarkModeButton(context),
+          Padding(padding: context.padding.verticalLow),
+          _getLanguageButton(context),
+          Padding(padding: context.padding.verticalLow),
+          _getLogoutButton(context)
+        ],
+      ),
+    );
+  }
 
-                SizedBox(
-                  height: context.sized.mediumValue,
-                  width: context.sized.mediumValue,
-                  child: Switch(
-                    value: true,
-                    onChanged: (value) {},
-                    activeColor: Colors.black,
-                    activeTrackColor: Colors.grey,
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey,
+  Widget _getLogoutButton(BuildContext context) {
+    return InkWell(
+      child: Container(
+          padding: context.padding.low,
+          alignment: Alignment.center,
+          height: context.sized.dynamicHeight(0.125),
+          decoration: BoxDecoration(
+              color: ColorConstants.smootWhite.getColor,
+              borderRadius: BorderRadius.circular(25.0)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    ImageConstants.logOutIcon.toIcon,
+                    width: context.sized.highValue,
+                    height: context.sized.highValue,
+                  ),
+                  Padding(padding: context.padding.horizontalNormal),
+                  LocaleText(
+                    text: LocaleKeys.general_logout,
+                    textStyle: GoogleFonts.baloo2(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              context.sized.emptySizedHeightBoxNormal
+            ],
+          )),
+      onTap: () {
+        LogOutManager.logout.init();
+        Navigator.push(context, RouterItems.login.goScreen());
+      },
+    );
+  }
+
+  Widget _getLanguageButton(BuildContext context) {
+    return InkWell(
+      child: Container(
+        padding: context.padding.low,
+        alignment: Alignment.center,
+        height: context.sized.dynamicHeight(0.125),
+        decoration: BoxDecoration(
+            color: ColorConstants.smootWhite.getColor,
+            borderRadius: BorderRadius.circular(25.0)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  ImageConstants.globalIcon.toIcon,
+                  width: context.sized.highValue,
+                  height: context.sized.highValue,
+                ),
+                Padding(padding: context.padding.horizontalLow),
+                LocaleText(
+                  text: LocaleKeys.appPreference_language,
+                  textStyle: GoogleFonts.baloo2(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
                   ),
                 ),
               ],
             ),
-          ),
-          Padding(padding: context.padding.verticalLow),
-          InkWell(
-            child:         Container(
-              padding: context.padding.low,
-              alignment: Alignment.center,
-              height: context.sized.dynamicHeight(0.125),
-              decoration: BoxDecoration(
-                  color: ColorConstants.smootWhite.getColor,
-                  borderRadius: BorderRadius.circular(25.0)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        ImageConstants.globalIcon.toIcon,
-                        width: context.sized.highValue,
-                        height: context.sized.highValue,
-                      ),
-                      Padding(padding: context.padding.horizontalLow),
-                      LocaleText(
-                        text: LocaleKeys.appPreference_language,
-                        textStyle: GoogleFonts.baloo2(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
+            SizedBox(
+                height: context.sized.mediumValue,
+                width: context.sized.mediumValue,
+                child: InkWell(
+                  child: Icon(
+                    MdiIcons.arrowRight,
+                    color: ColorConstants.black.getColor,
+                    size: context.sized.mediumValue,
                   ),
-                  SizedBox(
-                      height: context.sized.mediumValue,
-                      width: context.sized.mediumValue,
-                      child: InkWell(
-                        child: Icon(
-                          MdiIcons.arrowRight,
-                          color: ColorConstants.black.getColor,
-                          size: context.sized.mediumValue,
-                        ),
-                      )),
-                ],
+                )),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.push(context, RouterItems.appLanguage.goScreen());
+      },
+    );
+  }
+
+  Widget _getDarkModeButton(BuildContext context) {
+    return Container(
+      padding: context.padding.low,
+      alignment: Alignment.center,
+      height: context.sized.dynamicHeight(0.125),
+      decoration: BoxDecoration(
+          color: ColorConstants.smootWhite.getColor,
+          borderRadius: BorderRadius.circular(25.0)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                ImageConstants.moonIcon.toIcon,
+                width: context.sized.highValue,
+                height: context.sized.highValue,
               ),
+              Padding(padding: context.padding.horizontalLow),
+              LocaleText(
+                text: LocaleKeys.appPreference_darkMode,
+                textStyle: GoogleFonts.baloo2(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: context.sized.mediumValue,
+            width: context.sized.mediumValue,
+            child: Switch(
+              value: true,
+              onChanged: (value) {},
+              activeColor: Colors.black,
+              activeTrackColor: Colors.grey,
+              inactiveThumbColor: Colors.white,
+              inactiveTrackColor: Colors.grey,
             ),
-            onTap: (){
-              Navigator.push(context, RouterItems.appLanguage.goScreen());
-            },
           ),
         ],
       ),

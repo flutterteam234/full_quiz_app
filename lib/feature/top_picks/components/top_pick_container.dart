@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
 import '../../../product/constants/color_constants.dart';
 
 
@@ -39,9 +40,9 @@ class TopPickContainer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: GoogleFonts.baloo2(
+            LocaleText(
+              text: title,
+              textStyle: GoogleFonts.baloo2(
                 color: ColorConstants.smootWhite.getColor,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,

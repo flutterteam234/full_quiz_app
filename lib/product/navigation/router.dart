@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:riverpod_architecture/feature/verification/verification_view.dart';
-import 'package:riverpod_architecture/product/widget/verification/verification.dart';
+import 'package:riverpod_architecture/feature/od/feature/od_view.dart';
 import 'router_import.dart';
 
 class Routes {
@@ -16,7 +15,7 @@ class Routes {
 }
 
 extension PagesExtension on RouterItems {
-  Widget _screen({String? url, UnitQuestionsModel? unitQuestionsModel}) {
+  Widget _screen({String? url, UnitQuestionsModel? unitQuestionsModel, String? path}) {
     switch (this) {
       case RouterItems.quiz:
         return QuizView(
@@ -52,7 +51,8 @@ extension PagesExtension on RouterItems {
         return PdfView(url: url);
       case RouterItems.verificationView:
         return const VerificationView();
-
+      case RouterItems.odView:
+        return OdView(path: path);
     }
   }
 
@@ -60,8 +60,8 @@ extension PagesExtension on RouterItems {
 
   String get routeName => "/$name";
 
-  Route goScreen({String? url, UnitQuestionsModel? unitQuestionsModel}) =>
+  Route goScreen({String? url, UnitQuestionsModel? unitQuestionsModel, String? path}) =>
       MaterialPageRoute(
           builder: (_) =>
-              _screen(url: url, unitQuestionsModel: unitQuestionsModel));
+              _screen(url: url, unitQuestionsModel: unitQuestionsModel, path: path));
 }

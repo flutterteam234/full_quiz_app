@@ -31,7 +31,7 @@ class FirebaseUser with FirebaseUtility {
         throw Exception("Veri çekme hatası: $e");
       }
     } else {
-      throw Exception("Kullanıcı oturumu açık değil.");
+      print("Kullanıcı oturumu açık değil");
     }
 
   }

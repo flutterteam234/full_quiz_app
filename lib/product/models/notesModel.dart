@@ -34,6 +34,7 @@ class NotesModel extends Equatable with IdModel, BaseFirebaseModel<NotesModel> {
         imagePath: imagePath ?? this.imagePath);
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,

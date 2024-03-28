@@ -58,7 +58,7 @@ class PdfViewerControllerImpl implements CustomPdfController {
         pdfViewController: _pdfViewerController,
       );
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

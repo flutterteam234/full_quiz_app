@@ -7,7 +7,9 @@ enum FirebaseCollections {
   app,
   notes,
   subNotes,
-  unitQuestions
+  unitQuestions,
+  loginLog,
+  logoutLog
   ;
 
   CollectionReference get reference =>

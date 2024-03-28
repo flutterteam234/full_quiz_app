@@ -55,6 +55,15 @@ extension Isurl on String {
   }
 }
 
+extension FileExtensionCheck on String {
+  bool isObjFile() {
+    return toLowerCase().endsWith('.obj');
+  }
+
+  bool isGlbFile() {
+    return toLowerCase().endsWith('.glb');
+  }
+}
 
 extension RemoveSpaceString on String {
   String removeExtraSpaces() {

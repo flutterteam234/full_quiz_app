@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/text_family_constants.dart';
+import 'package:riverpod_architecture/product/enum/login_methods.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/services/login_log/login_log_manager.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../../navigation/enum/router_items.dart';
@@ -20,7 +22,7 @@ class AuthService {
     _currentUser = FirebaseAuth.instance.currentUser;
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
@@ -103,10 +105,21 @@ class AuthService {
       final UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = userCredential.user;
-      if (userCredential.user != null) {
+      if (user != null) {
+        LoginLogManager.save.init(
+            mail: email,
+            id: user.uid,
+            status: true,
+            method: LoginMethods.emailPassword.methodName);
         Navigator.push(context, RouterItems.home.goScreen());
       }
     } catch (e) {
+      //LoginLogManager.delete.init(); // not done yet
+      LoginLogManager.save.init(
+          mail: email,
+          id: null,
+          status: false,
+          method: LoginMethods.emailPassword.methodName);
       print("GİRİŞ YAPILAMADI");
     }
   }
@@ -130,7 +143,6 @@ class AuthService {
     }
   }
 
-
   // Kullanıcı doğrulamasını kontrol etmek için
   bool checkEmailVerification(String email) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -146,6 +158,17 @@ class AuthService {
     }
   }
 
+  Future<void> changeEmail(String newEmail) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    try {
+      await user.updateEmail(newEmail);
+      print("Email adresi başarıyla güncellendi: $newEmail");
+    } catch (e) {
+      print("Email adresi güncellenirken bir hata oluştu: $e");
+    }
+  }
 
   Future<void> checkLoginStatus(BuildContext context) async {
     //AuthService();
@@ -153,18 +176,6 @@ class AuthService {
       Navigator.push(context, RouterItems.home.goScreen());
     } else {
       Navigator.push(context, RouterItems.login.goScreen());
-    }
-  }
-
-  Future<void> changeEmail(String newEmail) async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if(user == null) return;
-
-    try {
-      await user.updateEmail(newEmail);
-      print("Email adresi başarıyla güncellendi: $newEmail");
-    } catch (e) {
-      print("Email adresi güncellenirken bir hata oluştu: $e");
     }
   }
 }

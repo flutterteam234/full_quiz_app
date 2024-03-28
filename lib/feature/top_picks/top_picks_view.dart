@@ -1,4 +1,3 @@
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +7,7 @@ import 'package:riverpod_architecture/feature/top_picks/components/custom_circle
 import 'package:riverpod_architecture/feature/top_picks/components/top_pick_container.dart';
 import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 import 'package:riverpod_architecture/product/widget/search_delegate/base_delegate_model.dart';
 import 'package:riverpod_architecture/product/widget/search_delegate/search_delegate.dart';
@@ -104,11 +104,11 @@ class _TopPicksRow extends StatelessWidget {
 }
 
 class _CustomField extends ConsumerWidget {
-  _CustomField(this.controller);
+  _CustomField(this._controller);
 
-  final TextEditingController controller;
+  final TextEditingController _controller;
 
-  final List<DelegateModel> items = [
+  final List<DelegateModel> _items = [
     DelegateModel(
         text: LocaleKeys.quiz_quiz, routerItems: RouterItems.quizMain),
     DelegateModel(
@@ -118,12 +118,18 @@ class _CustomField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
-      controller: controller,
+      controller: _controller,
       onTap: () async {
+
+        Navigator.push(context, RouterItems.odView.goScreen(path: "assets/models/Astronaut.glb"));
+
+        /*
         final response = await showSearch<DelegateModel?>(
           context: context,
           delegate: CustomSearchDelegate(items: items),
         );
+
+         */
       },
       decoration: const InputDecoration(
         suffixIcon: Icon(Icons.search, size: 22.0),
@@ -175,3 +181,4 @@ class _Header extends StatelessWidget {
     );
   }
 }
+

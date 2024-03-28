@@ -15,3 +15,5 @@ export 'package:riverpod_architecture/feature/quiz/feature/quiz_view.dart';
 export 'package:riverpod_architecture/feature/splash/splash_view.dart';
 export 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
 export 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
+export 'package:riverpod_architecture/feature/verification/verification_view.dart';
+

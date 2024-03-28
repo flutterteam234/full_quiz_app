@@ -5,12 +5,18 @@ import 'package:riverpod_architecture/product/utility/base/base_firebase_model.d
 @immutable
 class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
   const UserData(
-      {this.id, this.name, this.email, this.password, this.photoURL});
+      {this.id,
+      this.name,
+      this.email,
+      this.password,
+      this.photoURL,
+      this.authority});
 
   final String? name;
   final String? email;
   final String? password;
   final String? photoURL;
+  final String? authority;
   @override
   final String? id;
 
@@ -23,16 +29,18 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
     String? email,
     String? password,
     String? photoURL,
+    String? authority,
   }) {
     return UserData(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      photoURL: photoURL ?? this.photoURL,
-    );
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        photoURL: photoURL ?? this.photoURL,
+        authority: authority ?? this.authority);
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -40,6 +48,7 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
       'email': email,
       'password': password,
       'photoURL': photoURL,
+      'authority': authority,
     };
   }
 
@@ -51,6 +60,7 @@ class UserData extends Equatable with IdModel, BaseFirebaseModel<UserData> {
       email: json['email'] as String?,
       password: json['password'] as String?,
       photoURL: json['photoURL'] as String?,
+      authority: json['authority'] as String?,
     );
   }
 }

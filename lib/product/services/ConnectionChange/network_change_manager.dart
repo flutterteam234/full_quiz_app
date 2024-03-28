@@ -6,11 +6,6 @@ import 'package:riverpod_architecture/product/widget/toast_message/connection_ch
 import 'connection_change_enum.dart';
 
 
-
-
-
-
-
 mixin ConnectionChangeLoggerMixin { // fixme
   ConnectionChangeLogger get connectionChangeLogger =>
       ConnectionChangeLogger();

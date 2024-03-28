@@ -8,7 +8,8 @@
     "email": "Email",
     "password": "Password",
     "exit": "Exit",
-    "close": "Close"
+    "close": "Close",
+    "logout": "Logout"
   },
   "pages": {
     "home": "Home",
@@ -97,5 +98,8 @@
     "clearAll": "Clear All",
     "verificationCode": "Verification Code",
     "verificationCodeDetail": "We have sent the verification code to your email address"
+  },
+  "od": {
+    "3d": "3D Model"
   }
 }

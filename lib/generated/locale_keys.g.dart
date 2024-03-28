@@ -9,6 +9,7 @@ abstract class  LocaleKeys {
   static const general_password = 'general.password';
   static const general_exit = 'general.exit';
   static const general_close = 'general.close';
+  static const general_logout = 'general.logout';
   static const general = 'general';
   static const pages_home = 'pages.home';
   static const pages_quiz = 'pages.quiz';
@@ -81,5 +82,7 @@ abstract class  LocaleKeys {
   static const verification_verificationCode = 'verification.verificationCode';
   static const verification_verificationCodeDetail = 'verification.verificationCodeDetail';
   static const verification = 'verification';
+  static const od_3d = 'od.3d';
+  static const od = 'od';
 
 }

@@ -8,7 +8,8 @@
     "email": "E-posta",
     "password": "Şifre",
     "exit": "Çıkış",
-    "close": "Kapat"
+    "close": "Kapat",
+    "logout": "Oturumu Kapat"
   },
   "pages": {
     "home": "Ana Sayfa",
@@ -97,5 +98,8 @@
     "clearAll": "Hepsini Temizle",
     "verificationCode": "Doğrulama Kodu",
     "verificationCodeDetail": "Doğrulama kodunu e-posta adresinize gönderdik"
+  },
+  "od": {
+    "3d": "3D Model"
   }
 }

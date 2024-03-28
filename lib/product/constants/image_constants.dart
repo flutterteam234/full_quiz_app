@@ -12,10 +12,11 @@ enum ImageConstants {
   leftRoundedIcon('left_rounded'),
   moonIcon('moon'),
   globalIcon('global'),
+  logOutIcon('logout'),
   flagTr("flag_tr"),
   flagUs("flag_us"),
   warning("warning"),
-  serverOff("server_off")
+  serverOff("server_off"),
   ;
 
   final String value;

@@ -59,7 +59,7 @@ class SplashNotifier extends StateNotifier<SplashState> with FirebaseUtility {
       );
     } else {
       if (state.appInfo!.status == true) {
-        if (DeviceInfo.instance.deviceInfo.version == state.appInfo!.version) {
+        if (DeviceInfo.instance.packageInfo.version == state.appInfo!.version) {
           state = state.copyWith(
             isPass: true,
             status: true,

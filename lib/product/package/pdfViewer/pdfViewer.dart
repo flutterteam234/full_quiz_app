@@ -22,7 +22,7 @@ class _PDFViewState extends State<PDFView>  {
         controller: widget.pdfViewController,
       );
     } else {
-      return SizedBox.expand();
+      return const SizedBox.expand();
     }
   }
 }
