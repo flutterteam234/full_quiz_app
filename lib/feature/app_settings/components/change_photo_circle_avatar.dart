@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/utility/extentions/string_extentions.dart';
@@ -17,7 +18,9 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FirebaseUser.instance.userData != null
+    User? user = FirebaseAuth.instance.currentUser;
+
+    return user != null
         ? InkWell(
             onTap: function,
             child: Stack(
@@ -26,12 +29,12 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
                 CircleAvatar(
                     radius: radius ?? context.sized.mediumValue,
                     backgroundColor:
-                        FirebaseUser.instance.userData!.photoURL != null
+                    user.photoURL != null
                             ? Colors.black
                             : ColorUtils.getRandomColor(),
-                    backgroundImage: _getProfilePhoto(photoFromGallery),
+                    backgroundImage: _getProfilePhoto(user,photoFromGallery),
                     child: Text(
-                      _getBackgroundText(photoFromGallery),
+                      _getBackgroundText(user,photoFromGallery),
                       style: TextStyle(
                         color: ColorConstants.white.getColor,
                         fontWeight: FontWeight.bold,
@@ -61,12 +64,12 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
           );
   }
 
-  ImageProvider? _getProfilePhoto(File? photoFromGallery) {
+  ImageProvider? _getProfilePhoto(User? user,File? photoFromGallery) {
     if (photoFromGallery != null) {
       return FileImage(photoFromGallery);
     } else {
-      if (FirebaseUser.instance.userData!.photoURL != null) {
-        NetworkImage(FirebaseUser.instance.userData!.photoURL!);
+      if (user!.photoURL != null) {
+        NetworkImage(user.photoURL!);
       } else {
         null;
       }
@@ -74,12 +77,12 @@ class ChangePhotoCircleAvatar extends StatelessWidget {
     return null;
   }
 
-  String _getBackgroundText(File? photoFromGallery) {
+  String _getBackgroundText(User? user,File? photoFromGallery) {
     if (photoFromGallery != null) {
       return "";
     } else {
-      if (FirebaseUser.instance.userData!.photoURL == null) {
-        return FirebaseUser.instance.userData!.name.getInitials();
+      if (user!.photoURL == null) {
+        return user.displayName.getInitials();
       } else {
         return "";
       }

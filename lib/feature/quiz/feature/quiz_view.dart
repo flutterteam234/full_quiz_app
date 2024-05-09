@@ -14,9 +14,9 @@ import 'package:kartal/kartal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_architecture/product/models/unitQuestionsModel.dart';
 import 'package:riverpod_architecture/product/services/ConnectionChange/connection_change_enum.dart';
-import 'package:riverpod_architecture/product/services/ConnectionChange/network_change_manager.dart';
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
+import '../../../product/services/ConnectionChange/connection_change_mixin.dart';
 import '../../../product/services/ConnectionChange/connection_change_provider.dart';
 
 class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
@@ -30,17 +30,18 @@ class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
       return QuizNotifier();
     });
 
-    late final ConnectionChangeLogger connectionChangeLogger;
 
+    print(connectionChangeLogger.getCurrentNetworkStatus());
     return BaseView<QuizNotifier, QuizState>(onInitState: (WidgetRef ref) {
+
       ref.read(quizProvider.notifier).loadQuestions(unitQuestionsModel);
-      connectionChangeLogger = ref.read(connectionChangeLoggerProvider);
     }, onPageBuilder: (BuildContext context, WidgetRef ref) {
+
+
       final quizState = ref.watch(quizProvider);
 
       Questions? currentQuestion = quizState.questions?[quizState.currentIndex];
 
-      print(connectionChangeLogger.getCurrentNetworkStatus());
 
       return Scaffold(
         backgroundColor: Color(ColorConstants.lightSilver.toRgba),

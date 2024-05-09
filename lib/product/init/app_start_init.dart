@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:riverpod_architecture/firebase_options.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
-import 'app_cache.dart';
+import '../package/sharedPreferences/shared_preference_manager.dart';
 
 class ApplicationStart {
   const ApplicationStart._();
@@ -16,12 +16,14 @@ class ApplicationStart {
 
     //await EasyLocalization.ensureInitialized();
 
-    await AppCache.instance.setup();
+    await SharedPreferenceManager.instance.setup();
 
     FirebaseUIAuth.configureProviders(
       [EmailAuthProvider()],
     );
 
+
+    //fixme
     FirebaseUser firebaseUser = FirebaseUser.instance;
     await firebaseUser.getUserDataById();
 

@@ -1,8 +1,19 @@
-import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
-
+import 'package:flutter/material.dart';
 import '../../constants/settings_constants.dart';
+
+extension StringToEnum on String? {
+  ThemeMode getAppModeEnum(String? themeModeString) {
+    if (themeModeString == SettingsConstants.themeModeLight) {
+      return ThemeMode.light;
+    } else if (themeModeString == SettingsConstants.themeModeDark) {
+      return ThemeMode.dark;
+    } else {
+      return ThemeMode.light;
+    }
+  }
+}
 
 extension StringInitialsExtension on String? {
   String getInitials() {

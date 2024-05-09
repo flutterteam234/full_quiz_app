@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,8 +8,6 @@ import 'package:riverpod_architecture/feature/top_picks/components/custom_circle
 import 'package:riverpod_architecture/feature/top_picks/components/top_pick_container.dart';
 import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
-import 'package:riverpod_architecture/product/navigation/router.dart';
-import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
 import 'package:riverpod_architecture/product/widget/search_delegate/base_delegate_model.dart';
 import 'package:riverpod_architecture/product/widget/search_delegate/search_delegate.dart';
 import '../../product/constants/color_constants.dart';
@@ -25,6 +24,8 @@ class TopPicksView extends StatelessWidget {
     final TextEditingController controller = TextEditingController();
 
     return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
+
+
       return SafeArea(
           child: ListView(
         padding: EdgeInsets.only(
@@ -120,16 +121,10 @@ class _CustomField extends ConsumerWidget {
     return TextField(
       controller: _controller,
       onTap: () async {
-
-        Navigator.push(context, RouterItems.odView.goScreen(path: "assets/models/Astronaut.glb"));
-
-        /*
         final response = await showSearch<DelegateModel?>(
           context: context,
-          delegate: CustomSearchDelegate(items: items),
+          delegate: CustomSearchDelegate(items: _items),
         );
-
-         */
       },
       decoration: const InputDecoration(
         suffixIcon: Icon(Icons.search, size: 22.0),
@@ -150,6 +145,7 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -161,11 +157,11 @@ class _Header extends StatelessWidget {
                 color: ColorConstants.smootWhite.getColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18.0),
-            FirebaseUser.instance.userData != null
+            user != null
                 ? Padding(
                     padding: context.padding.onlyTopLow,
                     child: SubTitleText(
-                      text: FirebaseUser.instance.userData!.name ?? '',
+                      text: user.displayName ?? '',
                       color: ColorConstants.smootWhite.getColor,
                       fontSize: 22.0,
                       fontWeight: FontWeight.w600,
@@ -174,11 +170,8 @@ class _Header extends StatelessWidget {
                 : const SizedBox(),
           ],
         ),
-        CustomCircleAvatarTopPicks(
-          userData: FirebaseUser.instance.userData,
-        )
+        const CustomCircleAvatarTopPicks()
       ],
     );
   }
 }
-

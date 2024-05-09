@@ -100,15 +100,15 @@ class AppSettingsView extends StatelessWidget {
         ));
   }
 
-  Widget _getEditProfile() {
-    return Text(StringConstants.editProfile,
-        style: GoogleFonts.baloo2(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: ColorConstants.black.getColor));
-  }
-
   Widget _getEditProfileContainer(BuildContext context) {
+    Widget getEditProfile() {
+      return Text(StringConstants.editProfile,
+          style: GoogleFonts.baloo2(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: ColorConstants.black.getColor));
+    }
+
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -119,7 +119,7 @@ class AppSettingsView extends StatelessWidget {
       padding: context.padding.normal,
       child: Column(
         children: [
-          _getEditProfile(),
+          getEditProfile(),
           Padding(padding: context.padding.verticalLow),
           ChangePhotoCircleAvatar(
             function: () {

@@ -19,6 +19,7 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final editProfileProvider =
         StateNotifierProvider<EditProfileNotifier, EditProfileState>((ref) {
       return EditProfileNotifier();

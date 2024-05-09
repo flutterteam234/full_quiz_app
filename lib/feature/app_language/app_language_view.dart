@@ -6,7 +6,7 @@ import 'package:riverpod_architecture/core/view/base_view.dart';
 import 'package:riverpod_architecture/feature/app_language/components/app_language_container.dart';
 import 'package:riverpod_architecture/feature/app_language/enum/language_enum.dart';
 import 'package:riverpod_architecture/product/constants/settings_constants.dart';
-import 'package:riverpod_architecture/product/init/app_cache.dart';
+import 'package:riverpod_architecture/product/package/sharedPreferences/shared_preference_manager.dart';
 import '../../generated/locale_keys.g.dart';
 import '../../product/constants/color_constants.dart';
 import '../../product/constants/image_constants.dart';
@@ -43,7 +43,7 @@ class AppLanguageView extends StatelessWidget {
               languageLocale: SettingsConstants.TR_LOCALE,
               function: () {
                 // bir araya getir.
-                AppCache.instance.saveLanguage(LanguageEnum.tr);
+                SharedPreferenceManager.instance.saveLanguage(LanguageEnum.tr);
                 LanguageEnum.tr.generateLanguage(context);
               },
               flagImageAsset: ImageConstants.flagTr,
@@ -52,7 +52,7 @@ class AppLanguageView extends StatelessWidget {
           AppLanguageContainer(
               languageLocale: SettingsConstants.EN_LOCALE,
               function: () {
-                AppCache.instance.saveLanguage(LanguageEnum.en);
+                SharedPreferenceManager.instance.saveLanguage(LanguageEnum.en);
                 LanguageEnum.en.generateLanguage(context);
               },
               flagImageAsset: ImageConstants.flagUs,

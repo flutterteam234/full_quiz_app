@@ -51,11 +51,11 @@ class PdfViewerControllerImpl implements CustomPdfController {
   }
 
   @override
-  Widget build(BuildContext context, String url) {
+  Widget build(BuildContext context, String url ) {
     if (url.isURL()) {
       return PDFView(
         url: url,
-        pdfViewController: _pdfViewerController,
+        controller: _pdfViewerController,
       );
     } else {
       return const SizedBox();

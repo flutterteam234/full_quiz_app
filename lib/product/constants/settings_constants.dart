@@ -6,6 +6,10 @@ class SettingsConstants {
   // General
   static const bool isShowDebugBanner = false;
 
+  // Theme
+  static const String themeModeLight = "LIGHT";
+  static const String themeModeDark = "DARK";
+
   // Language
   static const SUPPORTED_LOCALE = [
     SettingsConstants.EN_LOCALE,

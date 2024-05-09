@@ -11,6 +11,8 @@ import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.
 import '../../product/widget/toast_message/custom_toast_message.dart';
 import 'enum/edit_profile_enum.dart';
 
+
+//fixme
 class EditProfileNotifier extends StateNotifier<EditProfileState>
     with FirebaseUtility {
   EditProfileNotifier()

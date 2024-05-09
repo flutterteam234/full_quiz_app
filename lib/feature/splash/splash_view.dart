@@ -6,7 +6,11 @@ import 'package:riverpod_architecture/feature/splash/splash_provider.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:kartal/kartal.dart';
+import 'package:riverpod_architecture/product/notifier/app_theme_notifier.dart';
+import '../../product/package/sharedPreferences/shared_preference_manager.dart';
 import '../../product/utility/firebase/firebase_auth.dart';
+
+
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
@@ -22,9 +26,14 @@ class _SplashViewState extends ConsumerState<SplashView>
     return SplashNotifier();
   });
 
+
+
   @override
   void initState() {
-    ref.read(splashProvider.notifier).appInit(context);
+    Future(() {
+      ref.read(splashProvider.notifier).appInit(context);
+      ref.read(themeProvider.notifier).changeTheme(SharedPreferenceManager.instance.getAppMode());
+    });
     super.initState();
   }
 

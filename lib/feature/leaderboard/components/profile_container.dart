@@ -1,10 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:riverpod_architecture/feature/leaderboard/components/total_point_richText.dart';
-import 'package:riverpod_architecture/product/models/userData.dart';
-import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
-
 import '../../../product/constants/color_constants.dart';
 import '../leaderboard_provider.dart';
 import 'custom_circle_avatar_leaderboard.dart';
@@ -18,6 +16,7 @@ class ProfileContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return SizedBox(
         height: 100,
         child: Column(
@@ -35,7 +34,7 @@ class ProfileContainer extends StatelessWidget {
             Padding(
               padding: context.padding.horizontalLow,
             ),
-            Text(getUsername(state),
+            Text(getUsername(user, state),
                 style: GoogleFonts.baloo2(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -47,20 +46,17 @@ class ProfileContainer extends StatelessWidget {
             )
           ],
         ));
-
   }
-  String getUsername(LeaderboardState state){
-    UserData? firebaseUser = FirebaseUser.instance.userData;
-    if(firebaseUser != null){
-      if(firebaseUser.id == state.allUserTotalContents![index]!.id){
+
+  String getUsername(User? user, LeaderboardState state) {
+    if (user != null) {
+      if (user.uid == state.allUserTotalContents![index]!.id) {
         return "You";
-      }else{
+      } else {
         return state.allUserTotalContents![index]!.userName.toString();
       }
-    }else{
+    } else {
       return state.allUserTotalContents![index]!.userName.toString();
     }
-
   }
 }
-

@@ -5,19 +5,12 @@ import 'package:riverpod_architecture/product/widget/toast_message/connection_ch
 
 import 'connection_change_enum.dart';
 
-
-mixin ConnectionChangeLoggerMixin { // fixme
-  ConnectionChangeLogger get connectionChangeLogger =>
-      ConnectionChangeLogger();
-}
-
 class NetworkChangeManager {
   late final Connectivity _connectivity;
 
   NetworkChangeManager() {
     _connectivity = Connectivity();
   }
-
 
   Future<NetworkResult> checkNetworkFirstTime() async {
     final connectivityResult = await _connectivity.checkConnectivity();
@@ -42,10 +35,15 @@ class NetworkChangeManager {
 }
 
 class ConnectionChangeLogger {
+  static final ConnectionChangeLogger _instance =
+      ConnectionChangeLogger._internal();
+
+  factory ConnectionChangeLogger() => _instance;
+
   late final NetworkChangeManager _networkChange;
   late NetworkResult _currentNetworkStatus;
 
-  ConnectionChangeLogger() {
+  ConnectionChangeLogger._internal() {
     _networkChange = NetworkChangeManager();
 
     _networkChange.handleNetworkChange((result) {

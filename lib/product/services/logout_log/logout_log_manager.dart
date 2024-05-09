@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_architecture/product/models/userData.dart';
 import 'package:riverpod_architecture/product/services/logout_log/logout_log_model.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_user.dart';
@@ -35,9 +36,9 @@ class LogOutOperations with FirebaseUtility {
   Future<void> saveLog({bool? status, String? ip}) async {
     String? device = DeviceInfo.instance.deviceName;
     Timestamp time = DateTimeExtensions.currentTimestamp();
-    UserData? userData = FirebaseUser.instance.userData;
+    User? userData = FirebaseAuth.instance.currentUser;
     LogOutModel logOutModel = LogOutModel(
-      id: userData?.id,
+      id: userData?.uid,
       status: status,
       device: device,
       ip: ip,

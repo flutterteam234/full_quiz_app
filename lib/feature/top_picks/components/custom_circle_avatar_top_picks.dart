@@ -1,20 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_architecture/product/constants/color_constants.dart';
-import 'package:riverpod_architecture/product/models/userData.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import '../../../product/utility/extentions/color_extentions.dart';
 
 class CustomCircleAvatarTopPicks extends StatelessWidget {
-  const CustomCircleAvatarTopPicks({Key? key, this.userData, this.radius})
+  const CustomCircleAvatarTopPicks({Key? key, this.radius})
       : super(key: key);
 
-  final UserData? userData;
   final double? radius;
 
   @override
   Widget build(BuildContext context) {
-    return userData == null
+    User? user = FirebaseAuth.instance.currentUser;
+    return user == null
         ? const CircleAvatar(
             radius: 20.0,
           )
@@ -24,15 +24,15 @@ class CustomCircleAvatarTopPicks extends StatelessWidget {
             },
             child: CircleAvatar(
               radius: radius ?? 20.0,
-              backgroundColor: userData!.photoURL != null
+              backgroundColor: user.photoURL != null
                   ? Colors.black
                   : ColorUtils.getRandomColor(),
-              backgroundImage: userData!.photoURL != null
-                  ? NetworkImage(userData!.photoURL!)
+              backgroundImage: user.photoURL != null
+                  ? NetworkImage(user.photoURL!)
                   : null,
-              child: userData!.photoURL == null
+              child: user.photoURL == null
                   ? Text(
-                      getInitials(userData!.name ?? ''),
+                      getInitials(user.displayName ?? ''),
                       style: TextStyle(
                         color: ColorConstants.white.getColor,
                         fontWeight: FontWeight.bold,

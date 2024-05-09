@@ -38,7 +38,7 @@ class NotesNotifier extends StateNotifier<NotesState> with FirebaseUtility {
     state = state.copyWith(notesContent: lastData);
   }
 
-  void setSelectedNoteIndex(int index){
+  void setSelectedNoteIndex(int index) {
     state = state.copyWith(selectedNoteIndex: index);
   }
 

@@ -1,33 +1,42 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:riverpod_architecture/core/view/base_view.dart';
+import 'package:riverpod_architecture/feature/app_preference/app_preference_mixin.dart';
 import 'package:riverpod_architecture/generated/locale_keys.g.dart';
 import 'package:riverpod_architecture/product/constants/image_constants.dart';
 import 'package:riverpod_architecture/product/navigation/enum/router_items.dart';
 import 'package:riverpod_architecture/product/navigation/router.dart';
+import 'package:riverpod_architecture/product/notifier/app_theme_notifier.dart';
 import 'package:riverpod_architecture/product/services/logout_log/logout_log_manager.dart';
 import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
 
 import '../../product/constants/color_constants.dart';
 
-class AppPreferenceView extends StatelessWidget {
+
+class AppPreferenceView extends ConsumerWidget with AppPreferenceMixin{
   const AppPreferenceView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
-      return Scaffold(
-          backgroundColor: ColorConstants.smootGreen.getColor,
-          appBar: _getAppBar(context),
-          body: _getBody(context));
-    });
+  Widget build(BuildContext context, WidgetRef ref) {
+
+
+
+
+    final themeMode = ref.watch(themeProvider);
+    final themeState = ref.read(themeProvider.notifier);
+
+    print("check");
+    print(themeMode);
+
+    return Scaffold(
+        //backgroundColor: ColorConstants.smootGreen.getColor,
+        appBar: _getAppBar(context),
+        body: _getBody(context, themeMode, themeState));
   }
 
-  Widget _getBody(BuildContext context) {
+  Widget _getBody(BuildContext context, ThemeMode themeMode, ThemeState themeState) {
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       child: ListView(
@@ -35,7 +44,7 @@ class AppPreferenceView extends StatelessWidget {
         padding: context.padding.normal,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          _getDarkModeButton(context),
+          _getDarkModeButton(context, themeMode,themeState),
           Padding(padding: context.padding.verticalLow),
           _getLanguageButton(context),
           Padding(padding: context.padding.verticalLow),
@@ -132,7 +141,7 @@ class AppPreferenceView extends StatelessWidget {
     );
   }
 
-  Widget _getDarkModeButton(BuildContext context) {
+  Widget _getDarkModeButton(BuildContext context, ThemeMode themeMode, ThemeState themeState) {
     return Container(
       padding: context.padding.low,
       alignment: Alignment.center,
@@ -164,8 +173,10 @@ class AppPreferenceView extends StatelessWidget {
             height: context.sized.mediumValue,
             width: context.sized.mediumValue,
             child: Switch(
-              value: true,
-              onChanged: (value) {},
+              value: themeMode == ThemeMode.dark,
+              onChanged: (value) {
+                toggleTheme(themeState, themeMode);
+              },
               activeColor: Colors.black,
               activeTrackColor: Colors.grey,
               inactiveThumbColor: Colors.white,

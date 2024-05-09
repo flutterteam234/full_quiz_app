@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/product/database/core/hive_database_manager.dart';
 import 'package:riverpod_architecture/product/models/appInfo.dart';
+import 'package:riverpod_architecture/product/package/sharedPreferences/shared_preference_manager.dart';
 import 'package:riverpod_architecture/product/services/device_info/device_info.dart';
+import 'package:riverpod_architecture/product/theme/theme_manager.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_collections.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_utility.dart';
 import '../../product/utility/exceptions/custom_exceptions.dart';
@@ -14,8 +15,6 @@ class SplashNotifier extends StateNotifier<SplashState> with FirebaseUtility {
   SplashNotifier() : super(const SplashState());
 
   Future<void> appInit(BuildContext context) async {
-
-
     await DeviceInfo.instance.setup();
     await getAppInfo();
     checkDeviceInfo();
@@ -39,8 +38,7 @@ class SplashNotifier extends StateNotifier<SplashState> with FirebaseUtility {
         },
       ).get();
 
-
-    if (response.docs.isNotEmpty) {
+      if (response.docs.isNotEmpty) {
         final value = response.docs.map((e) => e.data()).toList();
         final appInfo = value[0];
         state = state.copyWith(
