@@ -27,6 +27,8 @@ class SettingsConstants {
 
   static const defaultImagePath =
       "https://img.freepik.com/free-vector/error-lettering-font-typography_53876-99614.jpg?w=1380&t=st=1708180228~exp=1708180828~hmac=55b7f04179f619c53ea6aa3c449f7459c4d5f2fbff54ebacee157526e287a225";
+  static const settingsPath = 'package:io.flutter.plugins.connectivity/settings';
+
 
   // Edit Profile
   static const int inputLenghtUsername = 15;

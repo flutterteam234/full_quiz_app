@@ -17,27 +17,39 @@ class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
   final void Function(WidgetRef ref)? onInitState;
   final VoidCallback? onDispose;
 
+
   @override
   ConsumerState createState() => _BaseViewState<T, U>();
 }
 
 class _BaseViewState<T extends StateNotifier<U>, U>
     extends ConsumerState<BaseView<T, U>> with BaseViewMixin {
+
+
   @override
   void initState() {
     super.initState();
 
     connectionChangeLogger = ref.read(connectionChangeLoggerProvider);
 
-    Timer.periodic(const Duration(minutes: 1), (timer) {
-      baseViewController.checkConditions(context);
+    userAuthTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      baseViewController.checkUserAuth(context);
     });
+
+    connectionCheckTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      baseViewController.checkConnection(
+          context, connectionChangeLogger.getCurrentNetworkStatus());
+    });
+
 
     if (widget.onInitState != null) widget.onInitState!(ref);
   }
 
   @override
   void dispose() {
+    userAuthTimer.cancel();
+    connectionCheckTimer.cancel();
+
     if (widget.onDispose != null) widget.onDispose!();
 
     super.dispose();
@@ -45,8 +57,6 @@ class _BaseViewState<T extends StateNotifier<U>, U>
 
   @override
   Widget build(BuildContext context) {
-
     return widget.onPageBuilder(context, ref);
   }
 }
-

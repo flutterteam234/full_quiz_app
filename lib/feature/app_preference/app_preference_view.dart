@@ -21,14 +21,8 @@ class AppPreferenceView extends ConsumerWidget with AppPreferenceMixin{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-
-
-
     final themeMode = ref.watch(themeProvider);
     final themeState = ref.read(themeProvider.notifier);
-
-    print("check");
-    print(themeMode);
 
     return Scaffold(
         //backgroundColor: ColorConstants.smootGreen.getColor,

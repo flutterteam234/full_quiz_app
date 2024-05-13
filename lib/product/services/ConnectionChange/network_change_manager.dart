@@ -47,11 +47,12 @@ class ConnectionChangeLogger {
     _networkChange = NetworkChangeManager();
 
     _networkChange.handleNetworkChange((result) {
+      /*
       if (result == NetworkResult.on) {
-        //ConnectionChangeToastMessage.showToastOn();
       } else {
-        ConnectionChangeToastMessage.showToastOff();
       }
+
+       */
       _currentNetworkStatus = result;
     });
 

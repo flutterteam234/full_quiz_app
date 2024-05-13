@@ -21,7 +21,6 @@ class HomeView extends StatelessWidget {
     return BaseView(onPageBuilder: (BuildContext context, WidgetRef ref) {
       final homeState = ref.watch(homeProvider);
 
-      // buraya çağır
 
 
       PageEnum currentPage = RouterItemsExtension.fromId(homeState.pageIndex);
@@ -82,7 +81,7 @@ class _BottomBar extends StatelessWidget {
   Widget _getBottomBarItem(
       String title, IconData iconData, bool isSelected, BuildContext context) {
     return AnimatedSwitcher(
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: 100),
         child: Container(
           key: ValueKey<int>(state.pageIndex),
           padding: context.padding.low,

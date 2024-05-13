@@ -69,6 +69,8 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   syncfusion_flutter_pdfviewer: ^24.2.4
   o3d: ^3.1.0
+  url_launcher: ^6.0.9
+
 
 
 

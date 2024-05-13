@@ -92,7 +92,9 @@
     "backtoHomePageShort": "Back to Homepage"
   },
   "errorMessages": {
-    "nullUserName": "null"
+    "nullUserName": "null",
+    "connectionLost": "Internet connection lost",
+    "connectionLostMessage": "Internet connection lost check connection settings"
   },
   "verification": {
     "clearAll": "Clear All",

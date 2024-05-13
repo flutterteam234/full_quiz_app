@@ -17,7 +17,6 @@ import 'package:riverpod_architecture/product/services/ConnectionChange/connecti
 import 'package:riverpod_architecture/product/widget/errors/404.dart';
 
 import '../../../product/services/ConnectionChange/connection_change_mixin.dart';
-import '../../../product/services/ConnectionChange/connection_change_provider.dart';
 
 class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
   const QuizView({Key? key, this.unitQuestionsModel}) : super(key: key);
@@ -30,8 +29,6 @@ class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
       return QuizNotifier();
     });
 
-
-    print(connectionChangeLogger.getCurrentNetworkStatus());
     return BaseView<QuizNotifier, QuizState>(onInitState: (WidgetRef ref) {
 
       ref.read(quizProvider.notifier).loadQuestions(unitQuestionsModel);
@@ -47,6 +44,7 @@ class QuizView extends StatelessWidget with ConnectionChangeLoggerMixin {
         backgroundColor: Color(ColorConstants.lightSilver.toRgba),
         appBar: currentQuestion != null
             ? AppBar(
+          automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
                 leadingWidth: 100,
                 leading: Row(

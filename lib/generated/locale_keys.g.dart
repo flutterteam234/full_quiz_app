@@ -77,6 +77,8 @@ abstract class  LocaleKeys {
   static const error_backtoHomePageShort = 'error.backtoHomePageShort';
   static const error = 'error';
   static const errorMessages_nullUserName = 'errorMessages.nullUserName';
+  static const errorMessages_connectionLost = 'errorMessages.connectionLost';
+  static const errorMessages_connectionLostMessage = 'errorMessages.connectionLostMessage';
   static const errorMessages = 'errorMessages';
   static const verification_clearAll = 'verification.clearAll';
   static const verification_verificationCode = 'verification.verificationCode';

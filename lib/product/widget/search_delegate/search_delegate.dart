@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/extentions/string_extentions.dart';
 import 'package:riverpod_architecture/product/widget/search_delegate/base_delegate_model.dart';
 import 'package:riverpod_architecture/product/widget/text/locale_text.dart';
@@ -42,11 +43,14 @@ class CustomSearchDelegate<T extends BaseDelegateModel>
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
-            title: LocaleText(text: results.elementAt(index).text ?? ''),
-          ),
-        );
+        return InkWell(
+            onTap: () => Navigator.push(
+                context, results.elementAt(index).routerItems.goScreen()),
+            child: Card(
+              child: ListTile(
+                title: LocaleText(text: results.elementAt(index).text ?? ''),
+              ),
+            ));
       },
     );
   }
@@ -62,14 +66,14 @@ class CustomSearchDelegate<T extends BaseDelegateModel>
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: ListTile(
-            onTap: () {
-              close(context, results.elementAt(index));
-            },
-            title: LocaleText(text: results.elementAt(index).text ?? ''),
-          ),
-        );
+        return InkWell(
+            onTap: () => Navigator.push(
+                context, results.elementAt(index).routerItems.goScreen()),
+            child: Card(
+              child: ListTile(
+                title: LocaleText(text: results.elementAt(index).text ?? ''),
+              ),
+            ));
       },
     );
   }

@@ -92,7 +92,9 @@
     "backtoHomePageShort": "Ana Sayfaya Geri Dön"
   },
   "errorMessages": {
-    "nullUserName": "null"
+    "nullUserName": "null",
+    "connectionLost": "Internet bağlantısı kaybedildi",
+    "connectionLostMessage": "Internet bağlantısı kaybedildi bağlantı ayarlarını kontrol et"
   },
   "verification": {
     "clearAll": "Hepsini Temizle",
