@@ -37,6 +37,8 @@ class EditProfileView extends StatelessWidget {
           final editProfileState = ref.watch(editProfileProvider);
           final editProfileNotifier = ref.read(editProfileProvider.notifier);
 
+
+
           return Scaffold(
             backgroundColor: ColorConstants.smootGreen.getColor,
             appBar: CustomAppBar(

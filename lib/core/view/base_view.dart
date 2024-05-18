@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_architecture/core/view/base_view_mixin.dart';
+import 'package:riverpod_architecture/product/services/ConnectionChange/connection_change_enum.dart';
 import 'package:riverpod_architecture/product/services/ConnectionChange/connection_change_provider.dart';
+import 'package:riverpod_architecture/product/widget/show_dialogs/connection_error.dart';
 
 class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
   const BaseView({
@@ -17,15 +19,12 @@ class BaseView<T extends StateNotifier<U>, U> extends ConsumerStatefulWidget {
   final void Function(WidgetRef ref)? onInitState;
   final VoidCallback? onDispose;
 
-
   @override
   ConsumerState createState() => _BaseViewState<T, U>();
 }
 
 class _BaseViewState<T extends StateNotifier<U>, U>
     extends ConsumerState<BaseView<T, U>> with BaseViewMixin {
-
-
   @override
   void initState() {
     super.initState();
@@ -36,11 +35,9 @@ class _BaseViewState<T extends StateNotifier<U>, U>
       baseViewController.checkUserAuth(context);
     });
 
-    connectionCheckTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      baseViewController.checkConnection(
-          context, connectionChangeLogger.getCurrentNetworkStatus());
+    connectionCheckTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      changeNetworkResult(connectionChangeLogger.getCurrentNetworkStatus());
     });
-
 
     if (widget.onInitState != null) widget.onInitState!(ref);
   }
@@ -57,6 +54,8 @@ class _BaseViewState<T extends StateNotifier<U>, U>
 
   @override
   Widget build(BuildContext context) {
-    return widget.onPageBuilder(context, ref);
+    return networkResult.getIsConnected
+        ? widget.onPageBuilder(context, ref)
+        : const ConnectionError();
   }
 }

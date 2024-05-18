@@ -4,7 +4,7 @@ enum NetworkResult {
 }
 
 extension NetworkResultExtention on NetworkResult {
-   bool _isConnected() {
+    bool _isConnected() {
     switch (this) {
       case NetworkResult.on:
         return true;

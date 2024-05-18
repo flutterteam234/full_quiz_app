@@ -5,9 +5,9 @@ import 'package:riverpod_architecture/product/navigation/enum/router_items.dart'
 import 'package:riverpod_architecture/product/navigation/router.dart';
 import 'package:riverpod_architecture/product/utility/exceptions/custom_exceptions.dart';
 import 'package:riverpod_architecture/product/utility/firebase/firebase_auth.dart';
-import 'package:riverpod_architecture/product/widget/show_dialogs/connection_error.dart';
 
 import '../../product/services/ConnectionChange/connection_change_enum.dart';
+import '../notifier/base_notifier.dart';
 
 abstract class IBaseViewController {
   void checkUserAuth(BuildContext context);
@@ -34,15 +34,9 @@ class BaseViewController implements IBaseViewController {
 
   @override
   void checkConnection(BuildContext context, NetworkResult networkResult) {
-    if(!context.mounted) return;
+    if (!context.mounted) return;
 
-    switch (networkResult) {
-      case NetworkResult.on:
-        break;
-      case NetworkResult.off:
-        ConnectionError.showNoInternetDialog(context);
-        break;
-    }
+
   }
 
   @override
